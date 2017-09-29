@@ -1,4 +1,13 @@
-td{
+ul {
+    float:left;
+    clear:right;
+    padding: 0;
+}
+
+li{
+    list-style:none;
+    float:left;
+    clear:left;
     width: 70px;
     height: 70px;
     /* border-radius: 35px; */
