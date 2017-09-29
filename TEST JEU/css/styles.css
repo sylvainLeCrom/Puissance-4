@@ -1,0 +1,15 @@
+td{
+    width: 70px;
+    height: 70px;
+    /* border-radius: 35px; */
+    /* background: #E91E63; */
+    background-image: url(img/casevide.png);
+    background-size: cover;
+    color: #000000;
+    text-align: center;
+}
+
+grille{
+    display: table-row-group;
+    vertical-align: middle;
+}
