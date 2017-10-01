@@ -38,11 +38,10 @@ function creaJeu(lignes, colonnes) {
   document.getElementById("content").appendChild(plateau);
 
   function jeu() {
-    console.log("joueur1 " + joueur1);
-    console.log("joueur2 " + joueur2);
-    console.log("c'est au tour du joueur " + couleur);
-    posePion();
-    couleur = tour();
+    posePion(); // on joue le coup
+    testGrillePleine(); // test grille pleine
+    //testAlignenemt(); // test du coup  
+    couleur = tour(); // on change le joueur
   }
   function posePion() {
 
@@ -64,6 +63,7 @@ function creaJeu(lignes, colonnes) {
     alert("colonne pleine");
   }
 
+  // GESTION DU CHANGEMENT DE JOUEUR
   function tour() {
     if (couleur == joueur1) {
       return joueur2;
@@ -71,4 +71,48 @@ function creaJeu(lignes, colonnes) {
       return joueur1;
     }
   }
-}
+
+  // TEST GRILLE PLEINE
+  function testGrillePleine() {
+    //console.log(Case.id);
+    var tx = 1;
+    var total = 0;
+    while (tx <= colonnes) {
+      var tposition = tx + "" + 1;
+      tCase = document.getElementById(tposition);
+      tEtat = tCase.className;
+      if (tEtat == "vide") {
+        return;
+      }
+      tx++;
+      total++;
+
+      console.log('total = ' + total);
+    }
+    if (total == colonnes) {
+
+      alert("LA GRILLE EST PLEINE");
+    }
+  }
+
+
+
+    /* TEST ALIGNEMENT DE 4
+    function testAlignenemt() {
+      var align = 0
+      // TEST VERTICAL
+      var caseTest = Case.id - 30;
+      var caseFinTest = Case.id + 30;
+      caseTestEtat = caseTest.className;
+      while (caseTest<=caseFinTest){
+        if (caseTestEtat == Etat){
+          algin++;
+        }
+        if (align == 4){
+          alert("VICTOIRE "+couleur)
+        }
+      }
+    }*/
+
+
+  }
