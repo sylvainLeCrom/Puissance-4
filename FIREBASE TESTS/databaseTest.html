@@ -4,16 +4,20 @@
 <head>
     <meta charset="utf-8">
     <title>test communication avec Firebase DB</title>
+    <link rel="stylesheet" href="css/style.css">
 
-    <script src="https://www.gstatic.com/firebasejs/4.4.0/firebase.js"></script>
+
 
 </head>
 
 <body>
-    <div class="colorTest" style="width:20px; height:20px; color:red;"></div>
-
-    <pre id="object">   </pre>
-
+    <form>
+        <p>Entrez votre text</p>
+        <input type="text" name="surface1" id="surface1" /><br /><br />
+        <input type="submit" onClick="surface();" />
+    </form>
+    <div id="ici"></div>
+    <script src="https://www.gstatic.com/firebasejs/4.4.0/firebase.js"></script>
     <script src="app.js"></script>
 
 
