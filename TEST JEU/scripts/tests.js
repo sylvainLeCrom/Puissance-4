@@ -4,7 +4,7 @@ function creaJeu(lignes, colonnes) {
   var lignes = 6;
   var colonnes = 7;
   var position = 0;
-  // LA GRILLE
+  // LA GRILLE DES PIONS
   var grille = document.createElement("GRILLE");
   for (var i = 0; i < colonnes; i++) {
     var ul = document.createElement("UL");
@@ -26,17 +26,17 @@ function creaJeu(lignes, colonnes) {
     grille.appendChild(ul);
   }
 
-  //4) setting table
+  // LA GRILLE DANS LE PLATEAU
   var plateau = document.createElement("PLATEAU");
   plateau.appendChild(grille);
 
-  //5) placement du jeu dans la page
+  // LE PLATEAU DANS LA PAGE
   document.getElementById("content").appendChild(plateau);
 }
 
 function posePion() {
   var couleur = 'jaune';
-  var x = event.target.parentElement.id;
+  var x = event.target.parentElement.id; // n° de la colonne
   var y = 6;
   
   while(y>0){
