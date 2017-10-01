@@ -38,11 +38,11 @@ function creaJeu(lignes, colonnes) {
   document.getElementById("content").appendChild(plateau);
 
   function jeu() {
-    console.log("joueur1 "+joueur1);
-    console.log("joueur2 "+joueur2);
-    console.log("c'est au tour du joueur "+ couleur);
+    console.log("joueur1 " + joueur1);
+    console.log("joueur2 " + joueur2);
+    console.log("c'est au tour du joueur " + couleur);
     posePion();
-    couleur = tour();    
+    couleur = tour();
   }
   function posePion() {
 
@@ -67,7 +67,7 @@ function creaJeu(lignes, colonnes) {
   function tour() {
     if (couleur == joueur1) {
       return joueur2;
-    } else{
+    } else {
       return joueur1;
     }
   }
