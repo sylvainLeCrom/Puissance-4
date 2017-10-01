@@ -40,7 +40,7 @@ function creaJeu(lignes, colonnes) {
   function jeu() {
     posePion(); // on joue le coup
     testGrillePleine(); // test grille pleine
-    //testAlignenemt(); // test du coup  
+    testAlignenemt(); // test du coup  
     couleur = tour(); // on change le joueur
   }
   function posePion() {
@@ -54,6 +54,8 @@ function creaJeu(lignes, colonnes) {
       Etat = Case.className;
       if (Etat == "vide") {
         document.getElementById(Case.id).className = couleur;
+        Etat = couleur;
+        
         return;
       }
       else {
@@ -63,14 +65,7 @@ function creaJeu(lignes, colonnes) {
     alert("colonne pleine");
   }
 
-  // GESTION DU CHANGEMENT DE JOUEUR
-  function tour() {
-    if (couleur == joueur1) {
-      return joueur2;
-    } else {
-      return joueur1;
-    }
-  }
+
 
   // TEST GRILLE PLEINE
   function testGrillePleine() {
@@ -97,22 +92,51 @@ function creaJeu(lignes, colonnes) {
 
 
 
-    /* TEST ALIGNEMENT DE 4
-    function testAlignenemt() {
-      var align = 0
-      // TEST VERTICAL
-      var caseTest = Case.id - 30;
-      var caseFinTest = Case.id + 30;
-      caseTestEtat = caseTest.className;
-      while (caseTest<=caseFinTest){
-        if (caseTestEtat == Etat){
-          algin++;
-        }
-        if (align == 4){
-          alert("VICTOIRE "+couleur)
-        }
+  // TEST ALIGNEMENT DE 4
+  function testAlignenemt() {
+    var align = 1;
+    var idNombre = parseInt(Case.id);
+
+    // TEST VERTICAL
+    var idcaseTest = idNombre;
+    var idfinTest = idNombre;
+    var loop = 1;
+    while (idcaseTest >= 21 && loop <= 3) {
+      idcaseTest = idcaseTest - 10;
+      loop++;
+    }
+    var Testmax = (colonnes + "" + lignes) - 10;
+    var loop = 1;
+    while (idfinTest <= Testmax && loop <= 3) {
+      idfinTest = idfinTest + 10;
+      loop++;
+    }
+    caseTestEtat = document.getElementById(idcaseTest).className;
+    while (idcaseTest <= idfinTest) {
+      console.log(Etat);
+      console.log(idcaseTest);
+      console.log(idfinTest);
+      console.log(caseTestEtat);
+      if (caseTestEtat == Etat) {
+        align++
       }
-    }*/
-
-
+      console.log(align);      
+      if (align == 4){
+        alert("Victoire du "+couleur);
+      }
+      idcaseTest = idcaseTest + 10;
+    }
   }
+
+
+
+    // GESTION DU CHANGEMENT DE JOUEUR
+    function tour() {
+      if (couleur == joueur1) {
+        return joueur2;
+      } else {
+        return joueur1;
+      }
+    }
+
+}
