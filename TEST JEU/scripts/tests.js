@@ -55,7 +55,7 @@ function creaJeu(lignes, colonnes) {
       if (Etat == "vide") {
         document.getElementById(Case.id).className = couleur;
         Etat = couleur;
-        
+
         return;
       }
       else {
@@ -94,7 +94,7 @@ function creaJeu(lignes, colonnes) {
 
   // TEST ALIGNEMENT DE 4
   function testAlignenemt() {
-    var align = 1;
+    var align = 0;
     var idNombre = parseInt(Case.id);
 
     // TEST VERTICAL
@@ -118,25 +118,33 @@ function creaJeu(lignes, colonnes) {
       console.log(idfinTest);
       console.log(caseTestEtat);
       if (caseTestEtat == Etat) {
-        align++
+        align++;
+        idcaseTest = idcaseTest + 10;
+      }
+      else {
+        align = align;
+        idcaseTest = idcaseTest + 10;
       }
       console.log(align);      
-      if (align == 4){
-        alert("Victoire du "+couleur);
+      if (align == 4) {
+        alert("Victoire du " + couleur);
       }
-      idcaseTest = idcaseTest + 10;
     }
+
+
+
+
   }
 
 
 
-    // GESTION DU CHANGEMENT DE JOUEUR
-    function tour() {
-      if (couleur == joueur1) {
-        return joueur2;
-      } else {
-        return joueur1;
-      }
+  // GESTION DU CHANGEMENT DE JOUEUR
+  function tour() {
+    if (couleur == joueur1) {
+      return joueur2;
+    } else {
+      return joueur1;
     }
+  }
 
 }
