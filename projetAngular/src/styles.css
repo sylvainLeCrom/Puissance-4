@@ -6,14 +6,4 @@ body {
 * {
     font-family: 'Raleway';
 }
-button {
-    background: #008FEF;
-    color: white;
-    padding: 1.2em;
-    /* width: 300px; */
-    text-align: center;
-    font-size: 1.2em;
-    margin-bottom: 30px;
-    cursor: pointer;
-    border-radius: 30px;
-}
+

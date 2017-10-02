@@ -1,9 +1,12 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<h1>PUISSANCE CHAT</h1>
-<div>
-  <button (click)="login()" *ngIf="!(user | async)?.uid">Anonymous Login</button>
+<h3>Puissance 4 - Test zone de chat avec FIREBASE</h3>
+<div class="container">
+  <div>
+      <button class="btn btn-primary" (click)="login()" *ngIf="!(user | async)?.uid">Anonymous Login</button>      
+  </div>
+  <div>
   <button (click)="logout()" *ngIf="(user | async)?.uid">Logout</button>
-
+</div>
   <input type="text" id="message" *ngIf="(user | async)?.uid" placeholder="message chat" (keyup.enter)="Send($event.target.value)" [(ngModel)]="msgVal" />
   <div id="details-container">
       <p *ngFor="let item of items | async"><img src="../assets/images/if_chat.svg">{{item.message}}</p>

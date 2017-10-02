@@ -1,5 +1,5 @@
 input#message {
-    background:#fff;
+    /background:#fff;
     border:none;
     outline:none;
     box-shadow:none;
@@ -11,7 +11,7 @@ input#message {
 
 
 #details-container p {
-    text-align: center;
+    text-align: left;
     background:#fff;
     padding:1.4em;
     color:#696969;
