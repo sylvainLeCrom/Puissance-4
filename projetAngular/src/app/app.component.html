@@ -1,7 +1,6 @@
 <h3>Puissance 4 - Test zone de chat avec FIREBASE A DROITE</h3>
 <div class="container-fluid">
-  <button class="btn btn-primary" (click)="login()" *ngIf="!(user | async)?.uid">Login</button>
-  <button (click)="logout()" *ngIf="(user | async)?.uid">Logout</button>
+  <auth></auth>
   <div class="containe">
     <div class="row col-md-10">
       ## placement du jeu ##

@@ -3,13 +3,15 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HttpModule } from '@angular/http';
-import { ChatComponent } from './chat.component';
-
+import { ChatComponent } from './chat/chat.component';
+import { AuthComponent } from './auth/auth.component';
+ 
 
 import { AngularFireModule } from 'angularfire2';
 // New imports to update based on AngularFire2 version 4
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { GameComponent } from './game/game.component';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyCqkzOS8R5k6y6NZ3YKdQdj14iMO7Uvkq8",
@@ -23,7 +25,9 @@ export const firebaseConfig = {
 @NgModule({
   declarations: [
     AppComponent,
-    ChatComponent
+    ChatComponent,
+    AuthComponent,
+    GameComponent,
   ],
   imports: [
     BrowserModule,
