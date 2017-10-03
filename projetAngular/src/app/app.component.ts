@@ -11,32 +11,14 @@ import * as firebase from 'firebase/app';
 })
 export class AppComponent {
   user: Observable<firebase.User>;
-  items: FirebaseListObservable<any[]>;
-  msgVal: string = '';  
 
   constructor(public afAuth: AngularFireAuth, public af: AngularFireDatabase) {    
-    this.items = af.list('/messages', {
-      query: {
-        limitToFirst: 5,
-        orderByChild : 'reverseDate'
-      }
-    });
-
     this.user = this.afAuth.authState;
-
   }
   login() {
-    this.afAuth.auth.signInAnonymously();
+    this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
   }
-
   logout() {
     this.afAuth.auth.signOut();
-  }
-
-  Send(desc: string) {
-    const date = Date.now();
-    let reverseDate = 0 - date;
-    this.items.push({ reverseDate, message: desc });
-    this.msgVal = '';
   }
 }
