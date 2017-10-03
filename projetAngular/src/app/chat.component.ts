@@ -23,11 +23,11 @@ export class ChatComponent {
     });
     this.user = this.afAuth.authState;
   }
-  
+
   Send(desc: string) {
     const date = Date.now();
     let reverseDate = 0 - date;
-    this.items.push({ reverseDate, message: desc, user : name });
+    this.items.push({ reverseDate, message: desc });
     this.msgVal = '';
   }
 }
