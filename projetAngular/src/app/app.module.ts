@@ -7,6 +7,7 @@ import { ChatComponent } from './chat/chat.component';
 import { AuthComponent } from './auth/auth.component';
 
 
+import { appRoutes } from './app-routing';
 import { AngularFireModule } from 'angularfire2';
 // New imports to update based on AngularFire2 version 4
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -24,10 +25,7 @@ export const firebaseConfig = {
   messagingSenderId: "899774202606"
 };
 
-const appRoutes: Routes = [
-  { path: 'game', component: GameComponent },
-  { path: '', redirectTo: '/app', pathMatch: 'full' },
-]
+
 
 @NgModule({
   declarations: [

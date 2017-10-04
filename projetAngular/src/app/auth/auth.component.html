@@ -1,7 +1,7 @@
 <h1>
-    Login
-  </h1>
-  <div>
+    Loginfon
+</h1>
+<div>
     <br>
     <button class="btn" (click)="loginGoogle()" *ngIf="!(user | async)?.uid">
     Login with Google
@@ -9,9 +9,8 @@
     <br>
     <button (click)="logout()" *ngIf="(user | async)?.uid">Logout</button>
     <br><br>
-  </div>
-  <div *ngIf="(user | async)?.uid">
+</div>
+<div *ngIf="(user | async)?.uid">
     <img src="{{(user | async)?.photoURL}}" style="width:30px;height:30px;">
-    <br> Email: {{(user | async)?.email}}
-    <br> Name: {{(user | async)?.displayName}}
-  </div>
+    <br/><br/>{{(user | async)?.displayName}}
+</div>
