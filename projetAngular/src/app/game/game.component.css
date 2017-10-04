@@ -1,0 +1,44 @@
+ul {
+    float: left;
+    clear: right;
+    padding: 0;
+}
+
+li {
+    list-style: none;
+    float: left;
+    clear: left;
+    width: 70px;
+    height: 70px;
+    color: #000000;
+    text-align: center;
+}
+
+.vide {
+    background-image: url(/src/assets/images/caseVide.png);
+    background-size: cover;
+}
+
+.jaune {
+    background-image: url(/src/assets/images/pionJaune.png);
+    background-size: cover;
+}
+
+.rouge {
+    background-image: url(/src/assets/images/pionRouge.png);
+    background-size: cover;
+}
+
+#ghost {
+    background: none;
+}
+
+ul:hover #ghost {
+    background-image: url(/src/assets/images/pionJaune.png);
+    background-size: cover;
+}
+
+grille {
+    display: table-row-group;
+    vertical-align: middle;
+}

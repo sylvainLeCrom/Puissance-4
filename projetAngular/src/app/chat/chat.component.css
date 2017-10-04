@@ -19,6 +19,8 @@ input#message {
 }
 
 img {
-    max-width: 5%;
+    max-width: 3vh;
+    max-height: 3vh;
+
     margin-right: 15px;
 }

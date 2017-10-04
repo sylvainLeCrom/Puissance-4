@@ -27,6 +27,7 @@ export class ChatComponent {
   Send(desc: string) {
     const date = Date.now();
     let reverseDate = 0 - date;
+    console.log(this.user)
     this.items.push({ reverseDate, message: desc });
     this.msgVal = '';
   }

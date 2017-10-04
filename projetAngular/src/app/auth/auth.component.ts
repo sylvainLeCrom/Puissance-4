@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { AuthService } from './auth.service';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase/app';
+import { Observable } from 'rxjs/Observable';
+import { AngularFireAuth } from 'angularfire2/auth';
+
+
 
 @Component({
   selector: 'auth',
@@ -15,10 +19,14 @@ export class AuthComponent {
   constructor(public afAuth: AngularFireAuth, public af: AngularFireDatabase) {    
     this.user = this.afAuth.authState;
   }
-  login() {
+  loginFacebook() {
+    this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider());
+  }
+  loginGoogle() {
     this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
   }
   logout() {
     this.afAuth.auth.signOut();
   }
+  
 }
