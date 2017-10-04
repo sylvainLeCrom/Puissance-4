@@ -14,6 +14,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { GameComponent } from './game/game.component';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthService} from './auth/auth.service'
+import {NgPipesModule} from 'ngx-pipes';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyCqkzOS8R5k6y6NZ3YKdQdj14iMO7Uvkq8",
@@ -47,6 +48,7 @@ const appRoutes: Routes = [
       appRoutes,
       { enableTracing: true }
     ),
+    NgPipesModule,
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

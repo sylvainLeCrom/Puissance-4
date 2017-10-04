@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GameComponent implements OnInit {
 
-  constructor() { }
-
+  public items: any[][];
+  constructor() { 
+    this.items = [
+        ["vide","vide","vide","vide","vide","ghost"],
+        ["vide","vide","vide","vide","vide","ghost"],
+        ["vide","vide","vide","vide","vide","ghost"],
+        ["vide","vide","vide","vide","vide","ghost"],
+        ["vide","vide","vide","vide","vide","ghost"],
+        ["vide","vide","vide","vide","vide","ghost"],
+        ["vide","vide","vide","vide","vide","ghost"]];
+  }
   ngOnInit() {
   }
-
 }

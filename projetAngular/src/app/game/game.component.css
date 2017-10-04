@@ -15,26 +15,26 @@ li {
 }
 
 .vide {
-    background-image: url(/src/assets/images/caseVide.png);
+    background-image: url(../../../src/assets/images/caseVide.png);
     background-size: cover;
 }
 
 .jaune {
-    background-image: url(/src/assets/images/pionJaune.png);
+    background-image: url(../../../src/assets/images/pionJaune.png);
     background-size: cover;
 }
 
 .rouge {
-    background-image: url(/src/assets/images/pionRouge.png);
+    background-image: url(../../../src/assets/images/pionRouge.png);
     background-size: cover;
 }
 
-#ghost {
+.ghost {
     background: none;
 }
 
-ul:hover #ghost {
-    background-image: url(/src/assets/images/pionJaune.png);
+ul:hover .ghost {
+    background-image: url(../../../src/assets/images/pionJaune.png);
     background-size: cover;
 }
 

@@ -1,5 +1,7 @@
 
-      
-      <body id="content" onload="creaJeu()">
-      </body>
-  
+<div class="grille">
+<ul class="" *ngFor="let i of items">
+    <li class="case {{j}}" *ngFor="let j of i |reverse">{{j}}</li>
+</ul>
+
+</div>
