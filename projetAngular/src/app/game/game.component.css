@@ -15,17 +15,17 @@ li {
 }
 
 .vide {
-    background-image: url(img/caseVide.png);
+    background-image: url(/src/assets/images/caseVide.png);
     background-size: cover;
 }
 
 .jaune {
-    background-image: url(img/pionJaune.png);
+    background-image: url(/src/assets/images/pionJaune.png);
     background-size: cover;
 }
 
 .rouge {
-    background-image: url(img/pionRouge.png);
+    background-image: url(/src/assets/images/pionRouge.png);
     background-size: cover;
 }
 
@@ -34,7 +34,7 @@ li {
 }
 
 ul:hover #ghost {
-    background-image: url(img/pionJaune.png);
+    background-image: url(/src/assets/images/pionJaune.png);
     background-size: cover;
 }
 
