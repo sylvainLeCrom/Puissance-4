@@ -1,7 +1,6 @@
-
 <div class="grille">
-<ul id={{x}} *ngFor="let i of items; let x = index">
-    <li id={{x}}{{y}} class="{{j}}" (click)="onClick($event)" *ngFor="let j of i |reverse; let y=index">{{j}}</li>
-</ul>
+    <ul id={{x}} *ngFor="let i of items; let x = index" (click)="clickedColumn(x)">
+        <li id={{x}}{{y}} class="{{j}}" *ngFor="let j of i |reverse; let y=index">{{j}}</li>
+    </ul>
 
 </div>
