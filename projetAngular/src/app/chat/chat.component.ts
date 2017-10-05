@@ -13,11 +13,12 @@ export class ChatComponent {
   user: Observable<firebase.User>;
   items: FirebaseListObservable<any[]>;
   msgVal: string = '';  
+  userName : string = '';
 
   constructor(public afAuth: AngularFireAuth, public af: AngularFireDatabase) {    
     this.items = af.list('/messages', {
       query: {
-        limitToFirst: 5,
+        //limitToFirst: 20,
         orderByChild : 'reverseDate'
       }
     });
@@ -27,7 +28,8 @@ export class ChatComponent {
   Send(desc: string) {
     const date = Date.now();
     let reverseDate = 0 - date;
-    console.log(this.user)
+
+    console.log()
     this.items.push({ reverseDate, message: desc });
     this.msgVal = '';
   }
