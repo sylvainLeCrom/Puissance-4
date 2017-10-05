@@ -1,7 +1,7 @@
 
 <div class="grille">
-<ul class="" *ngFor="let i of items">
-    <li class="case {{j}}" *ngFor="let j of i |reverse">{{j}}</li>
+<ul id={{x}} *ngFor="let i of items; let x = index">
+    <li id={{x}}{{y}} class="{{j}}" (click)="onClick($event)" *ngFor="let j of i |reverse; let y=index">{{j}}</li>
 </ul>
 
 </div>
