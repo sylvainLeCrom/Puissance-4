@@ -25,6 +25,7 @@
     "core-js": "^2.4.1",
     "firebase": "^4.4.0",
     "ngx-pipes": "^1.6.5",
+    "promise-polyfill": "6.0.2",
     "rxjs": "^5.4.2",
     "zone.js": "^0.8.14"
   },

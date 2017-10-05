@@ -14,8 +14,10 @@ import { AngularFireAuth } from 'angularfire2/auth';
 })
 export class AuthComponent {
   user: Observable<firebase.User>;
+  email: string;
+  password: string;
 
-  constructor(public afAuth: AngularFireAuth, public af: AngularFireDatabase) {    
+  constructor(public afAuth: AngularFireAuth, public af: AngularFireDatabase, public authService: AuthService) {    
     this.user = this.afAuth.authState;
   }
   loginFacebook() {
@@ -26,6 +28,16 @@ export class AuthComponent {
   }
   logout() {
     this.afAuth.auth.signOut();
+  }
+
+  
+  signup() {
+    this.authService.signup(this.email, this.password);
+    this.email = this.password = '';
+  }
+  login() {
+    this.authService.login(this.email, this.password);
+    this.email = this.password = '';    
   }
   
 }
