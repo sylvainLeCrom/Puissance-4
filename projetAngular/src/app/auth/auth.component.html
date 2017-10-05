@@ -12,6 +12,5 @@
   </div>
   <div *ngIf="(user | async)?.uid">
     <img src="{{(user | async)?.photoURL}}" style="width:30px;height:30px;">
-    <br> Email: {{(user | async)?.email}}
-    <br> Name: {{(user | async)?.displayName}}
+    <br>{{(user | async)?.displayName}}
   </div>
