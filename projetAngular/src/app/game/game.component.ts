@@ -17,7 +17,7 @@ export class GameComponent implements OnInit {
   send: string;
   public couleurJoueur: string;
   constructor(public af: AngularFireDatabase) {
-  this.grille = af.list('/grille');
+    this.grille = af.list('/grille');
     this.couleurJoueur = "jaune";
     this.items = [
       ["vide", "vide", "vide", "vide", "vide", "vide", "ghost this.couleurJoueur"],
@@ -32,7 +32,9 @@ export class GameComponent implements OnInit {
     this.send = this.items[4][2];
   }
   ngOnInit() {
-   this.grille.push({ cases :this.items });
+    this.grille.remove();
+    this.grille.push({ cases: this.items });
+    //console.log({$key})
   }
   onClick(event: Event) {
     alert("click sur colonne " + event.target + " marche");
