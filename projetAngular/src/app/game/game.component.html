@@ -1,9 +1,15 @@
 <div class="container-fluid game">
     <div class="grille">
         <ul id={{x}} *ngFor="let i of grille; let x = index" (click)="clickedColumn(x)">
+                <li [ngClass]=(classGhost)></li>                                    
+                
             <li id={{x}}{{y}} class="{{j}}" *ngFor="let j of i |reverse; let y=index">{{x}}{{y}}</li>
         </ul>
     </div>
     <div class="Topgrille">
+            <ul id={{x}} *ngFor="let i of grille; let x = index" (click)="clickedColumn(x)">
+                    <li [ngClass]=(classGhost)></li>                                    
+                    <li class="vide" *ngFor="let j of i"></li>
+            </ul>
     </div>
 </div>

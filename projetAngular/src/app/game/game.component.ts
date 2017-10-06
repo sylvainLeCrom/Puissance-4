@@ -13,25 +13,30 @@ import { Observable } from 'rxjs/Observable';
 })
 export class GameComponent implements OnInit {
   plateau: FirebaseListObservable<any[]>;
+  public soundEffect;
   public coupsJoués: number;
   public grille: string[][];
   public joueurEnCours: string;
+  public classGhost: string;
   public joueur1: string;
   public joueur2: string;
   constructor(public af: AngularFireDatabase) {
+    this.soundEffect = new Audio();
+    this.soundEffect.src = "../../../assets/sounds/SFXposePion1.mp3";
     this.plateau = af.list('/grille');
     this.coupsJoués = 0;
     this.joueur1 = "rouge";
     this.joueur2 = "jaune"
     this.joueurEnCours = this.joueur1;
+    this.classGhost = "ghost"+this.joueurEnCours;    
     this.grille = [
-      ["vide", "vide", "vide", "vide", "vide", "vide", "ghost"+ this.joueurEnCours],
-      ["vide", "vide", "vide", "vide", "vide", "vide", "ghost"+ this.joueurEnCours],
-      ["vide", "vide", "vide", "vide", "vide", "vide", "ghost" + this.joueurEnCours],
-      ["vide", "vide", "vide", "vide", "vide", "vide", "ghost" + this.joueurEnCours],
-      ["vide", "vide", "vide", "vide", "vide", "vide", "ghost" + this.joueurEnCours],
-      ["vide", "vide", "vide", "vide", "vide", "vide", "ghost" + this.joueurEnCours],
-      ["vide", "vide", "vide", "vide", "vide", "vide", "ghost" + this.joueurEnCours]
+      ["vide", "vide", "vide", "vide", "vide", "vide"],
+      ["vide", "vide", "vide", "vide", "vide", "vide"],
+      ["vide", "vide", "vide", "vide", "vide", "vide"],
+      ["vide", "vide", "vide", "vide", "vide", "vide"],
+      ["vide", "vide", "vide", "vide", "vide", "vide"],
+      ["vide", "vide", "vide", "vide", "vide", "vide"],
+      ["vide", "vide", "vide", "vide", "vide", "vide"]
     ];
 
   }
@@ -45,9 +50,12 @@ export class GameComponent implements OnInit {
 
     let x = id;
     let y = 6;
-    while (y > 0) {
+    while (y >=0) {
       if (this.grille[x][y] == 'vide') {
         this.grille[x][y] = this.joueurEnCours;
+
+        this.soundEffect.load();
+        this.soundEffect.play();
 
         this.coupsJoués++;
         console.log(this.coupsJoués);
@@ -154,10 +162,13 @@ export class GameComponent implements OnInit {
         //on change de joueur
         if (this.joueurEnCours == this.joueur1) {
           this.joueurEnCours = this.joueur2;
+          this.classGhost = "ghost"+this.joueurEnCours;          
+          
         } else {
           this.joueurEnCours = this.joueur1;
+          this.classGhost = "ghost"+this.joueurEnCours;
         }
-
+        
 
 
 
