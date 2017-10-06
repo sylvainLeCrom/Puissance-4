@@ -33,7 +33,12 @@ li {
     background: none;
 }
 
-ul:hover .ghost {
+ul:hover .ghostrouge {
+    background-image: url(../../../src/assets/images/pionRouge.png);
+    background-size: cover;
+}
+
+ul:hover .ghostjaune {
     background-image: url(../../../src/assets/images/pionJaune.png);
     background-size: cover;
 }
