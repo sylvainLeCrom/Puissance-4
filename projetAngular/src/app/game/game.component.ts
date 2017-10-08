@@ -13,6 +13,7 @@ import { Observable } from 'rxjs/Observable';
 })
 export class GameComponent implements OnInit {
   plateauenligne: FirebaseObjectObservable<any[]>;
+  IDgame : number;
   cases0 : FirebaseListObservable<any[]>;
   cases1 : FirebaseListObservable<any[]>;
   cases2 : FirebaseListObservable<any[]>;
@@ -62,11 +63,11 @@ export class GameComponent implements OnInit {
   }
   ngOnInit() {
     this.plateauenligne.remove();
-    this.plateauenligne.update({ casesenligne: this.grille});
+    this.plateauenligne.set({ casesenligne: this.grille});
+    
     
   }
   clickedColumn(id: number): void {
-    console.log(this.grille.length);
     
 
     let x = id;
@@ -90,7 +91,7 @@ export class GameComponent implements OnInit {
         let xTest = x;
         let yTest = y;
         let align = 0;
-        while (yTest <= (y + 3) && yTest <= 6) {
+        while (yTest <= (y + 3) && yTest <= 5) {
           if (this.grille[xTest][yTest] == this.joueurEnCours) {
             align = align + 1;
             if (align == 4) {
@@ -140,15 +141,17 @@ export class GameComponent implements OnInit {
         align = 0;
         recule = 3;
         //on cherche la case de départ du test
-        while (xTest > 0 && yTest < 6 && recule > 0) {
+        while (xTest > 0 && yTest < 5 && recule > 0) {
           xTest--;
           yTest++;
           recule--;
         }
         //on check la ligne diagonale
-        while (xTest <= (x + 3) && xTest <= 6 && yTest >= (y - 3) && yTest > 1) {
+        while (xTest <= (x + 3) && xTest <= 6 && yTest >= (y - 3) && yTest >=0) {
           if (this.grille[xTest][yTest] == this.joueurEnCours) {
             align = align + 1;
+            console.log(xTest,yTest)
+            console.log(align)
             if (align == 4) {
               this.anticlick = "anticlick";              
               this.SFX_WIN.src = "../../../assets/sounds/SFX_WIN.mp3";
@@ -177,9 +180,11 @@ export class GameComponent implements OnInit {
           recule--;
         }
         //on check the ligne antidiagonale
-        while (xTest <= (x + 3) && xTest <= 6 && yTest <= (y + 3) && yTest <= 6) {
+        while (xTest <= (x + 3) && xTest <= 6 && yTest <= (y + 3) && yTest <= 5) {
           if (this.grille[xTest][yTest] == this.joueurEnCours) {
             align = align + 1;
+            
+            
             if (align == 4) {
               this.anticlick = "anticlick";              
               this.SFX_WIN.src = "../../../assets/sounds/SFX_WIN.mp3";
