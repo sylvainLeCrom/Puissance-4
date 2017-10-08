@@ -12,4 +12,15 @@
                     <li class="vide" *ngFor="let j of i"></li>
             </ul>
     </div>
+    
+    <div [ngClass]=(anticlick)>
+
+    </div>
+    
 </div>
+<li class="{{case.$value}}" *ngFor="let case of cases | async; let x = index">
+        {{case.$value}}
+    
+</li>
+
+

@@ -59,3 +59,9 @@ grille {
     background-size: 70px;
     background-repeat: repeat; */
 }
+.anticlick{
+    position: absolute;
+    top: 0px;
+   width:490px;
+    height: 420px;
+}
