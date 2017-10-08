@@ -13,8 +13,13 @@ import { Observable } from 'rxjs/Observable';
 })
 export class GameComponent implements OnInit {
   plateauenligne: FirebaseObjectObservable<any[]>;
-  colonnes: FirebaseObjectObservable<any[]>;
-  cases : FirebaseListObservable<any[]>;
+  cases0 : FirebaseListObservable<any[]>;
+  cases1 : FirebaseListObservable<any[]>;
+  cases2 : FirebaseListObservable<any[]>;
+  cases3 : FirebaseListObservable<any[]>;
+  cases4 : FirebaseListObservable<any[]>;
+  cases5 : FirebaseListObservable<any[]>;
+  cases6 : FirebaseListObservable<any[]>;
   public SFX_pion;
   public SFX_draw;
   public SFX_WIN;
@@ -30,8 +35,14 @@ export class GameComponent implements OnInit {
     this.SFX_draw = new Audio();
     this.SFX_WIN = new Audio();
     this.plateauenligne = af.object('/GrilleTest');
-    this.colonnes = af.object('GrilleTest/casesenligne');
-    this.cases = af.list('GrilleTest/casesenligne/0')
+    this.cases0 = af.list('GrilleTest/casesenligne/0');
+    this.cases1 = af.list('GrilleTest/casesenligne/1');
+    this.cases2 = af.list('GrilleTest/casesenligne/2');
+    this.cases3 = af.list('GrilleTest/casesenligne/3');
+    this.cases4 = af.list('GrilleTest/casesenligne/4');
+    this.cases5 = af.list('GrilleTest/casesenligne/5');
+    this.cases6 = af.list('GrilleTest/casesenligne/6');
+
     this.coupsJoués = 0;
     this.joueur1 = "rouge";
     this.joueur2 = "jaune"
@@ -55,7 +66,7 @@ export class GameComponent implements OnInit {
     
   }
   clickedColumn(id: number): void {
-    console.log(this.cases);
+    console.log(this.grille.length);
     
 
     let x = id;
@@ -63,7 +74,7 @@ export class GameComponent implements OnInit {
     while (y >= 0) {
       if (this.grille[x][y] == 'vide') {
         this.grille[x][y] = this.joueurEnCours;
-
+        this.plateauenligne.update({ casesenligne: this.grille});                
         // on comptabilise le nombre de coups joués
         this.coupsJoués++;
         if (this.coupsJoués == 42) {
@@ -199,8 +210,6 @@ export class GameComponent implements OnInit {
         this.SFX_pion.src = "../../../assets/sounds/SFXposePion" + random + ".mp3";
         this.SFX_pion.load();
         this.SFX_pion.play();
-        this.plateauenligne.update({ casesenligne: this.grille});        
-
         return;
       } else {
         y--;

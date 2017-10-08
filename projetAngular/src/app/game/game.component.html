@@ -1,26 +1,55 @@
 <div class="container-fluid game">
     <div class="grille">
         <ul id={{x}} *ngFor="let i of grille; let x = index" (click)="clickedColumn(x)">
-                <li [ngClass]=(classGhost)></li>                                    
-                
+            <li [ngClass]=(classGhost)></li>
+
             <li id={{x}}{{y}} class="{{j}}" *ngFor="let j of i |reverse; let y=index">{{x}}{{y}}</li>
         </ul>
     </div>
     <div class="Topgrille">
-            <ul id={{x}} *ngFor="let i of grille; let x = index" (click)="clickedColumn(x)">
-                    <li [ngClass]=(classGhost)></li>                                    
-                    <li class="vide" *ngFor="let j of i"></li>
-            </ul>
+        <ul id={{x}} *ngFor="let i of grille; let x = index" (click)="clickedColumn(x)">
+            <li [ngClass]=(classGhost)></li>
+            <li class="vide" *ngFor="let j of i"></li>
+        </ul>
     </div>
-    
+
     <div [ngClass]=(anticlick)>
 
     </div>
-    
+
 </div>
-<li class="{{case.$value}}" *ngFor="let case of cases | async; let x = index">
+<ul id="0" (click)="clickedColumn(0)">
+    <li class="{{case.$value}}" *ngFor="let case of cases0 | async;">
         {{case.$value}}
-    
-</li>
-
-
+    </li>
+</ul>
+<ul id="1" (click)="clickedColumn(1)">
+    <li class="{{case.$value}}" *ngFor="let case of cases1 | async;">
+        {{case.$value}}
+    </li>
+</ul>
+<ul id="2" (click)="clickedColumn(2)">
+    <li class="{{case.$value}}" *ngFor="let case of cases2 | async;">
+        {{case.$value}}
+    </li>
+</ul>
+<ul id="3" (click)="clickedColumn(3)">
+    <li class="{{case.$value}}" *ngFor="let case of cases3 | async;">
+        {{case.$value}}
+    </li>
+</ul>
+<ul id="4" (click)="clickedColumn(4)">
+    <li class="{{case.$value}}" *ngFor="let case of cases4 | async;">
+        {{case.$value}}
+    </li>
+</ul>
+<ul id="5" (click)="clickedColumn(5)">
+    <li class="{{case.$value}}" *ngFor="let case of cases5 | async;">
+        {{case.$value}}
+    </li>
+</ul>
+<ul id="6" (click)="clickedColumn(6)">
+    <li class="{{case.$value}}" *ngFor="let case of cases6 | async;">
+        {{case.$value}}
+    </li>
+</ul>
