@@ -13,6 +13,7 @@ import { Observable } from 'rxjs/Observable';
 })
 export class GameComponent implements OnInit {
   plateauenligne: FirebaseObjectObservable<any[]>;
+  plateauDeJeu: FirebaseObjectObservable<any[]>;
   IDgame: number;
   cases0: FirebaseListObservable<any[]>;
   cases1: FirebaseListObservable<any[]>;
@@ -40,6 +41,7 @@ export class GameComponent implements OnInit {
     this.SFX_draw = new Audio();
     this.SFX_WIN = new Audio();
     this.plateauenligne = af.object('/room');
+    this.plateauDeJeu = af.object('/room/plateauDeJeu');
     this.cases0 = af.list('room/plateauDeJeu/0');
     this.cases1 = af.list('room/plateauDeJeu/1');
     this.cases2 = af.list('room/plateauDeJeu/2');
@@ -72,17 +74,18 @@ export class GameComponent implements OnInit {
     this.plateauenligne.set({ plateauDeJeu: this.grille });
     let ID = Math.floor(Math.random() * 100) + 1;
     this.pseudo = "TOTO";
-    
+
     let random = Math.floor(Math.random() * 2) + 1;
     let couleur = this.joueur1;
 
-    this.gamer = [this.pseudo+ID,[this.pseudo, couleur, ID]];
+    this.gamer = [this.pseudo + ID, [this.pseudo, couleur, ID]];
     let user = this.pseudo;
-    this.gamers.set({ user : this.gamer })
+    this.gamers.set({ user: this.gamer })
 
 
   }
   clickedColumn(id: number): void {
+
 
 
     let x = id;
@@ -91,6 +94,16 @@ export class GameComponent implements OnInit {
       if (this.grille[x][y] == 'vide') {
         this.grille[x][y] = this.joueurEnCours;
         this.plateauenligne.update({ plateauDeJeu: this.grille });
+        this.plateauDeJeu.subscribe((grid) => {
+
+          let i = 0;
+          while (i < grid.length) {
+            this.grille[i] = grid[i];
+            i++;
+          }
+
+          console.log(this.grille);
+        });
         // on comptabilise le nombre de coups joués
         this.coupsJoués++;
         if (this.coupsJoués == 42) {
@@ -165,8 +178,6 @@ export class GameComponent implements OnInit {
         while (xTest <= (x + 3) && xTest <= 6 && yTest >= (y - 3) && yTest >= 0) {
           if (this.grille[xTest][yTest] == this.joueurEnCours) {
             align = align + 1;
-            console.log(xTest, yTest)
-            console.log(align)
             if (align == 4) {
               this.anticlick = "anticlick";
               this.SFX_WIN.src = "../../../assets/sounds/SFX_WIN.mp3";
