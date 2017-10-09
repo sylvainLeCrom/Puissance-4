@@ -41,4 +41,8 @@ testem.log
 .DS_Store
 Thumbs.db
 
+<<<<<<< HEAD
+=======
+#JSON qui déconne !
+>>>>>>> dev
 package-lock.json

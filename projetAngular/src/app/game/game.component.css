@@ -29,7 +29,7 @@ li {
     background-size: cover;
 }
 
-.ghost {
+.ghost .ghostjaune .ghostrouge {
     background: none;
 }
 
@@ -52,10 +52,16 @@ grille {
 }
 .Topgrille{
     position: absolute;
-    width:490px;
-    height: 420px;
-    top:70px;
-    background-image: url(../../../src/assets/images/caseVide.png);
+    top: 0px;
+   /* width:490px;
+    height: 420px;*/
+ /*   background-image: url(../../../src/assets/images/caseVide.png);
     background-size: 70px;
-    background-repeat: repeat;
+    background-repeat: repeat; */
+}
+.anticlick{
+    position: absolute;
+    top: 0px;
+   width:490px;
+    height: 420px;
 }
