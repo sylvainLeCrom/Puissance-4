@@ -13,14 +13,15 @@ import { Observable } from 'rxjs/Observable';
 })
 export class GameComponent implements OnInit {
   plateauenligne: FirebaseObjectObservable<any[]>;
-  IDgame : number;
-  cases0 : FirebaseListObservable<any[]>;
-  cases1 : FirebaseListObservable<any[]>;
-  cases2 : FirebaseListObservable<any[]>;
-  cases3 : FirebaseListObservable<any[]>;
-  cases4 : FirebaseListObservable<any[]>;
-  cases5 : FirebaseListObservable<any[]>;
-  cases6 : FirebaseListObservable<any[]>;
+  IDgame: number;
+  cases0: FirebaseListObservable<any[]>;
+  cases1: FirebaseListObservable<any[]>;
+  cases2: FirebaseListObservable<any[]>;
+  cases3: FirebaseListObservable<any[]>;
+  cases4: FirebaseListObservable<any[]>;
+  cases5: FirebaseListObservable<any[]>;
+  cases6: FirebaseListObservable<any[]>;
+  gamers: FirebaseObjectObservable<any[]>;
   public SFX_pion;
   public SFX_draw;
   public SFX_WIN;
@@ -31,18 +32,23 @@ export class GameComponent implements OnInit {
   public anticlick: string;
   public joueur1: string;
   public joueur2: string;
+  public gamer;
+  public pseudo: string;
+
   constructor(public af: AngularFireDatabase) {
     this.SFX_pion = new Audio();
     this.SFX_draw = new Audio();
     this.SFX_WIN = new Audio();
-    this.plateauenligne = af.object('/GrilleTest');
-    this.cases0 = af.list('GrilleTest/casesenligne/0');
-    this.cases1 = af.list('GrilleTest/casesenligne/1');
-    this.cases2 = af.list('GrilleTest/casesenligne/2');
-    this.cases3 = af.list('GrilleTest/casesenligne/3');
-    this.cases4 = af.list('GrilleTest/casesenligne/4');
-    this.cases5 = af.list('GrilleTest/casesenligne/5');
-    this.cases6 = af.list('GrilleTest/casesenligne/6');
+    this.plateauenligne = af.object('/room');
+    this.cases0 = af.list('room/plateauDeJeu/0');
+    this.cases1 = af.list('room/plateauDeJeu/1');
+    this.cases2 = af.list('room/plateauDeJeu/2');
+    this.cases3 = af.list('room/plateauDeJeu/3');
+    this.cases4 = af.list('room/plateauDeJeu/4');
+    this.cases5 = af.list('room/plateauDeJeu/5');
+    this.cases6 = af.list('room/plateauDeJeu/6');
+    this.gamers = af.object('room/Gamers');
+
 
     this.coupsJoués = 0;
     this.joueur1 = "rouge";
@@ -63,19 +69,28 @@ export class GameComponent implements OnInit {
   }
   ngOnInit() {
     this.plateauenligne.remove();
-    this.plateauenligne.set({ casesenligne: this.grille});
+    this.plateauenligne.set({ plateauDeJeu: this.grille });
+    let ID = Math.floor(Math.random() * 100) + 1;
+    this.pseudo = "TOTO";
     
-    
+    let random = Math.floor(Math.random() * 2) + 1;
+    let couleur = this.joueur1;
+
+    this.gamer = [this.pseudo+ID,[this.pseudo, couleur, ID]];
+    let user = this.pseudo;
+    this.gamers.set({ user : this.gamer })
+
+
   }
   clickedColumn(id: number): void {
-    
+
 
     let x = id;
     let y = 6;
     while (y >= 0) {
       if (this.grille[x][y] == 'vide') {
         this.grille[x][y] = this.joueurEnCours;
-        this.plateauenligne.update({ casesenligne: this.grille});                
+        this.plateauenligne.update({ plateauDeJeu: this.grille });
         // on comptabilise le nombre de coups joués
         this.coupsJoués++;
         if (this.coupsJoués == 42) {
@@ -147,13 +162,13 @@ export class GameComponent implements OnInit {
           recule--;
         }
         //on check la ligne diagonale
-        while (xTest <= (x + 3) && xTest <= 6 && yTest >= (y - 3) && yTest >=0) {
+        while (xTest <= (x + 3) && xTest <= 6 && yTest >= (y - 3) && yTest >= 0) {
           if (this.grille[xTest][yTest] == this.joueurEnCours) {
             align = align + 1;
-            console.log(xTest,yTest)
+            console.log(xTest, yTest)
             console.log(align)
             if (align == 4) {
-              this.anticlick = "anticlick";              
+              this.anticlick = "anticlick";
               this.SFX_WIN.src = "../../../assets/sounds/SFX_WIN.mp3";
               this.SFX_WIN.load();
               this.SFX_WIN.play();
@@ -183,10 +198,10 @@ export class GameComponent implements OnInit {
         while (xTest <= (x + 3) && xTest <= 6 && yTest <= (y + 3) && yTest <= 5) {
           if (this.grille[xTest][yTest] == this.joueurEnCours) {
             align = align + 1;
-            
-            
+
+
             if (align == 4) {
-              this.anticlick = "anticlick";              
+              this.anticlick = "anticlick";
               this.SFX_WIN.src = "../../../assets/sounds/SFX_WIN.mp3";
               this.SFX_WIN.load();
               this.SFX_WIN.play();
