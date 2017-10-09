@@ -23,6 +23,7 @@ export class GameComponent implements OnInit {
   cases6: FirebaseListObservable<any[]>;
   gamers: FirebaseObjectObservable<any[]>;
   public SFX_pion;
+  
   public SFX_draw;
   public SFX_WIN;
   public coupsJoués: number;
