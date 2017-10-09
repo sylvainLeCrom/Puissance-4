@@ -1,38 +1,8 @@
 <div class="container-fluid game">
     <div class="grille">
-        <ul id="0" (click)="clickedColumn(0)">
-                <li [ngClass]=(classGhost)></li>                
-            <li class="{{case.$value}}" *ngFor="let case of cases0 | async;">
-            </li>
-        </ul>
-        <ul id="1" (click)="clickedColumn(1)">
-                <li [ngClass]=(classGhost)></li>                
-            <li class="{{case.$value}}" *ngFor="let case of cases1 | async;">
-            </li>
-        </ul>
-        <ul id="2" (click)="clickedColumn(2)">
-                <li [ngClass]=(classGhost)></li>                
-            <li class="{{case.$value}}" *ngFor="let case of cases2 | async;">
-            </li>
-        </ul>
-        <ul id="3" (click)="clickedColumn(3)">
-                <li [ngClass]=(classGhost)></li>
-            <li class="{{case.$value}}" *ngFor="let case of cases3 | async;">
-            </li>
-        </ul>
-        <ul id="4" (click)="clickedColumn(4)">
-                <li [ngClass]=(classGhost)></li>
-            <li class="{{case.$value}}" *ngFor="let case of cases4 | async;">
-            </li>
-        </ul>
-        <ul id="5" (click)="clickedColumn(5)">
-                <li [ngClass]=(classGhost)></li>
-            <li class="{{case.$value}}" *ngFor="let case of cases5 | async;">
-            </li>
-        </ul>
-        <ul id="6" (click)="clickedColumn(6)">
-                <li [ngClass]=(classGhost)></li>
-            <li class="{{case.$value}}" *ngFor="let case of cases6 | async;">
+        <ul id={{x}} *ngFor="let i of grille; let x = index" (click)="clickedColumn(x)">
+                            <li [ngClass]=(classGhost)></li>                
+            <li class="{{j}}" *ngFor="let j of i">
             </li>
         </ul>
     </div>
