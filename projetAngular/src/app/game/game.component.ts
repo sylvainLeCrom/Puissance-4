@@ -38,7 +38,7 @@ export class GameComponent implements OnInit {
   ngOnInit() {
     this.plateau.remove();
     this.plateau.push({ cases: this.grille });
-    //console.log({$key})
+    //alert({$key})
   }
   clickedColumn(id: number): void {
 
@@ -50,7 +50,7 @@ export class GameComponent implements OnInit {
         this.grille[x][y] = this.joueurEnCours;
 
         this.coupsJoués++;
-        console.log(this.coupsJoués);
+        //console.log(this.coupsJoués);
         if (this.coupsJoués == 42) {
           alert("Draw");
         }
@@ -63,7 +63,7 @@ export class GameComponent implements OnInit {
           if (this.grille[xTest][yTest] == this.joueurEnCours) {
             align = align + 1;
             if (align == 4) {
-              console.log(this.joueurEnCours + " gagne Wouhouuuu");
+              alert(this.joueurEnCours + " gagne Wouhouuuu");
               return;
             };
           } else {
@@ -88,7 +88,7 @@ export class GameComponent implements OnInit {
           if (this.grille[xTest][yTest] == this.joueurEnCours) {
             align = align + 1;
             if (align == 4) {
-              console.log(this.joueurEnCours + " gagne Wouhouuuu");
+              alert(this.joueurEnCours + " gagne Wouhouuuu");
               return;
             };
           } else {
@@ -114,7 +114,7 @@ export class GameComponent implements OnInit {
           if (this.grille[xTest][yTest] == this.joueurEnCours) {
             align = align + 1;
             if (align == 4) {
-              console.log(this.joueurEnCours + " gagne Wouhouuuu");
+              alert(this.joueurEnCours + " gagne Wouhouuuu");
               return;
             };
           } else {
@@ -141,7 +141,7 @@ export class GameComponent implements OnInit {
           if (this.grille[xTest][yTest] == this.joueurEnCours) {
             align = align + 1;
             if (align == 4) {
-              console.log(this.joueurEnCours + " gagne Wouhouuuu");
+              alert(this.joueurEnCours + " gagne Wouhouuuu");
               return;
             };
           } else {
@@ -168,7 +168,7 @@ export class GameComponent implements OnInit {
       };
 
     }
-    console.log("Full");
+    alert("Full");
     return;
   }
 
