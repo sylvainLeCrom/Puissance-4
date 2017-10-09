@@ -68,11 +68,6 @@ export class GameComponent implements OnInit {
 
   }
   ngOnInit() {
-<<<<<<< HEAD
-    this.plateau.remove();
-    this.plateau.push({ cases: this.grille });
-    //alert({$key})
-=======
     this.plateauenligne.remove();
     this.plateauenligne.set({ plateauDeJeu: this.grille });
     let ID = Math.floor(Math.random() * 100) + 1;
@@ -86,7 +81,6 @@ export class GameComponent implements OnInit {
     this.gamers.set({ user : this.gamer })
 
 
->>>>>>> dev
   }
   clickedColumn(id: number): void {
 
@@ -99,10 +93,6 @@ export class GameComponent implements OnInit {
         this.plateauenligne.update({ plateauDeJeu: this.grille });
         // on comptabilise le nombre de coups joués
         this.coupsJoués++;
-<<<<<<< HEAD
-        //console.log(this.coupsJoués);
-=======
->>>>>>> dev
         if (this.coupsJoués == 42) {
 
           this.anticlick = "anticlick";
@@ -120,15 +110,11 @@ export class GameComponent implements OnInit {
           if (this.grille[xTest][yTest] == this.joueurEnCours) {
             align = align + 1;
             if (align == 4) {
-<<<<<<< HEAD
-              alert(this.joueurEnCours + " gagne Wouhouuuu");
-=======
               this.anticlick = "anticlick";
               this.SFX_WIN.src = "../../../assets/sounds/SFX_WIN.mp3";
               this.SFX_WIN.load();
               this.SFX_WIN.play();
               console.log(this.joueurEnCours + " gagne Wouhouuuu");
->>>>>>> dev
               return;
             };
           } else {
@@ -151,15 +137,11 @@ export class GameComponent implements OnInit {
           if (this.grille[xTest][yTest] == this.joueurEnCours) {
             align = align + 1;
             if (align == 4) {
-<<<<<<< HEAD
-              alert(this.joueurEnCours + " gagne Wouhouuuu");
-=======
               this.anticlick = "anticlick";
               this.SFX_WIN.src = "../../../assets/sounds/SFX_WIN.mp3";
               this.SFX_WIN.load();
               this.SFX_WIN.play();
               console.log(this.joueurEnCours + " gagne Wouhouuuu");
->>>>>>> dev
               return;
             };
           } else {
@@ -186,15 +168,11 @@ export class GameComponent implements OnInit {
             console.log(xTest, yTest)
             console.log(align)
             if (align == 4) {
-<<<<<<< HEAD
-              alert(this.joueurEnCours + " gagne Wouhouuuu");
-=======
               this.anticlick = "anticlick";
               this.SFX_WIN.src = "../../../assets/sounds/SFX_WIN.mp3";
               this.SFX_WIN.load();
               this.SFX_WIN.play();
               console.log(this.joueurEnCours + " gagne Wouhouuuu");
->>>>>>> dev
               return;
             };
           } else {
@@ -223,15 +201,11 @@ export class GameComponent implements OnInit {
 
 
             if (align == 4) {
-<<<<<<< HEAD
-              alert(this.joueurEnCours + " gagne Wouhouuuu");
-=======
               this.anticlick = "anticlick";
               this.SFX_WIN.src = "../../../assets/sounds/SFX_WIN.mp3";
               this.SFX_WIN.load();
               this.SFX_WIN.play();
               console.log(this.joueurEnCours + " gagne Wouhouuuu");
->>>>>>> dev
               return;
             };
           } else {
