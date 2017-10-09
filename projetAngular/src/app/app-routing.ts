@@ -1,20 +1,29 @@
 import { Routes } from '@angular/router';
 
-import { GameComponent } from './game/game.component';
+import { PseudoComponent } from './pseudo/pseudo.component';
 import { RoomComponent } from './room/room.component';
+import { LoginComponent } from './login/login.component';
 //import { ChatComponent } from './chat/chat.component';
 
 export const appRoutes: Routes = [
     {
         path: '',
-        redirectTo: '/app'
-        , pathMatch: 'full'
+        redirectTo: '/login',
+        pathMatch: "full"
     },
     {
-        path: 'game',
-        component: GameComponent
+        path: 'login',
+        component: LoginComponent
     },
-    
+    {
+        path: 'room',
+        component: RoomComponent
+    },
+    {
+        path: 'pseudo',
+        component: PseudoComponent
+    },
+
 
 
     /*{

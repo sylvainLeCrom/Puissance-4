@@ -17,6 +17,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthService} from './auth/auth.service'
 import {NgPipesModule} from 'ngx-pipes';
 import { RoomComponent } from './room/room.component';
+import { PseudoComponent } from './pseudo/pseudo.component';
+import { LoginComponent } from './login/login.component';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyCqkzOS8R5k6y6NZ3YKdQdj14iMO7Uvkq8",
@@ -36,6 +38,8 @@ export const firebaseConfig = {
     AuthComponent,
     GameComponent,
     RoomComponent,
+    PseudoComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
