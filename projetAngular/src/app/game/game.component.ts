@@ -14,7 +14,6 @@ import { Observable } from 'rxjs/Observable';
 export class GameComponent implements OnInit {
   plateauenligne: FirebaseObjectObservable<any[]>;
   plateauDeJeu: FirebaseObjectObservable<any[]>;
-  IDgame: number;
   cases0: FirebaseListObservable<any[]>;
   cases1: FirebaseListObservable<any[]>;
   cases2: FirebaseListObservable<any[]>;
@@ -22,7 +21,6 @@ export class GameComponent implements OnInit {
   cases4: FirebaseListObservable<any[]>;
   cases5: FirebaseListObservable<any[]>;
   cases6: FirebaseListObservable<any[]>;
-  gamers: FirebaseObjectObservable<any[]>;
   public SFX_pion;
   public SFX_draw;
   public SFX_WIN;
@@ -33,8 +31,6 @@ export class GameComponent implements OnInit {
   public anticlick: string;
   public joueur1: string;
   public joueur2: string;
-  public gamer;
-  public pseudo: string;
 
   constructor(public af: AngularFireDatabase) {
     this.SFX_pion = new Audio();
@@ -49,12 +45,11 @@ export class GameComponent implements OnInit {
     this.cases4 = af.list('room/plateauDeJeu/4');
     this.cases5 = af.list('room/plateauDeJeu/5');
     this.cases6 = af.list('room/plateauDeJeu/6');
-    this.gamers = af.object('room/Gamers');
 
 
     this.coupsJoués = 0;
     this.joueur1 = "rouge";
-    this.joueur2 = "jaune"
+    this.joueur2 = "jaune";
     this.joueurEnCours = this.joueur1;
     this.classGhost = "ghost" + this.joueurEnCours;
     this.anticlick = "";
@@ -70,24 +65,11 @@ export class GameComponent implements OnInit {
 
   }
   ngOnInit() {
-    this.plateauenligne.remove();
-    this.plateauenligne.set({ plateauDeJeu: this.grille });
-    let ID = Math.floor(Math.random() * 100) + 1;
-    this.pseudo = "TOTO";
-
-    let random = Math.floor(Math.random() * 2) + 1;
-    let couleur = this.joueur1;
-
-    this.gamer = [this.pseudo + ID, [this.pseudo, couleur, ID]];
-    let user = this.pseudo;
-    this.gamers.set({ user: this.gamer })
-
+    //this.plateauDeJeu.remove();
+    this.plateauenligne.update({ plateauDeJeu: this.grille });
 
   }
   clickedColumn(id: number): void {
-
-
-
     let x = id;
     let y = 6;
     while (y >= 0) {

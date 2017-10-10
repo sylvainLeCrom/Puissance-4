@@ -4,6 +4,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase/app';
 import { AuthService } from '../auth/auth.service';
+import { PseudoComponent} from '../pseudo/pseudo.component';
 
 
 @Component({
@@ -20,7 +21,6 @@ export class ChatComponent{
   constructor(public afAuth: AngularFireAuth, public af: AngularFireDatabase) {    
     this.items = af.list('/messages', {
       query: {
-        //limitToFirst: 20,
         orderByChild : 'reverseDate'
       }
     });
@@ -30,8 +30,6 @@ export class ChatComponent{
   Send(desc: string) {
     const date = Date.now();
     let reverseDate = 0 - date;
-
-    console.log()
     this.items.push({ reverseDate, message: desc });
     this.msgVal = '';
   }
