@@ -32,7 +32,7 @@ export class GameComponent implements OnInit {
   public joueur1: string;
   public joueur2: string;
 
-  constructor(public af: AngularFireDatabase) {
+    constructor(public af: AngularFireDatabase) {
     this.SFX_pion = new Audio();
     this.SFX_draw = new Audio();
     this.SFX_WIN = new Audio();
@@ -233,10 +233,3 @@ export class GameComponent implements OnInit {
   }
 
 }
-
-
-
-
-
-
-

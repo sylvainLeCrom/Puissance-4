@@ -9,42 +9,66 @@ import * as firebase from 'firebase/app';
   templateUrl: './pseudo.component.html',
   styleUrls: ['./pseudo.component.css']
 })
-export class PseudoComponent{
+export class PseudoComponent implements OnInit {
 
+  maxJoueur: number;
+  nbJoueur: number;
   pseudo: string;
-  IDgame: number;
+  IDroom: FirebaseObjectObservable<any>;
+  nbRoom: number;
   gamers: FirebaseObjectObservable<any[]>;
   gamer: any;
   public joueur1: string;
   public joueur2: string;
   public couleur: string;
 
-  constructor(public af: AngularFireDatabase) { 
+  constructor(public af: AngularFireDatabase) {
 
-  this.pseudo='';
-  this.joueur1 = "rouge";
-  this.joueur2 = "jaune";
-  let random = Math.floor(Math.random() * 2) + 1;  
-  this.gamers = af.object('room/gamers/joueur'+random);  
-  
-    
-  }
+    this.maxJoueur = 2;
+    this.nbJoueur = 0;
+    this.IDroom = af.object('numberOpenRoom', { preserveSnapshot: true });
+    this.pseudo = '';
+    this.joueur1 = "rouge";
+    this.joueur2 = "jaune";
+
+
+  };
+  ngOnInit() {
+    this.IDroom.subscribe(snapshot => {
+      console.log(snapshot.val());
+      this.nbRoom = snapshot.val();
+      console.log(this.nbRoom);
+    })
+  };
 
   envoi(input) {
+    console.log(this.nbRoom);
+    
+    if (this.nbRoom == 0) {
+      this.nbRoom = 1;
+    } else if(this.nbRoom != 0){
+      this.nbRoom++;
+    }else{
+      console.log("il y a " + this.nbRoom + " rooms ouvertes")
+    }
+
+    let random = Math.floor(Math.random() * 2) + 1;
+
+    this.gamers = this.af.object('room' + this.nbRoom + '/gamers/joueur' + random);
 
     this.pseudo = input;
-    let ID = Math.floor(Math.random() * 100) + 1;    
-    let random = Math.floor(Math.random() * 2) + 1;
-    if (random==1){
+    let ID = Math.floor(Math.random() * 100) + 1;
+    random = Math.floor(Math.random() * 2) + 1;
+    if (random == 1) {
       this.couleur = this.joueur1;
-    } else{
+    } else {
       this.couleur = this.joueur2;
     }
-    
-  
-    this.gamer = [this.pseudo + ID,this.pseudo, this.couleur, ID];
+
+    this.gamer = [this.pseudo + ID, this.pseudo, this.couleur, ID];
     console.log(this.gamer);
     this.gamers.set({ ID: this.gamer });
+    
   }
 
 }
