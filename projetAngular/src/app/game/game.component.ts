@@ -66,7 +66,7 @@ export class GameComponent implements OnInit {
   }
   ngOnInit() {
     //this.plateauDeJeu.remove();
-    this.plateauenligne.set({ plateauDeJeu: this.grille });
+    this.plateauenligne.update({ plateauDeJeu: this.grille });
 
   }
   clickedColumn(id: number): void {
