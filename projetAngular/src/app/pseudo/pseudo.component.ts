@@ -13,8 +13,9 @@ export class PseudoComponent implements OnInit {
 
   maxJoueur: number;
   nbJoueur: number;
+  numeroRoom: number;
   pseudo: string;
-  IDroom: FirebaseObjectObservable<any>;
+  TotalRoom: FirebaseObjectObservable<any>;
   nbRoom: number;
   gamers: FirebaseObjectObservable<any[]>;
   gamer: any;
@@ -26,7 +27,7 @@ export class PseudoComponent implements OnInit {
 
     this.maxJoueur = 2;
     this.nbJoueur = 0;
-    this.IDroom = af.object('numberOpenRoom', { preserveSnapshot: true });
+    this.TotalRoom = af.object('numberOpenRoom', { preserveSnapshot: true });
     this.pseudo = '';
     this.joueur1 = "rouge";
     this.joueur2 = "jaune";
@@ -34,41 +35,65 @@ export class PseudoComponent implements OnInit {
 
   };
   ngOnInit() {
-    this.IDroom.subscribe(snapshot => {
-      console.log(snapshot.val());
+    this.nbJoueur = 0;
+    this.TotalRoom.subscribe(snapshot => {
       this.nbRoom = snapshot.val();
-      console.log(this.nbRoom);
     })
   };
 
   envoi(input) {
-    console.log(this.nbRoom);
-    
+
     if (this.nbRoom == 0) {
+
+      //on crée la room 1
       this.nbRoom = 1;
-    } else if(this.nbRoom != 0){
-      this.nbRoom++;
-    }else{
-      console.log("il y a " + this.nbRoom + " rooms ouvertes")
-    }
+      this.numeroRoom = 1;
+      this.af.object("/").set({ numberOpenRoom: this.nbRoom });
 
-    let random = Math.floor(Math.random() * 2) + 1;
+      let random = Math.floor(Math.random() * 2) + 1;
+      if (random == 1) {
+        this.couleur = this.joueur1;
+      } else {
+        this.couleur = this.joueur2;
+      }
+      this.gamers = this.af.object('room' + this.numeroRoom + '/gamers/joueur' + random);
+      //this.af.object("room" + this.numeroRoom).set({ numeroRoom: this.numeroRoom });
 
-    this.gamers = this.af.object('room' + this.nbRoom + '/gamers/joueur' + random);
+      //on change le nb de joueur dans la room
+      this.nbJoueur++;
+      this.af.object("room" + this.numeroRoom).set({ nbJoueur: this.nbJoueur, numeroRoom: this.numeroRoom });
 
-    this.pseudo = input;
-    let ID = Math.floor(Math.random() * 100) + 1;
-    random = Math.floor(Math.random() * 2) + 1;
-    if (random == 1) {
-      this.couleur = this.joueur1;
+      this.pseudo = input;
+      let ID = Math.floor(Math.random() * 100) + 1;
+
+
+      this.gamer = [this.pseudo + ID, this.pseudo, this.couleur, ID];
+      this.gamers.set({ ID: this.gamer });
+
     } else {
-      this.couleur = this.joueur2;
+      let index = 1;
+      while (index <= this.nbRoom) {
+        this.af.object("room" + index).subscribe(data => {
+          console.log(index);
+          console.log(data);
+          if (data) {
+            console.log("la room " + index + " existe");
+
+          } else {
+            console.log("la room n° " + index + " n'existe pas");
+          }
+        })
+
+
+        //        this.af.object("room" + this.numeroRoom).update({ nbJoueur: 2 });
+
+        index++;
+      }
+
     }
 
-    this.gamer = [this.pseudo + ID, this.pseudo, this.couleur, ID];
-    console.log(this.gamer);
-    this.gamers.set({ ID: this.gamer });
-    
+
+
   }
 
 }
