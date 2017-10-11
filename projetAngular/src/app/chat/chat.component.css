@@ -7,10 +7,11 @@ input#message {
     text-align: left;
     background: #fff;
     padding: 1.2em .7em;
-    width: 100%;    
+    width: 100%;
     color: #696969;
 }
-#chat-container{
+
+#chat-container {
     box-sizing: content-box;
     border: none;
     overflow: scroll;
@@ -20,8 +21,17 @@ input#message {
 }
 
 img {
-    max-width: 3vh;
-    max-height: 3vh;
-
+    width: 30px;
+    height: 30px;
     margin-right: 15px;
+}
+
+.jaune {
+    background-image: url(../../../src/assets/images/pionJaune.png);
+    background-size: cover;
+}
+
+.rouge {
+    background-image: url(../../../src/assets/images/pionRouge.png);
+    background-size: cover;
 }

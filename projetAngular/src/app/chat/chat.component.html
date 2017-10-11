@@ -1,8 +1,10 @@
 <!--  *ngIf="(user | async)?.uid"  -->
 
 <div>
-    <input type="text" id="message" placeholder="message chat" (keyup.enter)="Send($event.target.value)" [(ngModel)]="msgVal" />
+    <input type="text" id="message" placeholder="message chat" (keyup.enter)="Send($event.target.value)" [(ngModel)]="msgVal"
+    />
     <div id="chat-container">
-        <p *ngFor="let item of items | async"><img src="{{(user | async)?.photoURL}}" style="width:30px;height:30px;">{{item.message}}</p>
+        <p *ngFor="let item of items | async">
+            <img class="{{item.joueur}}">{{item.message}}</p>
     </div>
 </div>
