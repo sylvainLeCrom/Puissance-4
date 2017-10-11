@@ -3,6 +3,7 @@ import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable }
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
+import { AuthService } from '../auth/auth.service';
 
 
 @Component({
@@ -30,8 +31,10 @@ export class GameComponent implements OnInit {
   public anticlick: string;
   public joueur1: string;
   public joueur2: string;
+  public userUID: any;
+  public indexRoom: number;
 
-    constructor(public af: AngularFireDatabase) {
+    constructor(public af: AngularFireDatabase, private authService: AuthService) {
     this.SFX_pion = new Audio();
     this.SFX_draw = new Audio();
     this.SFX_WIN = new Audio();
@@ -64,6 +67,21 @@ export class GameComponent implements OnInit {
 
   }
   ngOnInit() {
+    this.authService.authState.subscribe((userAuth) => {
+      this.userUID = userAuth.uid;
+    });
+    this.af.object("users/"+this.userUID).subscribe((user)=>{
+      console.log(this.userUID);
+      console.log(user);
+      console.log(user.IDduJoueur);
+      console.log(user.couleur);
+      console.log(user.index);
+      console.log(user.indexRoom);
+      console.log(user.pseudo);
+    }
+    );
+
+
     //this.plateauDeJeu.remove();
     this.plateauenligne.update({ plateauDeJeu: this.grille });
 
