@@ -76,13 +76,14 @@ export class PseudoComponent implements OnInit {
       this.gamer = { IDduJoueur: this.pseudo + ID, pseudo: this.pseudo, couleur: this.couleur, index: ID };
       this.gamers.set(this.gamer);
 
-      this.af.object("users/" + this.userUID).set({ indexRoom: 0, IDduJoueur: this.pseudo + ID, pseudo: this.pseudo, couleur: this.couleur, index: ID });
+      this.af.object("users/" + this.userUID).update({ indexRoom: 0, IDduJoueur: this.pseudo + ID, pseudo: this.pseudo, couleur: this.couleur, index: ID });
     } else {
       let index = 0
-      while (index <= this.nbRoom) {
+      while (index < this.nbRoom) {
         if (this.roomsArray[index].nbJoueur == 1) {
           this.nbJoueur = 2;
           this.af.object("rooms/" + index).update({ nbJoueur: this.nbJoueur });
+
           //on récupère les infos du deuxième joueur dans cette room    
           this.pseudo = input;
           let ID = Math.floor(Math.random() * 100) + 1;
@@ -98,44 +99,47 @@ export class PseudoComponent implements OnInit {
           this.gamers = this.af.object("rooms/" + index + "/gamers/joueur" + lastplace);
           this.gamer = { IDduJoueur: this.pseudo + ID, pseudo: this.pseudo, couleur: this.couleur, index: ID };
           this.gamers.set(this.gamer);
-          console.log("cette room est pleine");
-          this.af.object("users/" + this.userUID).set({ indexRoom: 0, IDduJoueur: this.pseudo + ID, pseudo: this.pseudo, couleur: this.couleur, index: ID });
+          this.af.object("users/" + this.userUID).update({ indexRoom: 0, IDduJoueur: this.pseudo + ID, pseudo: this.pseudo, couleur: this.couleur, index: ID });
           return;
         } else {
-          /*
-          this.nbRoom++;
-          this.numeroRoom = new Date().valueOf();
-          this.roomsArray.push("room" + this.numeroRoom);
-          this.af.object("/").update({ numberOpenRoom: this.nbRoom });
-          index++;
-          //on tire au sort le numéro et la couleur du premier Gamer dans la room
-          let random = Math.floor(Math.random() * 2) + 1;
-          if (random == 1) {
-            this.couleur = this.joueur1;
-          } else {
-            this.couleur = this.joueur2;
-          }
-          //on change le nb de joueur dans la room
-          this.nbJoueur = 1;
-          this.af.object("rooms/" + index).set([this.numeroRoom, this.nbJoueur, random]);
-          //on récupère les infos du joueur      
-          this.pseudo = input;
-          let ID = Math.floor(Math.random() * 100) + 1;
-          this.gamers = this.af.object('rooms/0/' + index + '/gamers/joueur' + random);
-          this.gamer = [this.pseudo + ID, this.pseudo, this.couleur, ID];
-          this.gamers.set([this.gamer]);
-          console.log(index);
-          index++;
-          console.log(index);
-          */
-
+          console.log("cette room est pleine"+ index);
+          
         }
 
+        index++;
       }
 
-      return;
-    }
-    return;
-  }
+      console.log(index);
 
+      this.nbRoom++;
+      this.numeroRoom = new Date().valueOf();
+      this.roomsArray.push("room" + this.numeroRoom);
+      this.af.object("/").update({ numberOpenRoom: this.nbRoom });
+
+      //on tire au sort le numéro et la couleur du premier Gamer dans la room
+      let random = Math.floor(Math.random() * 2) + 1;
+      if (random == 1) {
+        this.couleur = this.joueur1;
+      } else {
+        this.couleur = this.joueur2;
+      }
+      //on change le nb de joueur dans la room
+      this.nbJoueur = 1;
+      this.af.object("rooms/" + index).set({ room: this.numeroRoom, nbJoueur: this.nbJoueur, placement: random });
+      //on récupère les infos du joueur      
+      this.pseudo = input;
+      let ID = Math.floor(Math.random() * 100) + 1;
+      this.gamers = this.af.object('rooms/' + index + '/gamers/joueur' + random);
+      this.gamer = { IDduJoueur: this.pseudo + ID, pseudo: this.pseudo, couleur: this.couleur, index: ID };
+      this.gamers.set(this.gamer);
+
+      this.af.object("users/" + this.userUID).update({ indexRoom: 0, IDduJoueur: this.pseudo + ID, pseudo: this.pseudo, couleur: this.couleur, index: ID });
+
+      return;
+
+      //
+    }
+  }
 }
+
+
