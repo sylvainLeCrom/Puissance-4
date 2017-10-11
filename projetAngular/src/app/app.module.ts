@@ -6,7 +6,6 @@ import { HttpModule } from '@angular/http';
 import { ChatComponent } from './chat/chat.component';
 import { AuthComponent } from './auth/auth.component';
 
-
 import { appRoutes } from './app-routing';
 import { AngularFireModule } from 'angularfire2';
 // New imports to update based on AngularFire2 version 4
