@@ -14,6 +14,7 @@ import { AuthService } from '../auth/auth.service';
 export class GameComponent implements OnInit {
   plateauenligne: FirebaseObjectObservable<any[]>;
   plateauDeJeu: FirebaseObjectObservable<any[]>;
+  auTourDe: any;
   cases0: FirebaseListObservable<any[]>;
   cases1: FirebaseListObservable<any[]>;
   cases2: FirebaseListObservable<any[]>;
@@ -26,27 +27,23 @@ export class GameComponent implements OnInit {
   public SFX_WIN;
   public coupsJoués: number;
   public grille: string[][];
-  public joueurEnCours: string;
+  public joueurEnCours: any;
   public classGhost: string;
   public anticlick: string;
   public joueur1: string;
   public joueur2: string;
   public userUID: any;
   public indexRoom: number;
+  public IDJoueur: string;
+  public couleurJoueur: string;
+  public indexJoueur: number;
+  public pseudo: string;
 
-    constructor(public af: AngularFireDatabase, private authService: AuthService) {
+  constructor(public af: AngularFireDatabase, private authService: AuthService) {
     this.SFX_pion = new Audio();
     this.SFX_draw = new Audio();
     this.SFX_WIN = new Audio();
-    this.plateauenligne = af.object('/room');
-    this.plateauDeJeu = af.object('/room/plateauDeJeu');
-    this.cases0 = af.list('room/plateauDeJeu/0');
-    this.cases1 = af.list('room/plateauDeJeu/1');
-    this.cases2 = af.list('room/plateauDeJeu/2');
-    this.cases3 = af.list('room/plateauDeJeu/3');
-    this.cases4 = af.list('room/plateauDeJeu/4');
-    this.cases5 = af.list('room/plateauDeJeu/5');
-    this.cases6 = af.list('room/plateauDeJeu/6');
+
 
 
     this.coupsJoués = 0;
@@ -68,24 +65,48 @@ export class GameComponent implements OnInit {
   }
   ngOnInit() {
     this.authService.authState.subscribe((userAuth) => {
-      this.userUID = userAuth.uid;
+      this.userUID = userAuth.uid.toString();
+      const userPath = "users/" + this.userUID;
+      this.af.object(userPath).subscribe((user) => {
+        this.IDJoueur = user.IDduJoueur;
+        this.couleurJoueur = user.couleur;
+        this.indexJoueur = user.index;
+        this.indexRoom = user.indexRoom;
+        this.pseudo = user.pseudo;
+        while (this.indexRoom == undefined) {
+        }
+        this.plateauenligne = this.af.object('/rooms/' + this.indexRoom);
+        this.plateauDeJeu = this.af.object('/rooms/' + this.indexRoom + '/plateauDeJeu');
+        this.auTourDe = this.af.object('/rooms/' + this.indexRoom + '/auTourDe');
+        this.cases0 = this.af.list('room/' + this.indexRoom + '/plateauDeJeu/0');
+        this.cases1 = this.af.list('room/' + this.indexRoom + '/plateauDeJeu/1');
+        this.cases2 = this.af.list('room/' + this.indexRoom + '/plateauDeJeu/2');
+        this.cases3 = this.af.list('room/' + this.indexRoom + '/plateauDeJeu/3');
+        this.cases4 = this.af.list('room/' + this.indexRoom + '/plateauDeJeu/4');
+        this.cases5 = this.af.list('room/' + this.indexRoom + '/plateauDeJeu/5');
+        this.cases6 = this.af.list('room/' + this.indexRoom + '/plateauDeJeu/6');
+        this.plateauDeJeu.remove();
+        this.auTourDe.subscribe((data) => {
+          this.joueurEnCours = data.$value;
+        });
+        this.plateauDeJeu.subscribe((grid) => {
+          
+                    let i = 0;
+                    while (i < grid.length) {
+                      this.grille[i] = grid[i];
+                      i++;
+                    }
+                  });
+        this.plateauenligne.update({ plateauDeJeu: this.grille, auTourDe: this.joueurEnCours });
+        this.plateauenligne.update({ auTourDe: this.joueurEnCours });
+
+
+      }
+      );
     });
-    this.af.object("users/"+this.userUID).subscribe((user)=>{
-      console.log(this.userUID);
-      console.log(user);
-      console.log(user.IDduJoueur);
-      console.log(user.couleur);
-      console.log(user.index);
-      console.log(user.indexRoom);
-      console.log(user.pseudo);
-    }
-    );
-
-
-    //this.plateauDeJeu.remove();
-    this.plateauenligne.update({ plateauDeJeu: this.grille });
-
   }
+
+
   clickedColumn(id: number): void {
     let x = id;
     let y = 6;
@@ -100,8 +121,6 @@ export class GameComponent implements OnInit {
             this.grille[i] = grid[i];
             i++;
           }
-
-          console.log(this.grille);
         });
         // on comptabilise le nombre de coups joués
         this.coupsJoués++;
@@ -228,10 +247,19 @@ export class GameComponent implements OnInit {
         //on change de joueur
         if (this.joueurEnCours == this.joueur1) {
           this.joueurEnCours = this.joueur2;
+          this.plateauenligne.update({ auTourDe: this.joueurEnCours });
+          this.auTourDe.subscribe((data) => {
+            this.joueurEnCours = data.$value;
+          });
           this.classGhost = "ghost" + this.joueurEnCours;
+
 
         } else {
           this.joueurEnCours = this.joueur1;
+          this.plateauenligne.update({ auTourDe: this.joueurEnCours });
+          this.auTourDe.subscribe((data) => {
+            this.joueurEnCours = data.$value;
+          });
           this.classGhost = "ghost" + this.joueurEnCours;
         }
 
