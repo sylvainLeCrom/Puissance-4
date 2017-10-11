@@ -76,7 +76,7 @@ export class PseudoComponent implements OnInit {
       this.gamer = { IDduJoueur: this.pseudo + ID, pseudo: this.pseudo, couleur: this.couleur, index: ID };
       this.gamers.set(this.gamer);
 
-      this.af.object("users/" + this.userUID).update({ indexRoom: 0, IDduJoueur: this.pseudo + ID, pseudo: this.pseudo, couleur: this.couleur, index: ID });
+      this.af.object("users/" + this.userUID).set({ indexRoom: 0, IDduJoueur: this.pseudo + ID, pseudo: this.pseudo, couleur: this.couleur, index: ID });
     } else {
       let index = 0
       while (index <= this.nbRoom) {
@@ -99,7 +99,7 @@ export class PseudoComponent implements OnInit {
           this.gamer = { IDduJoueur: this.pseudo + ID, pseudo: this.pseudo, couleur: this.couleur, index: ID };
           this.gamers.set(this.gamer);
           console.log("cette room est pleine");
-
+          this.af.object("users/" + this.userUID).set({ indexRoom: 0, IDduJoueur: this.pseudo + ID, pseudo: this.pseudo, couleur: this.couleur, index: ID });
           return;
         } else {
           /*
