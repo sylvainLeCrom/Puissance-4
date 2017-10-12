@@ -4,7 +4,7 @@
 <div class="container-fluid game">
     <div class="grille">
         <ul id={{x}} *ngFor="let i of grille; let x = index" (click)="clickedColumn(x)">
-                            <li class="ghost{{couleurJoueur}}"></li>                
+            <li class="ghost{{couleurJoueur}}"></li>
             <li class="{{j}}" *ngFor="let j of i">
             </li>
         </ul>
@@ -16,9 +16,13 @@
         </ul>
     </div>
 
-    <div [ngClass]=(anticlick)>
+    <div class="winner">
+        <ul id={{x}} *ngFor="let i of winnerAlign; let x = index" (click)="clickedColumn(x)">
+            <li class="ghost{{couleurJoueur}}"></li>
+            <li class="{{j}}" *ngFor="let j of i"></li>
+        </ul>
     </div>
     <div class="anticlick" *ngIf="couleurJoueur != joueurEnCours">
-        </div>
+    </div>
 
 </div>

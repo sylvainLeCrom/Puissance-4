@@ -14,6 +14,7 @@ import { AuthService } from '../auth/auth.service';
 export class GameComponent implements OnInit {
   plateauenligne: FirebaseObjectObservable<any[]>;
   plateauDeJeu: FirebaseObjectObservable<any[]>;
+  winnerAlignGrille: FirebaseObjectObservable<any[]>;
   auTourDe: any;
   cases0: FirebaseListObservable<any[]>;
   cases1: FirebaseListObservable<any[]>;
@@ -22,14 +23,24 @@ export class GameComponent implements OnInit {
   cases4: FirebaseListObservable<any[]>;
   cases5: FirebaseListObservable<any[]>;
   cases6: FirebaseListObservable<any[]>;
+  wincases0: FirebaseListObservable<any[]>;
+  wincases1: FirebaseListObservable<any[]>;
+  wincases2: FirebaseListObservable<any[]>;
+  wincases3: FirebaseListObservable<any[]>;
+  wincases4: FirebaseListObservable<any[]>;
+  wincases5: FirebaseListObservable<any[]>;
+  wincases6: FirebaseListObservable<any[]>;
   public SFX_pion;
   public SFX_draw;
   public SFX_WIN;
   public coupsJoués: number;
   public grille: string[][];
+  public winnerAlign: string[][];
+  public grilleVide: string[][];  
   public joueurEnCours: any;
+  public winPoint : string;
   public classGhost: string;
-  public anticlick: string;
+  public anticlick: boolean;
   public joueur1: string;
   public joueur2: string;
   public userUID: any;
@@ -50,9 +61,28 @@ export class GameComponent implements OnInit {
     this.joueur1 = "rouge";
     this.joueur2 = "jaune";
     this.joueurEnCours = this.joueur1;
+    this.winPoint = "winPoint";
     this.classGhost = "ghost" + this.joueurEnCours;
-    this.anticlick = "";
+    this.anticlick = false;
     this.grille = [
+      ["vide", "vide", "vide", "vide", "vide", "vide"],
+      ["vide", "vide", "vide", "vide", "vide", "vide"],
+      ["vide", "vide", "vide", "vide", "vide", "vide"],
+      ["vide", "vide", "vide", "vide", "vide", "vide"],
+      ["vide", "vide", "vide", "vide", "vide", "vide"],
+      ["vide", "vide", "vide", "vide", "vide", "vide"],
+      ["vide", "vide", "vide", "vide", "vide", "vide"]
+    ];
+    this.winnerAlign = [
+      ["vide", "vide", "vide", "vide", "vide", "vide"],
+      ["vide", "vide", "vide", "vide", "vide", "vide"],
+      ["vide", "vide", "vide", "vide", "vide", "vide"],
+      ["vide", "vide", "vide", "vide", "vide", "vide"],
+      ["vide", "vide", "vide", "vide", "vide", "vide"],
+      ["vide", "vide", "vide", "vide", "vide", "vide"],
+      ["vide", "vide", "vide", "vide", "vide", "vide"]
+    ];
+    this.grilleVide = [
       ["vide", "vide", "vide", "vide", "vide", "vide"],
       ["vide", "vide", "vide", "vide", "vide", "vide"],
       ["vide", "vide", "vide", "vide", "vide", "vide"],
@@ -100,7 +130,24 @@ export class GameComponent implements OnInit {
         this.plateauenligne.update({ plateauDeJeu: this.grille, auTourDe: this.joueurEnCours });
         this.plateauenligne.update({ auTourDe: this.joueurEnCours });
 
-
+        this.winnerAlignGrille = this.af.object('/rooms/' + this.indexRoom + '/winnerAlignGrille');
+        this.wincases0 = this.af.list('room/' + this.indexRoom + '/winnerAlignGrille/0');
+        this.wincases1 = this.af.list('room/' + this.indexRoom + '/winnerAlignGrille/1');
+        this.wincases2 = this.af.list('room/' + this.indexRoom + '/winnerAlignGrille/2');
+        this.wincases3 = this.af.list('room/' + this.indexRoom + '/winnerAlignGrille/3');
+        this.wincases4 = this.af.list('room/' + this.indexRoom + '/winnerAlignGrille/4');
+        this.wincases5 = this.af.list('room/' + this.indexRoom + '/winnerAlignGrille/5');
+        this.wincases6 = this.af.list('room/' + this.indexRoom + '/winnerAlignGrille/6');
+        this.winnerAlignGrille.remove();
+        this.winnerAlignGrille.subscribe((grid) => {
+          
+                    let i = 0;
+                    while (i < grid.length) {
+                      this.winnerAlign[i] = grid[i];
+                      i++;
+                    }
+                  });
+        this.plateauenligne.update({ plateauDeJeu: this.grille, auTourDe: this.joueurEnCours, winnerAlignGrille: this.winnerAlign });
       }
       );
     });
@@ -108,6 +155,7 @@ export class GameComponent implements OnInit {
 
 
   clickedColumn(id: number): void {
+    this.winnerAlign = this.grilleVide; 
     let x = id;
     let y = 6;
     while (y >= 0) {
@@ -126,13 +174,12 @@ export class GameComponent implements OnInit {
         this.coupsJoués++;
         if (this.coupsJoués == 42) {
 
-          this.anticlick = "anticlick";
+          this.anticlick = true;
           this.SFX_pion.src = "../../../assets/sounds/SFXdraw.mp3";
           this.SFX_pion.load();
           this.SFX_pion.play();
           // alert("Draw");
         }
-
         //on test si victoire verticale
         let xTest = x;
         let yTest = y;
@@ -140,8 +187,17 @@ export class GameComponent implements OnInit {
         while (yTest <= (y + 3) && yTest <= 5) {
           if (this.grille[xTest][yTest] == this.joueurEnCours) {
             align = align + 1;
+            this.winnerAlign[xTest][yTest] = this.winPoint;
             if (align == 4) {
-              this.anticlick = "anticlick";
+              this.plateauenligne.update({ winnerAlignGrille: this.winnerAlign });
+              this.winnerAlignGrille.subscribe((grid) => {
+                let i = 0;
+                while (i < grid.length) {
+                  this.winnerAlign[i] = grid[i];
+                  i++;
+                }
+              });
+              this.anticlick = true;
               this.SFX_WIN.src = "../../../assets/sounds/SFX_WIN.mp3";
               this.SFX_WIN.load();
               this.SFX_WIN.play();
@@ -150,6 +206,17 @@ export class GameComponent implements OnInit {
             };
           } else {
             align = 0;
+            this.winnerAlign = this.grilleVide;
+            this.plateauenligne.update({ winnerAlignGrille: this.winnerAlign });
+            this.winnerAlignGrille.subscribe((grid) => {
+    
+              let i = 0;
+              while (i < grid.length) {
+                this.winnerAlign[i] = grid[i];
+                i++;
+              }
+            });
+            
           };
           yTest++;
         }
@@ -168,7 +235,7 @@ export class GameComponent implements OnInit {
           if (this.grille[xTest][yTest] == this.joueurEnCours) {
             align = align + 1;
             if (align == 4) {
-              this.anticlick = "anticlick";
+              this.anticlick = true;
               this.SFX_WIN.src = "../../../assets/sounds/SFX_WIN.mp3";
               this.SFX_WIN.load();
               this.SFX_WIN.play();
@@ -197,7 +264,7 @@ export class GameComponent implements OnInit {
           if (this.grille[xTest][yTest] == this.joueurEnCours) {
             align = align + 1;
             if (align == 4) {
-              this.anticlick = "anticlick";
+              this.anticlick = true;
               this.SFX_WIN.src = "../../../assets/sounds/SFX_WIN.mp3";
               this.SFX_WIN.load();
               this.SFX_WIN.play();
@@ -230,7 +297,7 @@ export class GameComponent implements OnInit {
 
 
             if (align == 4) {
-              this.anticlick = "anticlick";
+              this.anticlick = true;
               this.SFX_WIN.src = "../../../assets/sounds/SFX_WIN.mp3";
               this.SFX_WIN.load();
               this.SFX_WIN.play();

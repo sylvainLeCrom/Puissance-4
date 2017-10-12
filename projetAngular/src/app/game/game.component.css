@@ -30,6 +30,10 @@ li {
     background-image: url(../../../src/assets/images/pionRouge.png);
     background-size: cover;
 }
+.winPoint {
+    background-image: url(../../../src/assets/images/winPoint.png);
+    background-size: cover;
+}
 
 .ghost .ghostjaune .ghostrouge {
     background: none;
@@ -67,6 +71,14 @@ grille {
     background-repeat: repeat; */
 }
 .anticlick{
+    position: absolute;
+    top: 0px;
+   max-width:490px;
+    max-height: 490px;
+    width: 70vw;
+    height: 70vw;
+}
+.winner{
     position: absolute;
     top: 0px;
    max-width:490px;
