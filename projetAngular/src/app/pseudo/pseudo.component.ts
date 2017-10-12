@@ -25,7 +25,8 @@ export class PseudoComponent implements OnInit {
   public joueur2: string;
   public couleur: string;
   public userUID: any;
-  constructor(public af: AngularFireDatabase, private authService: AuthService) {
+
+  constructor(public af: AngularFireDatabase, private authService: AuthService, public afAuth: AngularFireAuth) {
     this.maxJoueur = 2;
     this.nbJoueur = 0;
     this.TotalRoom = af.object('numberOpenRoom', { preserveSnapshot: true });
@@ -49,7 +50,9 @@ export class PseudoComponent implements OnInit {
     });
   };
 
-
+  logout() {
+    this.afAuth.auth.signOut();
+  }
 
 
   envoi(input) {

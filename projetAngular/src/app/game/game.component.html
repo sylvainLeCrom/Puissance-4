@@ -1,7 +1,7 @@
 <div class="container-fluid game">
     <div class="grille">
         <ul id={{x}} *ngFor="let i of grille; let x = index" (click)="clickedColumn(x)">
-                            <li [ngClass]=(classGhost)></li>                
+            <li [ngClass]=(classGhost)></li>
             <li class="{{j}}" *ngFor="let j of i">
             </li>
         </ul>
