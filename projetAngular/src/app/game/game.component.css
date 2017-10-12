@@ -8,8 +8,10 @@ li {
     list-style: none;
     float: left;
     clear: left;
-    width: 70px;
-    height: 70px;
+    max-width: 70px;
+    width: 10vw;
+    height: 10vw;
+    max-height: 70px;
     color: #000000;
     text-align: center;
 }
@@ -49,6 +51,11 @@ grille {
 }
 .game{
     position: relative;
+    text-align: center;
+    width:80vw;
+    height: 80vw;
+    max-width:560px;
+    max-height:560px;
 }
 .Topgrille{
     position: absolute;
@@ -62,6 +69,8 @@ grille {
 .anticlick{
     position: absolute;
     top: 0px;
-   width:490px;
-    height: 490px;
+   max-width:490px;
+    max-height: 490px;
+    width: 70vw;
+    height: 70vw;
 }
