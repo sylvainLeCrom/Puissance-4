@@ -1,6 +1,11 @@
-<p>
-    TAPE TON PSEUDO</p>
+<div class="container">
+    <div col-lg-12>
+        <p>TAPE TON PSEUDO</p>
 
-    <input type="text" id="pseudo" placeholder="pseudo" (keyup.enter)="envoi($event.target.value)" ngModel="" />
-    
+        <input type="text" id="pseudo" placeholder="pseudo" (keyup.enter)="envoi($event.target.value)" ngModel="" />
+    </div>
+</div>
 <a routerLink="/room" routerLinkActive="active">JOUEZ</a>
+<button (click)="logout()">
+        Logout
+      </button>
