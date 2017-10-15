@@ -4,6 +4,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase/app';
 import { AuthService } from '../auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pseudo',
@@ -27,7 +28,7 @@ export class PseudoComponent implements OnInit {
   public userUID: any;
   public theme: string;
 
-  constructor(public af: AngularFireDatabase, private authService: AuthService, public afAuth: AngularFireAuth) {
+  constructor(private router: Router,public af: AngularFireDatabase, private authService: AuthService, public afAuth: AngularFireAuth) {
     this.maxJoueur = 2;
     this.nbJoueur = 0;
     this.pseudo = '';
@@ -56,7 +57,10 @@ export class PseudoComponent implements OnInit {
   logout() {
     this.afAuth.auth.signOut();
   }
-
+  redirectToRoom(input){
+    console.log(input);
+    this.router.navigateByUrl('/room');
+  }
 
   envoi(input) {
 

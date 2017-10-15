@@ -1,0 +1,23 @@
+.center {
+    text-align: center;
+}
+
+.theme div {
+    display: inline-block;
+}
+
+.themeClassic {
+    width: 200px;
+    height: 150px;
+    background-image: url(../../../src/assets/images/themeClassic.png);
+    background-size: cover;
+    border-radius: 30px;
+    border: black;
+    border: 4px;
+}
+.pseudoInput {
+    margin-bottom: 20px;
+}
+.logout{
+    margin-top:20px;
+}

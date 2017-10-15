@@ -1,6 +1,6 @@
 <!--  *ngIf="(user | async)?.uid"  -->
 
-<div>
+<div class="chatbox">
     <input type="text" id="message" placeholder="message chat" (keyup.enter)="Send($event.target.value)" [(ngModel)]="msgVal"
     />
     <div id="chat-container">
