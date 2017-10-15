@@ -1,14 +1,20 @@
-<p>c'est au tour de {{joueurEnCours}}</p>
-<p *ngIf="couleurJoueur == joueurEnCours">C'est à vous de jouer</p>
-<p *ngIf="couleurJoueur != joueurEnCours">Ce n'est pas votre tour</p>
+
 <div class="container-fluid game">
+        <div class="planche">
+            </div>
+        <div class="Fondgrille">
+            </div>
     <div class="grille">
         <ul id={{x}} *ngFor="let i of grille; let x = index" (click)="clickedColumn(x)">
-            <li class="ghost{{couleurJoueur}}"></li>
+            <li class="vide"></li>
             <li class="{{j}}" *ngFor="let j of i">
             </li>
         </ul>
     </div>
+    <div class="Decogrille">
+    </div>
+    <div class="cadre">
+        </div>
     <div class="Topgrille">
         <ul id={{x}} *ngFor="let i of grille; let x = index" (click)="clickedColumn(x)">
             <li class="ghost{{couleurJoueur}}"></li>
@@ -22,6 +28,8 @@
             <li class="{{j}}" *ngFor="let j of i"></li>
         </ul>
     </div>
+    <div class="anticlick" *ngIf="this.anticlick == true">
+        </div>
     <div class="anticlick" *ngIf="couleurJoueur != joueurEnCours">
     </div>
 

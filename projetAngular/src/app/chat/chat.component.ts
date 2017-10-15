@@ -24,15 +24,10 @@ export class ChatComponent implements OnInit {
   public couleurJoueur: string;
   public indexJoueur: number;
   public pseudo: string;
+  public theme : string;
 
   constructor(public afAuth: AngularFireAuth, public af: AngularFireDatabase, private authService: AuthService) {
-    this.items = af.list('/messages', {
-      query: {
-        orderByChild: 'reverseDate'
-      }
-    });
-    this.items.remove();
-    this.user = this.afAuth.authState;
+
   }
   ngOnInit() {
     this.authService.authState.subscribe((userAuth) => {
@@ -44,17 +39,26 @@ export class ChatComponent implements OnInit {
         this.indexJoueur = user.index;
         this.indexRoom = user.indexRoom;
         this.pseudo = user.pseudo;
+        this.theme = user.theme;
         while (this.indexRoom == undefined) {
         }
+        this.items = this.af.list('/'+this.theme+'/rooms/'+this.indexRoom+'/messages', {
+          query: {
+            orderByChild: 'reverseDate'
+          }
+        });
+        this.items.remove();
+        this.user = this.afAuth.authState;
       });
     });
+    
   }
   Send(desc: string) {
     const date = Date.now();
     let reverseDate = 0 - date;
     let joueur = this.couleurJoueur;
     console.log(joueur);
-    this.items.push({ joueur, reverseDate, message: desc });
+    this.af.list('/'+this.theme+'/rooms/'+this.indexRoom+'/messages').push({ joueur, reverseDate, message: desc });
     this.msgVal = '';
   }
 

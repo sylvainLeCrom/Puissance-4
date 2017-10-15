@@ -16,10 +16,11 @@ li {
     text-align: center;
 }
 
-.vide {
+
+/*.vide {
     background-image: url(../../../src/assets/images/caseVide.png);
     background-size: cover;
-}
+}*/
 
 .jaune {
     background-image: url(../../../src/assets/images/pionJaune.png);
@@ -30,6 +31,7 @@ li {
     background-image: url(../../../src/assets/images/pionRouge.png);
     background-size: cover;
 }
+
 .winPoint {
     background-image: url(../../../src/assets/images/winPoint.png);
     background-size: cover;
@@ -37,6 +39,7 @@ li {
 
 .ghost .ghostjaune .ghostrouge {
     background: none;
+    height: px;
 }
 
 ul:hover .ghostrouge {
@@ -49,40 +52,100 @@ ul:hover .ghostjaune {
     background-size: cover;
 }
 
-grille {
+
+/* CSS DU MODULE JEU */
+
+.game {
+    position: relative;
+    text-align: center;
+    width: 80vw;
+    height: 80vw;
+    max-width: 560px;
+    max-height: 560px;
+}
+
+
+/* DECO DE FOND */
+
+.Fondgrille {
+    position: absolute;
+    z-index: 10;
+    top: 100px;
+    width: 490px;
+    height: 420px;
+    background-image: url(../../../src/assets/images/fond.png);
+    background-size: cover;
+}
+
+
+/* GRILLE DE JEU */
+
+.grille {
+    position: absolute;
+    z-index: 20;
+    top: 30px;
     display: table-row-group;
     vertical-align: middle;
 }
-.game{
-    position: relative;
-    text-align: center;
-    width:80vw;
-    height: 80vw;
-    max-width:560px;
-    max-height:560px;
-}
-.Topgrille{
+
+
+/* DECO DE LA GRILLE */
+
+.Decogrille {
     position: absolute;
-    top: 0px;
-   /* width:490px;
-    height: 420px;*/
- /*   background-image: url(../../../src/assets/images/caseVide.png);
-    background-size: 70px;
-    background-repeat: repeat; */
+    z-index: 30;
+    top: 100px;
+    width: 490px;
+    height: 420px;
+    background-image: url(../../../src/assets/images/grille.png);
+    background-size: cover;
 }
-.anticlick{
+
+.cadre {
     position: absolute;
-    top: 0px;
-   max-width:490px;
+    z-index: 25;
+    top: 78px;
+    left: -8px;
+    width: 535px;
+    height: 465px;
+    background-image: url(../../../src/assets/images/cadre.png);
+    background-size: cover;
+}
+
+.Topgrille {
+    position: absolute;
+    z-index: 22;
+    top: 30px;
+}
+
+.anticlick {
+    position: absolute;
+    z-index: 999;
+    top: 30px;
+    max-width: 490px;
     max-height: 490px;
     width: 70vw;
     height: 70vw;
 }
-.winner{
+
+.winner {
     position: absolute;
-    top: 0px;
-   max-width:490px;
+    z-index: 30;
+    top: 10px;
+    max-width: 490px;
     max-height: 490px;
     width: 70vw;
     height: 70vw;
+}
+
+/* DECOR DE FOND */
+.planche{
+    position: absolute;
+    z-index: 10;
+    top: 450px;
+    left: -440px;
+    width: 272%;
+    height: 295px;
+    background-image: url(../../../src/assets/images/planche.png);
+    background-size: cover;
 }

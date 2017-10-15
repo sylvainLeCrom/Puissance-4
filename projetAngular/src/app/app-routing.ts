@@ -23,19 +23,4 @@ export const appRoutes: Routes = [
         path: 'pseudo',
         component: PseudoComponent
     },
-
-
-
-    /*{
-        path: '',
-        redirectTo: '/app',
-        pathMatch: 'full'
-    },
-    {
-        path: '',
-        redirectTo: 'app-game',
-        component: GameComponent,
-            
-    },*/
-
 ];

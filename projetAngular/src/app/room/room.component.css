@@ -4,3 +4,9 @@
 .roomChat{
     text-align: center;
 }
+.roomBG{
+    font-family: sans-serif;
+    height:100vh;
+    background-image: url(../../assets/images/BGwood.jpg);
+    background-size:100%;
+}

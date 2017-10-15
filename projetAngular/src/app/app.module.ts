@@ -13,8 +13,8 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { GameComponent } from './game/game.component';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthService} from './auth/auth.service'
-import {NgPipesModule} from 'ngx-pipes';
+import { AuthService } from './auth/auth.service'
+import { NgPipesModule } from 'ngx-pipes';
 import { RoomComponent } from './room/room.component';
 import { PseudoComponent } from './pseudo/pseudo.component';
 import { LoginComponent } from './login/login.component';

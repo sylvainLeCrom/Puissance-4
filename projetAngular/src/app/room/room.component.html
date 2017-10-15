@@ -1,16 +1,22 @@
-<h3>Puissance 4 2017 OnFire</h3>
-<h6>room n°{{indexRoom}}</h6>
+<div class="roomBG">
+    <h3>Puissance 4 2017 OnFire</h3>
+    <h6>room n°{{indexRoom}}</h6>
 
-<br>
+    <br>
 
-<p>BONJOUR {{pseudo}} vous jouez avec la couleur {{couleurJoueur}}</p>
-<div class="container-fluid">
-    <div class="container">
-        <div class="row col-md-10 roomGame">
-            <app-game></app-game>
-        </div>
-        <div class="row col-md-2 roomChat">
-            <zone-chat></zone-chat>
+    <p>BONJOUR {{pseudo}} vous jouez avec la couleur {{couleurJoueur}}</p>
+    <p>c'est au tour de {{joueurEnCours}}</p>
+    <p *ngIf="couleurJoueur == joueurEnCours">C'est à vous de jouer</p>
+    <p *ngIf="couleurJoueur != joueurEnCours">Ce n'est pas votre tour</p>
+    <div class="container-fluid">
+        <div class="container">
+            <div class="row col-md-10 roomGame">
+                <app-game></app-game>
+            </div>
+            <div class="row col-md-2 roomChat">
+                <zone-chat></zone-chat>
+            </div>
         </div>
     </div>
+
 </div>
