@@ -1,6 +1,7 @@
 input#message {
-    background: #fff;
-    padding: 1.2em .7em;
+    background: rgba(255, 255, 255, 0.644);
+    padding: .4em .7em;
+    width: 100%;
 }
 
 #chat-container p {
@@ -9,6 +10,7 @@ input#message {
     padding: 1.2em .7em;
     width: 100%;
     color: #696969;
+    border-radius: 20px;
 }
 
 #chat-container {
@@ -27,11 +29,11 @@ img {
 }
 
 .jaune {
-    background-image: url(../../../src/assets/images/pionJaune.png);
+    background-image: url(../../../../src/assets/images/pionJaune.png);
     background-size: cover;
 }
 
 .rouge {
-    background-image: url(../../../src/assets/images/pionRouge.png);
+    background-image: url(../../../../src/assets/images/pionRouge.png);
     background-size: cover;
 }

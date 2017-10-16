@@ -3,7 +3,7 @@ import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable }
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../../auth/auth.service';
 
 
 @Component({
@@ -65,7 +65,12 @@ export class GameComponent implements OnInit {
     this.coupsJoués = 0;
     this.joueur1 = "rouge";
     this.joueur2 = "jaune";
-    this.joueurEnCours = this.joueur1;
+    let random = Math.floor(Math.random() * 2) + 1;
+    if (random == 1) {
+      this.joueurEnCours = this.joueur1;
+    } else {
+      this.joueurEnCours = this.joueur2;
+    }
     this.gagnant = "null";
     this.winPoint = "winPoint";
     this.classGhost = "ghost" + this.joueurEnCours;
@@ -134,8 +139,6 @@ export class GameComponent implements OnInit {
         });
         this.Dbgagne.subscribe((data) => {
           this.gagnant = data.$value;
-
-          
           if (this.gagnant == "personne") {
             this.SFX_pion.src = "../../../assets/sounds/SFXdraw.mp3";
             this.SFX_pion.load();
@@ -155,8 +158,7 @@ export class GameComponent implements OnInit {
             this.SFX_pion.load();
             this.SFX_pion.play();
             this.divReset = true;
-            this.anticlick = true;
-            
+            this.anticlick = true;      
           }
         });
 

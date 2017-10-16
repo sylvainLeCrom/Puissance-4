@@ -28,7 +28,7 @@ export class PseudoComponent implements OnInit {
   public userUID: any;
   public theme: string;
 
-  constructor(private router: Router,public af: AngularFireDatabase, private authService: AuthService, public afAuth: AngularFireAuth) {
+  constructor(private router: Router, public af: AngularFireDatabase, private authService: AuthService, public afAuth: AngularFireAuth) {
     this.maxJoueur = 2;
     this.nbJoueur = 0;
     this.pseudo = '';
@@ -43,6 +43,12 @@ export class PseudoComponent implements OnInit {
   ngOnInit() {
     this.authService.authState.subscribe((userAuth) => {
       this.userUID = userAuth.uid;
+      const userPath = "users/" + this.userUID;
+      this.af.object(userPath).subscribe((user) => {
+        this.pseudo = user.pseudo;
+        console.log(this.pseudo);
+      });
+
     });
 
     this.nbJoueur = 0;
@@ -57,12 +63,7 @@ export class PseudoComponent implements OnInit {
   logout() {
     this.afAuth.auth.signOut();
   }
-  redirectToRoom(input){
-    console.log(input);
-   this.router.navigateByUrl('/room');
-  }
-
-  envoi(input) {
+  redirectToRoom(input) {
 
     if (this.nbRoom == 0) {
       //on crée la première room
@@ -86,7 +87,9 @@ export class PseudoComponent implements OnInit {
       this.gamer = { IDduJoueur: this.pseudo + ID, pseudo: this.pseudo, couleur: this.couleur, index: ID };
       this.gamers.set(this.gamer);
 
-      this.af.object("users/" + this.userUID).update({ indexRoom: 0, theme:this.theme, IDduJoueur: this.pseudo + ID, pseudo: this.pseudo, couleur: this.couleur, index: ID });
+      this.af.object("users/" + this.userUID).update({ indexRoom: 0, theme: this.theme, IDduJoueur: this.pseudo + ID, pseudo: this.pseudo, couleur: this.couleur, index: ID });
+      this.router.navigateByUrl('/room');
+
     } else {
       let index = 0
       while (index < this.nbRoom) {
@@ -109,18 +112,15 @@ export class PseudoComponent implements OnInit {
           this.gamers = this.af.object("/" + this.theme + "/rooms/" + index + "/gamers/joueur" + lastplace);
           this.gamer = { IDduJoueur: this.pseudo + ID, pseudo: this.pseudo, couleur: this.couleur, index: ID };
           this.gamers.set(this.gamer);
-          this.af.object("users/" + this.userUID).update({ indexRoom: 0, theme:this.theme, IDduJoueur: this.pseudo + ID, pseudo: this.pseudo, couleur: this.couleur, index: ID });
+          this.af.object("users/" + this.userUID).update({ indexRoom: index, theme: this.theme, IDduJoueur: this.pseudo + ID, pseudo: this.pseudo, couleur: this.couleur, index: ID });
+          this.router.navigateByUrl('/room');
+
           return;
         } else {
           console.log("cette room est pleine" + index);
-
         }
-
         index++;
       }
-
-      console.log(index);
-
       this.nbRoom++;
       this.numeroRoom = new Date().valueOf();
       this.roomsArray.push("room" + this.numeroRoom);
@@ -143,11 +143,9 @@ export class PseudoComponent implements OnInit {
       this.gamer = { IDduJoueur: this.pseudo + ID, pseudo: this.pseudo, couleur: this.couleur, index: ID };
       this.gamers.set(this.gamer);
 
-      this.af.object("users/" + this.userUID).update({ indexRoom: 0, theme:this.theme, IDduJoueur: this.pseudo + ID, pseudo: this.pseudo, couleur: this.couleur, index: ID });
-
+      this.af.object("users/" + this.userUID).update({ indexRoom: index, theme: this.theme, IDduJoueur: this.pseudo + ID, pseudo: this.pseudo, couleur: this.couleur, index: ID });
+      this.router.navigateByUrl('/room');
       return;
-
-      //
     }
   }
 }

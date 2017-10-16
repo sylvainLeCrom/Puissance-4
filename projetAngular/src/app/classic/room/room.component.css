@@ -1,0 +1,16 @@
+.roomGame{
+    text-align: center;
+}
+.roomChat{
+    text-align: center;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 29px;
+    transform: translateY(90px);
+    height: 444px;
+}
+.roomBG{
+    font-family: sans-serif;
+    height:100vh;
+    background-image: url(../../../assets/images/BGwood.jpg);
+    background-size:cover;
+}

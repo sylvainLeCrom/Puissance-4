@@ -3,7 +3,7 @@ import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable }
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-room',

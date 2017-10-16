@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HttpModule } from '@angular/http';
-import { ChatComponent } from './chat/chat.component';
+import { ChatComponent } from './classic/chat/chat.component';
 import { AuthComponent } from './auth/auth.component';
 
 import { appRoutes } from './app-routing';
@@ -11,11 +11,11 @@ import { AngularFireModule } from 'angularfire2';
 // New imports to update based on AngularFire2 version 4
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { GameComponent } from './game/game.component';
+import { GameComponent } from './classic/game/game.component';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthService } from './auth/auth.service'
 import { NgPipesModule } from 'ngx-pipes';
-import { RoomComponent } from './room/room.component';
+import { RoomComponent } from './classic/room/room.component';
 import { PseudoComponent } from './pseudo/pseudo.component';
 import { LoginComponent } from './login/login.component';
 
