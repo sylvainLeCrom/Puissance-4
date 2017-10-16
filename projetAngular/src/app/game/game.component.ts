@@ -65,7 +65,7 @@ export class GameComponent implements OnInit {
     this.joueur1 = "rouge";
     this.joueur2 = "jaune";
     this.joueurEnCours = this.joueur1;
-    this.gagnant = "personne";
+    this.gagnant = "null";
     this.winPoint = "winPoint";
     this.classGhost = "ghost" + this.joueurEnCours;
     this.anticlick = false;
@@ -125,22 +125,36 @@ export class GameComponent implements OnInit {
         this.auTourDe.subscribe((data) => {
           this.joueurEnCours = data.$value;
         });
+        let other;
         this.Dbgagne.subscribe((data) => {
           this.gagnant = data.$value;
+          if (this.joueurEnCours == this.joueur1) {
+             other = this.joueur2;
+          } else {
+             other = this.joueur1;
+          }
+
+
           if (this.gagnant == "personne") {
-            return;
-          } else if (this.gagnant == this.joueurEnCours) {
+            this.SFX_pion.src = "../../../assets/sounds/SFXdraw.mp3";
+            this.SFX_pion.load();
+            this.SFX_pion.play();
+            this.divReset = true;
+          } else if (this.gagnant == this.couleurJoueur) {
             this.SFX_WIN.src = "../../../assets/sounds/SFX_WIN.mp3";
             this.SFX_WIN.load();
             this.SFX_WIN.play();
             this.divReset = true;
-          } else {
+          } else if (this.gagnant == other){
             this.SFX_pion.src = "../../../assets/sounds/SFXdraw.mp3";
             this.SFX_pion.load();
             this.SFX_pion.play();
             this.divReset = true;
           }
         });
+
+
+
         this.plateauDeJeu.subscribe((grid) => {
 
           let i = 0;
@@ -261,6 +275,12 @@ export class GameComponent implements OnInit {
         // on comptabilise le nombre de coups joués
         this.coupsJoués++;
         if (this.coupsJoués == 42) {
+          this.gagnant = "personne";
+          this.plateauenligne.update({ gagnant: this.gagnant });
+          this.Dbgagne.subscribe((data) => {
+            this.gagnant = data.$value;
+          });
+
           this.anticlick = true;
           this.SFX_pion.src = "../../../assets/sounds/SFXdraw.mp3";
           this.SFX_pion.load();
