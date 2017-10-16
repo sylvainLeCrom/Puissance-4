@@ -141,16 +141,22 @@ export class GameComponent implements OnInit {
             this.SFX_pion.load();
             this.SFX_pion.play();
             this.divReset = true;
+            this.anticlick = true;
+            
           } else if (this.gagnant == this.couleurJoueur) {
             this.SFX_WIN.src = "../../../assets/sounds/SFX_WIN.mp3";
             this.SFX_WIN.load();
             this.SFX_WIN.play();
             this.divReset = true;
+            this.anticlick = true;
+            
           } else if (this.gagnant == this.other) {
             this.SFX_pion.src = "../../../assets/sounds/SFXdraw.mp3";
             this.SFX_pion.load();
             this.SFX_pion.play();
             this.divReset = true;
+            this.anticlick = true;
+            
           }
         });
 
@@ -235,7 +241,8 @@ export class GameComponent implements OnInit {
       }
     });
     this.plateauenligne.update({ plateauDeJeu: this.grille, auTourDe: this.joueurEnCours, winnerAlignGrille: this.winnerAlign });
-
+    this.divReset = false;
+    this.anticlick = false;
   }
 
 
@@ -282,12 +289,6 @@ export class GameComponent implements OnInit {
             this.gagnant = data.$value;
           });
 
-          this.anticlick = true;
-          this.SFX_pion.src = "../../../assets/sounds/SFXdraw.mp3";
-          this.SFX_pion.load();
-          this.SFX_pion.play();
-          this.divReset = true;
-          // alert("Draw");
         }
         //on test si victoire verticale
         let xTest = x;
@@ -317,13 +318,6 @@ export class GameComponent implements OnInit {
                 this.gagnant = data.$value;
               });
 
-
-              this.anticlick = true;
-              this.SFX_WIN.src = "../../../assets/sounds/SFX_WIN.mp3";
-              this.SFX_WIN.load();
-              this.SFX_WIN.play();
-              console.log(this.joueurEnCours + " gagne Wouhouuuu");
-              this.divReset = true;
 
               return;
             }
@@ -367,13 +361,6 @@ export class GameComponent implements OnInit {
                   i++;
                 }
               });
-              this.anticlick = true;
-              this.SFX_WIN.src = "../../../assets/sounds/SFX_WIN.mp3";
-              this.SFX_WIN.load();
-              this.SFX_WIN.play();
-              console.log(this.joueurEnCours + " gagne Wouhouuuu");
-              this.divReset = true;
-
               return;
             };
           } else {
@@ -418,13 +405,6 @@ export class GameComponent implements OnInit {
                   i++;
                 }
               });
-              this.anticlick = true;
-              this.SFX_WIN.src = "../../../assets/sounds/SFX_WIN.mp3";
-              this.SFX_WIN.load();
-              this.SFX_WIN.play();
-              console.log(this.joueurEnCours + " gagne Wouhouuuu");
-              this.divReset = true;
-
               return;
             };
           } else {
@@ -471,13 +451,7 @@ export class GameComponent implements OnInit {
                   i++;
                 }
               });
-              this.anticlick = true;
-              this.SFX_WIN.src = "../../../assets/sounds/SFX_WIN.mp3";
-              this.SFX_WIN.load();
-              this.SFX_WIN.play();
-              console.log(this.joueurEnCours + " gagne Wouhouuuu");
-              this.divReset = true;
-
+              
               return;
             };
           } else {
