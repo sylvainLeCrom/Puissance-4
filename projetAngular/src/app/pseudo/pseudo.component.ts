@@ -59,7 +59,7 @@ export class PseudoComponent implements OnInit {
   }
   redirectToRoom(input){
     console.log(input);
-    this.router.navigateByUrl('/room');
+   this.router.navigateByUrl('/room');
   }
 
   envoi(input) {

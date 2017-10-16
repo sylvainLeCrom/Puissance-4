@@ -1,7 +1,7 @@
 <div class="container">
     <div col-lg-12>
         <p>TAPE TON PSEUDO</p>
-        <input #pseudo class="pseudoInput" type="text" placeholder="pseudo" (keyup.enter)="envoi($event.target.value)" ngModel="" />
+        <input #pseudo id="pseudo" class="pseudoInput" type="text" placeholder="pseudo" (keyup.enter)="envoi($event.target.value)" ngModel="" />
     </div>
 </div>
     <div class="theme">
@@ -15,6 +15,5 @@
     </div>
 <div class="container">
         <button class="btn goGame" (click)="redirectToRoom(pseudo.value)">JOUEZ</button>        
-    <a routerLink="/room" routerLinkActive="active">JOUEZ</a>
 </div>
 <button class="logout" (click)="logout()">Logout</button>
