@@ -16,6 +16,7 @@ export class GameComponent implements OnInit {
   plateauDeJeu: FirebaseObjectObservable<any[]>;
   winnerAlignGrille: FirebaseObjectObservable<any[]>;
   auTourDe: any;
+  Dbgagne: any;
   cases0: FirebaseListObservable<any[]>;
   cases1: FirebaseListObservable<any[]>;
   cases2: FirebaseListObservable<any[]>;
@@ -38,6 +39,7 @@ export class GameComponent implements OnInit {
   public winnerAlign: string[][];
   public winnerAlignPre: string[][];
   public joueurEnCours: any;
+  public gagnant: string;
   public winPoint: string;
   public classGhost: string;
   public anticlick: boolean;
@@ -50,16 +52,20 @@ export class GameComponent implements OnInit {
   public couleurJoueur: string;
   public indexJoueur: number;
   public pseudo: string;
+  public divReset: boolean;
 
   constructor(public af: AngularFireDatabase, private authService: AuthService) {
     this.SFX_pion = new Audio();
     this.SFX_draw = new Audio();
     this.SFX_WIN = new Audio();
 
+    this.divReset = false;
+
     this.coupsJoués = 0;
     this.joueur1 = "rouge";
     this.joueur2 = "jaune";
     this.joueurEnCours = this.joueur1;
+    this.gagnant = "personne";
     this.winPoint = "winPoint";
     this.classGhost = "ghost" + this.joueurEnCours;
     this.anticlick = false;
@@ -107,6 +113,7 @@ export class GameComponent implements OnInit {
         this.plateauenligne = this.af.object('/' + this.theme + '/rooms/' + this.indexRoom);
         this.plateauDeJeu = this.af.object('/' + this.theme + '/rooms/' + this.indexRoom + '/plateauDeJeu');
         this.auTourDe = this.af.object('/' + this.theme + '/rooms/' + this.indexRoom + '/auTourDe');
+        this.Dbgagne = this.af.object('/' + this.theme + '/rooms/' + this.indexRoom + '/gagnant');
         this.cases0 = this.af.list('/' + this.theme + '/room/' + this.indexRoom + '/plateauDeJeu/0');
         this.cases1 = this.af.list('/' + this.theme + '/room/' + this.indexRoom + '/plateauDeJeu/1');
         this.cases2 = this.af.list('/' + this.theme + '/room/' + this.indexRoom + '/plateauDeJeu/2');
@@ -117,6 +124,22 @@ export class GameComponent implements OnInit {
         this.plateauDeJeu.remove();
         this.auTourDe.subscribe((data) => {
           this.joueurEnCours = data.$value;
+        });
+        this.Dbgagne.subscribe((data) => {
+          this.gagnant = data.$value;
+          if (this.gagnant == "personne") {
+            return;
+          } else if (this.gagnant == this.joueurEnCours) {
+            this.SFX_WIN.src = "../../../assets/sounds/SFX_WIN.mp3";
+            this.SFX_WIN.load();
+            this.SFX_WIN.play();
+            this.divReset = true;
+          } else {
+            this.SFX_pion.src = "../../../assets/sounds/SFXdraw.mp3";
+            this.SFX_pion.load();
+            this.SFX_pion.play();
+            this.divReset = true;
+          }
         });
         this.plateauDeJeu.subscribe((grid) => {
 
@@ -154,36 +177,50 @@ export class GameComponent implements OnInit {
             i++;
           }
         });
-        this.plateauenligne.update({ plateauDeJeu: this.grille, auTourDe: this.joueurEnCours, winnerAlignGrille: this.winnerAlign });
+        this.plateauenligne.update({ plateauDeJeu: this.grille, auTourDe: this.joueurEnCours, gagnant: this.gagnant, winnerAlignGrille: this.winnerAlign });
       }
       );
     });
   }
   newGame() {
-    console.log("reload page");
-    /*
-     this.winnerAlign = grilleVide;
-     this.winnerAlignGrille.remove();
-     this.winnerAlignGrille.subscribe((grid) => {
- 
-       let i = 0;
-       while (i < grid.length) {
-         this.winnerAlign[i] = grid[i];
-         i++;
-       }
-     });
-     this.grille = grilleVide;    
-     this.plateauDeJeu.remove();
-     this.plateauDeJeu.subscribe((grid) => {
- 
-       let i = 0;
-       while (i < grid.length) {
-         this.grille[i] = grid[i];
-         i++;
-       }
-     });
-     this.plateauenligne.update({ plateauDeJeu: this.grille, auTourDe: this.joueurEnCours, winnerAlignGrille: this.winnerAlign });
-   */
+    this.winnerAlign = [
+      ["vide", "vide", "vide", "vide", "vide", "vide"],
+      ["vide", "vide", "vide", "vide", "vide", "vide"],
+      ["vide", "vide", "vide", "vide", "vide", "vide"],
+      ["vide", "vide", "vide", "vide", "vide", "vide"],
+      ["vide", "vide", "vide", "vide", "vide", "vide"],
+      ["vide", "vide", "vide", "vide", "vide", "vide"],
+      ["vide", "vide", "vide", "vide", "vide", "vide"]
+    ];
+    this.winnerAlignGrille.remove();
+    this.winnerAlignGrille.subscribe((grid) => {
+
+      let i = 0;
+      while (i < grid.length) {
+        this.winnerAlign[i] = grid[i];
+        i++;
+      }
+    });
+    this.grille = [
+      ["vide", "vide", "vide", "vide", "vide", "vide"],
+      ["vide", "vide", "vide", "vide", "vide", "vide"],
+      ["vide", "vide", "vide", "vide", "vide", "vide"],
+      ["vide", "vide", "vide", "vide", "vide", "vide"],
+      ["vide", "vide", "vide", "vide", "vide", "vide"],
+      ["vide", "vide", "vide", "vide", "vide", "vide"],
+      ["vide", "vide", "vide", "vide", "vide", "vide"]
+    ];
+    this.plateauDeJeu.remove();
+    this.plateauDeJeu.subscribe((grid) => {
+
+      let i = 0;
+      while (i < grid.length) {
+        this.grille[i] = grid[i];
+        i++;
+      }
+    });
+    this.plateauenligne.update({ plateauDeJeu: this.grille, auTourDe: this.joueurEnCours, winnerAlignGrille: this.winnerAlign });
+
   }
 
 
@@ -228,6 +265,7 @@ export class GameComponent implements OnInit {
           this.SFX_pion.src = "../../../assets/sounds/SFXdraw.mp3";
           this.SFX_pion.load();
           this.SFX_pion.play();
+          this.divReset = true;
           // alert("Draw");
         }
         //on test si victoire verticale
@@ -250,11 +288,22 @@ export class GameComponent implements OnInit {
                 }
               });
 
+              //on envoie le nom du gagnant
+              this.gagnant = this.joueurEnCours;
+              console.log(this.gagnant);
+              this.plateauenligne.update({ gagnant: this.gagnant });
+              this.Dbgagne.subscribe((data) => {
+                this.gagnant = data.$value;
+              });
+
+
               this.anticlick = true;
               this.SFX_WIN.src = "../../../assets/sounds/SFX_WIN.mp3";
               this.SFX_WIN.load();
               this.SFX_WIN.play();
               console.log(this.joueurEnCours + " gagne Wouhouuuu");
+              this.divReset = true;
+
               return;
             }
           } else {
@@ -302,6 +351,8 @@ export class GameComponent implements OnInit {
               this.SFX_WIN.load();
               this.SFX_WIN.play();
               console.log(this.joueurEnCours + " gagne Wouhouuuu");
+              this.divReset = true;
+
               return;
             };
           } else {
@@ -351,6 +402,8 @@ export class GameComponent implements OnInit {
               this.SFX_WIN.load();
               this.SFX_WIN.play();
               console.log(this.joueurEnCours + " gagne Wouhouuuu");
+              this.divReset = true;
+
               return;
             };
           } else {
@@ -385,7 +438,7 @@ export class GameComponent implements OnInit {
         while (xTest <= (x + 3) && xTest <= 6 && yTest <= (y + 3) && yTest <= 5) {
           if (this.grille[xTest][yTest] == this.joueurEnCours) {
             align = align + 1;
-            this.winnerAlignPre[xTest][yTest] = this.winPoint;            
+            this.winnerAlignPre[xTest][yTest] = this.winPoint;
             if (align == 4) {
               this.winnerAlign = this.winnerAlignPre;
               this.plateauenligne.update({ winnerAlignGrille: this.winnerAlign });
@@ -402,6 +455,8 @@ export class GameComponent implements OnInit {
               this.SFX_WIN.load();
               this.SFX_WIN.play();
               console.log(this.joueurEnCours + " gagne Wouhouuuu");
+              this.divReset = true;
+
               return;
             };
           } else {

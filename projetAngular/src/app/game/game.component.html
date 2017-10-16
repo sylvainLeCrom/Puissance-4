@@ -1,5 +1,7 @@
 
-<button class="btn" (click)="newGame()">REJOUER</button>
+<div *ngIf="this.divReset == true">
+    <button class="btn" (click)="newGame()">REJOUER</button>    
+</div>
 <div class="container-fluid game">
         <div class="planche">
             </div>
