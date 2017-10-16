@@ -189,15 +189,6 @@ export class GameComponent implements OnInit {
 
 
   clickedColumn(id: number): void {
-    const grilleVide = [
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"]
-    ];
 
     this.winnerAlignGrille.subscribe((grid) => {
       let i = 0;
@@ -206,7 +197,15 @@ export class GameComponent implements OnInit {
         i++;
       }
     });
-    this.winnerAlign = grilleVide;
+    this.winnerAlign = [
+      ["vide", "vide", "vide", "vide", "vide", "vide"],
+      ["vide", "vide", "vide", "vide", "vide", "vide"],
+      ["vide", "vide", "vide", "vide", "vide", "vide"],
+      ["vide", "vide", "vide", "vide", "vide", "vide"],
+      ["vide", "vide", "vide", "vide", "vide", "vide"],
+      ["vide", "vide", "vide", "vide", "vide", "vide"],
+      ["vide", "vide", "vide", "vide", "vide", "vide"]
+    ];
     this.winnerAlignGrille.remove();
     this.plateauenligne.update({ winnerAlignGrille: this.winnerAlign });
     let x = id;
@@ -272,8 +271,6 @@ export class GameComponent implements OnInit {
           ["vide", "vide", "vide", "vide", "vide", "vide"],
           ["vide", "vide", "vide", "vide", "vide", "vide"]
         ];
-        console.log("on vient de tester la vertical");
-        console.log(grilleVide);
         //on test si victoire horizontale
         xTest = x;
         yTest = y;
@@ -321,8 +318,6 @@ export class GameComponent implements OnInit {
           ["vide", "vide", "vide", "vide", "vide", "vide"],
           ["vide", "vide", "vide", "vide", "vide", "vide"]
         ];
-        console.log("on vient de tester l'horizontal");
-        console.log(grilleVide);
 
         //on check la diagonale
         xTest = x;
@@ -339,7 +334,18 @@ export class GameComponent implements OnInit {
         while (xTest <= (x + 3) && xTest <= 6 && yTest >= (y - 3) && yTest >= 0) {
           if (this.grille[xTest][yTest] == this.joueurEnCours) {
             align = align + 1;
+            this.winnerAlignPre[xTest][yTest] = this.winPoint;
             if (align == 4) {
+              this.winnerAlign = this.winnerAlignPre;
+              this.plateauenligne.update({ winnerAlignGrille: this.winnerAlign });
+
+              this.winnerAlignGrille.subscribe((grid) => {
+                let i = 0;
+                while (i < grid.length) {
+                  this.winnerAlign[i] = grid[i];
+                  i++;
+                }
+              });
               this.anticlick = true;
               this.SFX_WIN.src = "../../../assets/sounds/SFX_WIN.mp3";
               this.SFX_WIN.load();
@@ -353,6 +359,15 @@ export class GameComponent implements OnInit {
           xTest++;
           yTest--;
         }
+        this.winnerAlignPre = [
+          ["vide", "vide", "vide", "vide", "vide", "vide"],
+          ["vide", "vide", "vide", "vide", "vide", "vide"],
+          ["vide", "vide", "vide", "vide", "vide", "vide"],
+          ["vide", "vide", "vide", "vide", "vide", "vide"],
+          ["vide", "vide", "vide", "vide", "vide", "vide"],
+          ["vide", "vide", "vide", "vide", "vide", "vide"],
+          ["vide", "vide", "vide", "vide", "vide", "vide"]
+        ];
 
         //on check l'anti diagonales
         xTest = x;
@@ -370,7 +385,18 @@ export class GameComponent implements OnInit {
         while (xTest <= (x + 3) && xTest <= 6 && yTest <= (y + 3) && yTest <= 5) {
           if (this.grille[xTest][yTest] == this.joueurEnCours) {
             align = align + 1;
+            this.winnerAlignPre[xTest][yTest] = this.winPoint;            
             if (align == 4) {
+              this.winnerAlign = this.winnerAlignPre;
+              this.plateauenligne.update({ winnerAlignGrille: this.winnerAlign });
+
+              this.winnerAlignGrille.subscribe((grid) => {
+                let i = 0;
+                while (i < grid.length) {
+                  this.winnerAlign[i] = grid[i];
+                  i++;
+                }
+              });
               this.anticlick = true;
               this.SFX_WIN.src = "../../../assets/sounds/SFX_WIN.mp3";
               this.SFX_WIN.load();
@@ -384,6 +410,15 @@ export class GameComponent implements OnInit {
           xTest++;
           yTest++;
         }
+        this.winnerAlignPre = [
+          ["vide", "vide", "vide", "vide", "vide", "vide"],
+          ["vide", "vide", "vide", "vide", "vide", "vide"],
+          ["vide", "vide", "vide", "vide", "vide", "vide"],
+          ["vide", "vide", "vide", "vide", "vide", "vide"],
+          ["vide", "vide", "vide", "vide", "vide", "vide"],
+          ["vide", "vide", "vide", "vide", "vide", "vide"],
+          ["vide", "vide", "vide", "vide", "vide", "vide"]
+        ];
 
         //on change de joueur
         if (this.joueurEnCours == this.joueur1) {
