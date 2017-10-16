@@ -18,6 +18,12 @@
         </div>
         <div class="cadre">
         </div>
+        <div class="Topgrille">
+                <ul id={{x}} *ngFor="let i of grille; let x = index" (click)="clickedColumn(x)">
+                    <li class="ghost{{couleurJoueur}}"></li>
+                    <li class="vide" *ngFor="let j of i"></li>
+                </ul>
+            </div>
         <div class="winner">
             <ul id={{x}} *ngFor="let i of winnerAlign; let x = index" (click)="clickedColumn(x)">
                 <li class="ghost{{couleurJoueur}}"></li>

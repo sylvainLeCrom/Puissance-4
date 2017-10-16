@@ -140,25 +140,25 @@ export class GameComponent implements OnInit {
         this.Dbgagne.subscribe((data) => {
           this.gagnant = data.$value;
           if (this.gagnant == "personne") {
-            this.SFX_pion.src = "../../../assets/sounds/SFXdraw.mp3";
+            this.SFX_pion.src = "../../../../assets/sounds/SFXdraw.mp3";
             this.SFX_pion.load();
             this.SFX_pion.play();
             this.divReset = true;
             this.anticlick = true;
-            
+
           } else if (this.gagnant == this.couleurJoueur) {
-            this.SFX_WIN.src = "../../../assets/sounds/SFX_WIN.mp3";
+            this.SFX_WIN.src = "../../../../assets/sounds/SFX_WIN.mp3";
             this.SFX_WIN.load();
             this.SFX_WIN.play();
             this.divReset = true;
             this.anticlick = true;
-            
+
           } else if (this.gagnant == this.other) {
-            this.SFX_pion.src = "../../../assets/sounds/SFXdraw.mp3";
+            this.SFX_pion.src = "../../../../assets/sounds/SFXdraw.mp3";
             this.SFX_pion.load();
             this.SFX_pion.play();
             this.divReset = true;
-            this.anticlick = true;      
+            this.anticlick = true;
           }
         });
 
@@ -362,7 +362,17 @@ export class GameComponent implements OnInit {
                   this.winnerAlign[i] = grid[i];
                   i++;
                 }
+
               });
+              //on envoie le nom du gagnant
+              this.gagnant = this.joueurEnCours;
+              console.log(this.gagnant);
+              this.plateauenligne.update({ gagnant: this.gagnant });
+              this.Dbgagne.subscribe((data) => {
+                this.gagnant = data.$value;
+              });
+
+
               return;
             };
           } else {
@@ -407,6 +417,15 @@ export class GameComponent implements OnInit {
                   i++;
                 }
               });
+              //on envoie le nom du gagnant
+              this.gagnant = this.joueurEnCours;
+              console.log(this.gagnant);
+              this.plateauenligne.update({ gagnant: this.gagnant });
+              this.Dbgagne.subscribe((data) => {
+                this.gagnant = data.$value;
+              });
+
+
               return;
             };
           } else {
@@ -453,7 +472,16 @@ export class GameComponent implements OnInit {
                   i++;
                 }
               });
-              
+
+              //on envoie le nom du gagnant
+              this.gagnant = this.joueurEnCours;
+              console.log(this.gagnant);
+              this.plateauenligne.update({ gagnant: this.gagnant });
+              this.Dbgagne.subscribe((data) => {
+                this.gagnant = data.$value;
+              });
+
+
               return;
             };
           } else {
@@ -493,7 +521,7 @@ export class GameComponent implements OnInit {
 
         // On charge un bruit aléatoire de pose du pion
         let random = Math.floor(Math.random() * 3) + 1;
-        this.SFX_pion.src = "../../../assets/sounds/SFXposePion" + random + ".mp3";
+        this.SFX_pion.src = "../../../../assets/sounds/SFXposePion" + random + ".mp3";
         this.SFX_pion.load();
         this.SFX_pion.play();
         return;

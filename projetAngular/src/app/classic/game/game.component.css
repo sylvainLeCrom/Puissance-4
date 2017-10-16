@@ -68,6 +68,10 @@
         position: absolute;
         z-index: 32;
         top: 10px;
+        max-width: 490px;
+        max-height: 510px;
+        width: 70vw;
+        height: 70vw;
     }
     
     .anticlick {
@@ -83,7 +87,7 @@
     .winner {
         position: absolute;
         z-index: 30;
-        top: 9px;
+        top: 30px;
         max-width: 490px;
         max-height: 510px;
         width: 70vw;
@@ -132,6 +136,11 @@
             height: 336px;
             transform: translateX(-18px);
         }
+        .Topgrille {
+            top: 0px;
+            width: 350px;
+            height: 370px;
+        }
         .winner {
             top: 0px;
             width: 350px;
@@ -173,6 +182,11 @@
             width: 230px;
             height: 200px;
             transform: translateX(-9px);
+        }
+        .Topgrille {
+            top: 0px;
+            width: 210px;
+            height: 220px;
         }
         .winner {
             top: 0px;
