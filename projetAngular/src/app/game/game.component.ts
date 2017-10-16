@@ -50,6 +50,7 @@ export class GameComponent implements OnInit {
   public theme: string;
   public IDJoueur: string;
   public couleurJoueur: string;
+  public other: string;
   public indexJoueur: number;
   public pseudo: string;
   public divReset: boolean;
@@ -98,12 +99,18 @@ export class GameComponent implements OnInit {
     ];
   }
   ngOnInit() {
+
     this.authService.authState.subscribe((userAuth) => {
       this.userUID = userAuth.uid.toString();
       const userPath = "users/" + this.userUID;
       this.af.object(userPath).subscribe((user) => {
         this.IDJoueur = user.IDduJoueur;
         this.couleurJoueur = user.couleur;
+        if (this.couleurJoueur == this.joueur1) {
+          this.other = this.joueur2;
+        } else {
+          this.other = this.joueur1;
+        }
         this.indexJoueur = user.index;
         this.indexRoom = user.indexRoom;
         this.theme = user.theme;
@@ -125,16 +132,10 @@ export class GameComponent implements OnInit {
         this.auTourDe.subscribe((data) => {
           this.joueurEnCours = data.$value;
         });
-        let other;
         this.Dbgagne.subscribe((data) => {
           this.gagnant = data.$value;
-          if (this.joueurEnCours == this.joueur1) {
-             other = this.joueur2;
-          } else {
-             other = this.joueur1;
-          }
 
-
+          
           if (this.gagnant == "personne") {
             this.SFX_pion.src = "../../../assets/sounds/SFXdraw.mp3";
             this.SFX_pion.load();
@@ -145,7 +146,7 @@ export class GameComponent implements OnInit {
             this.SFX_WIN.load();
             this.SFX_WIN.play();
             this.divReset = true;
-          } else if (this.gagnant == other){
+          } else if (this.gagnant == this.other) {
             this.SFX_pion.src = "../../../assets/sounds/SFXdraw.mp3";
             this.SFX_pion.load();
             this.SFX_pion.play();
