@@ -263,7 +263,17 @@ export class GameComponent implements OnInit {
           };
           yTest++;
         }
-        this.winnerAlignPre = grilleVide;
+        this.winnerAlignPre = [
+          ["vide", "vide", "vide", "vide", "vide", "vide"],
+          ["vide", "vide", "vide", "vide", "vide", "vide"],
+          ["vide", "vide", "vide", "vide", "vide", "vide"],
+          ["vide", "vide", "vide", "vide", "vide", "vide"],
+          ["vide", "vide", "vide", "vide", "vide", "vide"],
+          ["vide", "vide", "vide", "vide", "vide", "vide"],
+          ["vide", "vide", "vide", "vide", "vide", "vide"]
+        ];
+        console.log("on vient de tester la vertical");
+        console.log(grilleVide);
         //on test si victoire horizontale
         xTest = x;
         yTest = y;
@@ -278,8 +288,18 @@ export class GameComponent implements OnInit {
         while (xTest <= (x + 3) && xTest <= 6) {
           if (this.grille[xTest][yTest] == this.joueurEnCours) {
             align = align + 1;
+            this.winnerAlignPre[xTest][yTest] = this.winPoint;
             if (align == 4) {
+              this.winnerAlign = this.winnerAlignPre;
+              this.plateauenligne.update({ winnerAlignGrille: this.winnerAlign });
 
+              this.winnerAlignGrille.subscribe((grid) => {
+                let i = 0;
+                while (i < grid.length) {
+                  this.winnerAlign[i] = grid[i];
+                  i++;
+                }
+              });
               this.anticlick = true;
               this.SFX_WIN.src = "../../../assets/sounds/SFX_WIN.mp3";
               this.SFX_WIN.load();
@@ -292,6 +312,17 @@ export class GameComponent implements OnInit {
           };
           xTest++;
         }
+        this.winnerAlignPre = [
+          ["vide", "vide", "vide", "vide", "vide", "vide"],
+          ["vide", "vide", "vide", "vide", "vide", "vide"],
+          ["vide", "vide", "vide", "vide", "vide", "vide"],
+          ["vide", "vide", "vide", "vide", "vide", "vide"],
+          ["vide", "vide", "vide", "vide", "vide", "vide"],
+          ["vide", "vide", "vide", "vide", "vide", "vide"],
+          ["vide", "vide", "vide", "vide", "vide", "vide"]
+        ];
+        console.log("on vient de tester l'horizontal");
+        console.log(grilleVide);
 
         //on check la diagonale
         xTest = x;
