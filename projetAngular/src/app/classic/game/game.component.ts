@@ -43,6 +43,7 @@ export class GameComponent implements OnInit {
   public winPoint: string;
   public classGhost: string;
   public anticlick: boolean;
+  public anticlickReset: boolean;
   public joueur1: string;
   public joueur2: string;
   public userUID: any;
@@ -244,7 +245,7 @@ export class GameComponent implements OnInit {
     });
     this.plateauenligne.update({ plateauDeJeu: this.grille, auTourDe: this.joueurEnCours, winnerAlignGrille: this.winnerAlign });
     this.divReset = false;
-    this.anticlick = false;
+    this.anticlickReset = false;
   }
 
 
