@@ -13,6 +13,18 @@
         color: #000000;
         text-align: center;
     }
+    .boutons{
+        position: relative;
+        text-align: center;
+    }
+    .btnbox{
+        position: absolute;
+        z-index: 999;
+        display: inline;
+        transform: translateX(-50%);
+        
+    }
+
     /* CSS DU MODULE JEU */
     
     .gameBox {
@@ -76,7 +88,7 @@
     
     .anticlick {
         position: absolute;
-        z-index: 999;
+        z-index: 100;
         top: 0px;
         max-width: 490px;
         max-height: 520px;

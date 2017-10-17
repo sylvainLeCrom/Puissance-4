@@ -1,5 +1,9 @@
-<div *ngIf="this.divReset == true">
-    <button class="btn" (click)="newGame()">REJOUER</button>
+<div class="boutons" *ngIf="this.divReset == true">
+    <div class="btnbox">
+        voulez-vous rejouer ?
+        <button class="btn btnReset" (click)="newGame()">OUI</button>
+        <button class="btn btnReset" (click)="logout()">NON</button>
+    </div>
 </div>
 <div class="container-fluid">
     <div class="gameBox">
@@ -19,11 +23,11 @@
         <div class="cadre">
         </div>
         <div class="Topgrille">
-                <ul id={{x}} *ngFor="let i of grille; let x = index" (click)="clickedColumn(x)">
-                    <li class="ghost{{couleurJoueur}}"></li>
-                    <li class="vide" *ngFor="let j of i"></li>
-                </ul>
-            </div>
+            <ul id={{x}} *ngFor="let i of grille; let x = index" (click)="clickedColumn(x)">
+                <li class="ghost{{couleurJoueur}}"></li>
+                <li class="vide" *ngFor="let j of i"></li>
+            </ul>
+        </div>
         <div class="winner">
             <ul id={{x}} *ngFor="let i of winnerAlign; let x = index" (click)="clickedColumn(x)">
                 <li class="ghost{{couleurJoueur}}"></li>
