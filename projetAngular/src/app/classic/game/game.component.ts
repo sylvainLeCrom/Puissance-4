@@ -56,7 +56,7 @@ export class GameComponent implements OnInit {
   public pseudo: string;
   public divReset: boolean;
 
-  constructor(public af: AngularFireDatabase, private authService: AuthService) {
+  constructor(public af: AngularFireDatabase, private authService: AuthService, public afAuth: AngularFireAuth) {
     this.SFX_pion = new Audio();
     this.SFX_draw = new Audio();
     this.SFX_WIN = new Audio();
@@ -248,6 +248,9 @@ export class GameComponent implements OnInit {
     this.anticlickReset = false;
   }
 
+  logout() {
+    this.afAuth.auth.signOut();
+  }
 
 
   clickedColumn(id: number): void {
