@@ -1,36 +1,34 @@
-<h1>
-    Login
-</h1>
-
-<div *ngIf="toto">
-    <input type="text" [(ngModel)]="email" placeholder="email">
-    <input type="password" [(ngModel)]="password" placeholder="password">
-    <button (click)="signup()" [disabled]="!email || !password">
-      Signup
-    </button>
-
-    <button (click)="login()" [disabled]="!email || !password">
-      Login
-    </button>
-</div>
-
 <button (click)="logout()" *ngIf="authService.user | async">
     Logout
   </button>
+
 <div>
     <br>
-    <button class="btn" (click)="loginGoogle()" *ngIf="!(user | async)?.uid">
+    <button class="btn btn-loggin" (click)="loginGoogle()" *ngIf="!(user | async)?.uid">
     Login with Google
   </button>
     <br>
     <button (click)="logout()" *ngIf="(user | async)?.uid">Logout</button>
     <br><br>
 
-    <button class="btn" (click)="toto=true">
+    <button class="btn btn-loggin" (click)="toto=true">
       Login via mail
     </button>
 </div>
 <div *ngIf="(user | async)?.uid">
     <img src="{{(user | async)?.photoURL}}" style="width:30px;height:30px;">
     <br>{{(user | async)?.displayName}}
+</div>
+<div *ngIf="toto">
+    <input type="text" [(ngModel)]="email" placeholder="email">
+    <input type="password" [(ngModel)]="password" placeholder="password">
+</div>
+<div class="blocSignUp" *ngIf="toto">
+    <button class="btn btn-loggin" (click)="signup()" [disabled]="!email || !password">
+    Signup
+  </button>
+
+    <button class="btn btn-loggin" (click)="login()" [disabled]="!email || !password">
+    Login
+  </button>
 </div>

@@ -12,15 +12,15 @@ import { AuthService } from '../../auth/auth.service';
 })
 export class RoomComponent implements OnInit {
 
-  auTourDe: any;  
+  auTourDe: any;
   public userUID: any;
   public indexRoom: number;
   public IDJoueur: string;
   public couleurJoueur: string;
   public indexJoueur: number;
   public pseudo: string;
-  public joueurEnCours: any;  
-  public theme: string;  
+  public joueurEnCours: any;
+  public theme: string;
 
   constructor(public af: AngularFireDatabase, private authService: AuthService) {
 
@@ -36,11 +36,11 @@ export class RoomComponent implements OnInit {
         this.couleurJoueur = user.couleur;
         this.indexJoueur = user.index;
         this.indexRoom = user.indexRoom;
-        this.theme = user.theme;        
+        this.theme = user.theme;
         this.pseudo = user.pseudo;
         while (this.indexRoom == undefined) {
         }
-        this.auTourDe = this.af.object('/'+this.theme+'/rooms/' + this.indexRoom + '/auTourDe');
+        this.auTourDe = this.af.object('/' + this.theme + '/rooms/' + this.indexRoom + '/auTourDe');
         this.auTourDe.subscribe((data) => {
           this.joueurEnCours = data.$value;
         });

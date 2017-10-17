@@ -1,19 +1,27 @@
-<div class="container">
-    <div col-lg-12>
-        <p>TAPE TON PSEUDO</p>
-        <input #pseudo id="pseudo" class="pseudoInput" type="text" placeholder="pseudo" ngModel="" />
+<div class="pseudoPage">
+
+    <div class="bgPseudo">
+        <!--img src="../../assets/images/logoPuissance4.png"-->
+        <h2>Choix du thème</h2>
+        <div class="container pseudoBox">
+
+            <div class="col-xs-12 col-md-6 col-md-offset-3 btnBox">
+                <p>Tapez votre pseudo</p>
+                <input #pseudo id="pseudo" class="pseudoInput" type="text" placeholder="pseudo" ngModel="" />
+                <div class="theme">
+                    <div class="btnChoice">
+                        <button class="btn choiceTheme btn-loggin glyphicon glyphicon-menu-left" aria-hidden="true" (click)="themeInf()"></button>
+                    </div>
+                    <div class="themeClassic"></div>
+                    <div class="btnChoice">
+                        <button class=" btn choiceTheme btn-loggin glyphicon glyphicon-menu-right" aria-hidden="true" (click)="themeSup() "></button>
+                    </div>
+                </div>
+                <div>
+                    <button class="btn goGame btn-loggin" (click)="redirectToRoom(pseudo.value) ">JOUEZ</button>
+                </div>
+                <button class="btn logout btn-loggin" (click)="logout() ">Logout</button>
+            </div>
+        </div>
     </div>
 </div>
-<div class="theme">
-    <div>
-        <button class="btn choiceTheme" (click)="themeInf()">-</button>
-    </div>
-    <div class="themeClassic"></div>
-    <div>
-        <button class="btn choiceTheme" (click)="themeSup()">+</button>
-    </div>
-</div>
-<div class="container">
-    <button class="btn goGame" (click)="redirectToRoom(pseudo.value)">JOUEZ</button>
-</div>
-<button class="logout" (click)="logout()">Logout</button>

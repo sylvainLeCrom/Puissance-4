@@ -269,8 +269,6 @@ export class GameComponent implements OnInit {
               this.af.object('/' + this.theme).update({ numberOpenRoom: nbOpenRoomActual });
 
             });
-            // this.af.object('/' + this.theme).unsubscribe();
-
             this.router.navigateByUrl('/pseudo');
           } else {
             const gamers = this.af.object('/' + this.theme + '/rooms/' + this.indexRoom + '/gamers/');
