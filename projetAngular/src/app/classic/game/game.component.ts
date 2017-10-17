@@ -249,6 +249,18 @@ export class GameComponent implements OnInit {
   }
 
   logout() {
+    this.authService.authState.subscribe((userAuth) => {
+      this.userUID = userAuth.uid.toString();
+      const userPath = "users/" + this.userUID;
+      this.af.object(userPath).subscribe((user) => {
+        this.theme = user.theme;
+        this.indexRoom = user.indexRoom;
+        this.plateauenligne = this.af.object('/' + this.theme + '/rooms/' + this.indexRoom);
+
+
+      });
+    });
+
     this.afAuth.auth.signOut();
   }
 
