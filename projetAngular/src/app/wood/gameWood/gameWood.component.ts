@@ -105,12 +105,12 @@ export class GameWoodComponent implements OnInit {
       ["vide", "vide", "vide", "vide", "vide", "vide"]
     ];
   }
-  ngOnInit() {
 
+  ngOnInit() {
     this.authService.authState.subscribe((userAuth) => {
       this.userUID = userAuth.uid.toString();
       const userPath = "users/" + this.userUID;
-      this.af.object(userPath).subscribe((user) => {
+      this.af.object(userPath).take(1).subscribe((user) => {
         this.IDJoueur = user.IDduJoueur;
         this.couleurJoueur = user.couleur;
         if (this.couleurJoueur == this.joueur1) {
@@ -140,6 +140,7 @@ export class GameWoodComponent implements OnInit {
           this.joueurEnCours = data.$value;
         });
         this.Dbgagne.subscribe((data) => {
+          console.log("fffffff");
           this.gagnant = data.$value;
           if (this.gagnant == "personne") {
             this.SFX_pion.src = "../../../../assets/sounds/SFXdraw.mp3";
@@ -167,6 +168,15 @@ export class GameWoodComponent implements OnInit {
 
 
         this.plateauDeJeu.subscribe((grid) => {
+          console.log("JE FAIS DU SON");
+
+          if (!this.isGridEmpty(grid)) {
+            // On charge un bruit aléatoire de pose du pion
+            //let random = Math.floor(Math.random() * 3) + 1;
+            this.SFX_pion.src = "../../../../assets/sounds/SFXposePionWood.mp3";
+            this.SFX_pion.load();
+            this.SFX_pion.play();
+          }
 
           let i = 0;
           while (i < grid.length) {
@@ -207,6 +217,18 @@ export class GameWoodComponent implements OnInit {
       );
     });
   }
+
+  isGridEmpty(grid: string[][]) {
+    for (let column of grid) {
+      for (let cell of column) {
+        if (cell != "vide") {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
   newGame() {
     this.winnerAlign = [
       ["vide", "vide", "vide", "vide", "vide", "vide"],
@@ -236,8 +258,8 @@ export class GameWoodComponent implements OnInit {
       ["vide", "vide", "vide", "vide", "vide", "vide"]
     ];
     this.plateauDeJeu.remove();
-    this.plateauDeJeu.subscribe((grid) => {
-
+    this.plateauDeJeu.take(1).subscribe((grid) => {
+      console.log("GROS SON RECOMMENCER");
       let i = 0;
       while (i < grid.length) {
         this.grille[i] = grid[i];
@@ -326,13 +348,14 @@ export class GameWoodComponent implements OnInit {
       if (this.grille[x][y] == 'vide') {
         this.grille[x][y] = this.joueurEnCours;
         this.plateauenligne.update({ plateauDeJeu: this.grille });
-        this.plateauDeJeu.subscribe((grid) => {
+        /*this.plateauDeJeu.subscribe((grid) => {
+          console.log("JE FAIS DU BRUIT");
           let i = 0;
           while (i < grid.length) {
             this.grille[i] = grid[i];
             i++;
           }
-        });
+        });*/
         // on comptabilise le nombre de coups joués
         this.coupsJoués++;
         if (this.coupsJoués == 42) {
@@ -570,11 +593,6 @@ export class GameWoodComponent implements OnInit {
           this.classGhost = "ghost" + this.joueurEnCours;
         }
 
-        // On charge un bruit aléatoire de pose du pion
-        //let random = Math.floor(Math.random() * 3) + 1;
-        this.SFX_pion.src = "../../../../assets/sounds/SFXposePionWood.mp3";
-        this.SFX_pion.load();
-        this.SFX_pion.play();
         return;
       } else {
         y--;
