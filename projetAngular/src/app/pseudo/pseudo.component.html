@@ -4,11 +4,11 @@
         <input #pseudo id="pseudo" class="pseudoInput" type="text" placeholder="pseudo" ngModel="" />
     </div>
 </div>
-<div class="theme">
+<div class="themeDiv">
     <div>
         <button class="btn choiceTheme" (click)="themeInf()">-</button>
     </div>
-    <div class="themeClassic"></div>
+    <div [ngClass]="this.theme"></div>
     <div>
         <button class="btn choiceTheme" (click)="themeSup()">+</button>
     </div>

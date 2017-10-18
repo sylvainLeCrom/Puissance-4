@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase/app';
 import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-pseudo',
@@ -35,7 +36,7 @@ export class PseudoComponent implements OnInit {
     this.joueur1 = "rouge";
     this.joueur2 = "jaune";
     this.roomsArray;
-    this.theme = "classic"
+    this.theme = "classic";
     this.TotalRoom = af.object('/' + this.theme + '/numberOpenRoom', { preserveSnapshot: true });
 
 
@@ -59,7 +60,21 @@ export class PseudoComponent implements OnInit {
       this.roomsArray = rooms;
     });
   };
+  themeInf() {
+    if (this.theme == "classic") {
+      this.theme = "wood"
+    } else {
+      this.theme = "classic"
+    }
+  }
 
+  themeSup() {
+    if (this.theme == "classic") {
+      this.theme = "wood"
+    } else {
+      this.theme = "classic"
+    }
+  }
   logout() {
     this.afAuth.auth.signOut();
   }
@@ -88,7 +103,11 @@ export class PseudoComponent implements OnInit {
       this.gamers.set(this.gamer);
 
       this.af.object("users/" + this.userUID).update({ indexRoom: 0, theme: this.theme, IDduJoueur: this.pseudo + ID, pseudo: this.pseudo, couleur: this.couleur, index: ID });
-      this.router.navigateByUrl('/room');
+      if (this.theme == "wood") {
+        this.router.navigateByUrl('/roomWood');
+      } else {
+        this.router.navigateByUrl('/room');
+      }
 
     } else {
       let index = 0
@@ -113,8 +132,11 @@ export class PseudoComponent implements OnInit {
           this.gamer = { IDduJoueur: this.pseudo + ID, pseudo: this.pseudo, couleur: this.couleur, index: ID };
           this.gamers.set(this.gamer);
           this.af.object("users/" + this.userUID).update({ indexRoom: index, theme: this.theme, IDduJoueur: this.pseudo + ID, pseudo: this.pseudo, couleur: this.couleur, index: ID });
-          this.router.navigateByUrl('/room');
-
+          if (this.theme == "wood") {
+            this.router.navigateByUrl('/roomWood');
+          } else {
+            this.router.navigateByUrl('/room');
+          }
           return;
         } else {
           console.log("cette room est pleine" + index);
@@ -144,8 +166,11 @@ export class PseudoComponent implements OnInit {
       this.gamers.set(this.gamer);
 
       this.af.object("users/" + this.userUID).update({ indexRoom: index, theme: this.theme, IDduJoueur: this.pseudo + ID, pseudo: this.pseudo, couleur: this.couleur, index: ID });
-      this.router.navigateByUrl('/room');
-      return;
+      if (this.theme == "wood") {
+        this.router.navigateByUrl('/roomWood');
+      } else {
+        this.router.navigateByUrl('/room');
+      }      return;
     }
   }
 }

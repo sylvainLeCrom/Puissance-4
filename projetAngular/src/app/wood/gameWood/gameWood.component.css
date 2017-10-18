@@ -41,7 +41,7 @@
         top: 100px;
         width: 490px;
         height: 420px;
-        background-image: url(../../../../src/assets/images/fond.png);
+        background-image: url(../../../../src/assets/images/fondNB.png);
         background-size: cover;
     }
     .ombreGrille{
@@ -70,7 +70,7 @@
         top: 100px;
         width: 490px;
         height: 420px;
-        background-image: url(../../../../src/assets/images/grille.png);
+        background-image: url(../../../../src/assets/images/grilleWood.png);
         background-size: cover;
     }
     
@@ -80,7 +80,7 @@
         top: 78px;
         width: 535px;
         height: 465px;
-        background-image: url(../../../../src/assets/images/cadre.png);
+        background-image: url(../../../../src/assets/images/cadreWood.png);
         background-size: cover;
         transform: translateX(-25px);
     }
@@ -222,12 +222,12 @@
     /* COULEURS DES PIONS */
     
     .jaune {
-        background-image: url(../../../../src/assets/images/pionJaune.png);
+        background-image: url(../../../../src/assets/images/pionWoodclair.png);
         background-size: cover;
     }
     
     .rouge {
-        background-image: url(../../../../src/assets/images/pionRouge.png);
+        background-image: url(../../../../src/assets/images/pionWooddark.png);
         background-size: cover;
     }
     
@@ -242,11 +242,11 @@
     }
     
     ul:hover .ghostrouge {
-        background-image: url(../../../../src/assets/images/pionRouge.png);
+        background-image: url(../../../../src/assets/images/pionWooddark.png);
         background-size: cover;
     }
     
     ul:hover .ghostjaune {
-        background-image: url(../../../../src/assets/images/pionJaune.png);
+        background-image: url(../../../../src/assets/images/pionWoodclair.png);
         background-size: cover;
     }

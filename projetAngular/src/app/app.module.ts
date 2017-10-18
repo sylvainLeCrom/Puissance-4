@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HttpModule } from '@angular/http';
 import { ChatComponent } from './classic/chat/chat.component';
+import { ChatWoodComponent } from './wood/chatWood/chatWood.component';
 import { AuthComponent } from './auth/auth.component';
 
 import { appRoutes } from './app-routing';
@@ -12,10 +13,13 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { GameComponent } from './classic/game/game.component';
+import { GameWoodComponent } from './wood/gameWood/gameWood.component';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthService } from './auth/auth.service'
 import { NgPipesModule } from 'ngx-pipes';
 import { RoomComponent } from './classic/room/room.component';
+import { RoomWoodComponent } from './wood/roomWood/roomWood.component';
+
 import { PseudoComponent } from './pseudo/pseudo.component';
 import { LoginComponent } from './login/login.component';
 
@@ -34,9 +38,12 @@ export const firebaseConfig = {
   declarations: [
     AppComponent,
     ChatComponent,
+    ChatWoodComponent,
     AuthComponent,
     GameComponent,
+    GameWoodComponent,
     RoomComponent,
+    RoomWoodComponent,
     PseudoComponent,
     LoginComponent,
   ],
