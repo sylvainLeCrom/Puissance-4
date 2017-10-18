@@ -1,0 +1,105 @@
+
+/* CLASSIC */
+
+.classic p {
+    font-family: 'Love Ya Like A Sister', cursive;
+    color: wheat;
+}
+
+.classic .roomGame {
+    text-align: center;
+}
+
+.classic .roomChat {
+    z-index: 1;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 29px;
+    transform: translateY(90px);
+    height: 444px;
+    border-radius: 15px;
+}
+
+.classic .roomBG {
+    height: 300vh;
+    background-image: url(../../../assets/images/BGwood.jpg);
+    background-size: 100%;
+}
+
+.classic .planche {
+    position: absolute;
+    z-index: 0;
+    top: 662px;
+    width: 100vw;
+    height: 173px;
+    background-image: url(../../../../src/assets/images/planche.png);
+    background-size: cover;
+    overflow: none;
+}
+
+@media (max-width:700px) {
+    .classic .planche {
+        top: 500px;
+        height: 115px;
+    }
+}
+
+@media (max-width:425px) {
+    .classic .planche {
+        top: 312px;
+        height: 87px;
+    }
+}
+
+/* WOOD */
+
+.wood p {
+    font-family: 'Love Ya Like A Sister', cursive;
+    color: wheat;
+}
+.wood .roomGame {
+    text-align: center;
+}
+
+.wood .roomChat {
+    z-index: 1;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 29px;
+    transform: translateY(90px);
+    height: 444px;
+    border-radius: 15px;
+}
+
+.wood .roomBG {
+    font-family: 'Love Ya Like A Sister', cursive;
+    color: wheat;
+    height: 300vh;
+    background-image: url(../../../assets/images/BG2.png);
+    background-size: cover;
+}
+
+.wood .planche {
+    position: absolute;
+    z-index: 0;
+    top: 584px;
+    width: 100vw;
+    height: 155px;
+    background-image: url(../../../../src/assets/images/planche.png);
+    background-size: cover;
+    overflow: none;
+}
+
+@media (max-width:700px) {
+    .wood .planche {
+        top: 450px;
+        height: 115px;
+    }
+}
+
+@media (max-width:425px) {
+    .wood .planche {
+        top: 312px;
+        height: 87px;
+    }
+}

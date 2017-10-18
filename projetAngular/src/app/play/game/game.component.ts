@@ -4,16 +4,17 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 import { AuthService } from '../../auth/auth.service';
+import { GameService } from '../game.service';
 import { Router } from '@angular/router';
 import "rxjs/Rx";
 
 
 @Component({
-  selector: 'app-gameWood',
-  templateUrl: './gameWood.component.html',
-  styleUrls: ['./gameWood.component.css']
+  selector: 'app-game',
+  templateUrl: './game.component.html',
+  styleUrls: ['./game.component.classic.css', './game.component.wood.css']
 })
-export class GameWoodComponent implements OnInit {
+export class GameComponent implements OnInit {
   plateauenligne: FirebaseObjectObservable<any>;
   plateauDeJeu: FirebaseObjectObservable<any[]>;
   winnerAlignGrille: FirebaseObjectObservable<any[]>;
@@ -33,7 +34,6 @@ export class GameWoodComponent implements OnInit {
   wincases4: FirebaseListObservable<any[]>;
   wincases5: FirebaseListObservable<any[]>;
   wincases6: FirebaseListObservable<any[]>;
-  public SFX_pion;
   public SFX_draw;
   public SFX_WIN;
   public coupsJoués: number;
@@ -57,8 +57,12 @@ export class GameWoodComponent implements OnInit {
   public pseudo: string;
   public divReset: boolean;
 
-  constructor(public af: AngularFireDatabase, private authService: AuthService, public afAuth: AngularFireAuth, private router: Router) {
-    this.SFX_pion = new Audio();
+  constructor(public af: AngularFireDatabase,
+    private authService: AuthService,
+    public afAuth: AngularFireAuth,
+    private router: Router,
+    private gameService: GameService) {
+
     this.SFX_draw = new Audio();
     this.SFX_WIN = new Audio();
 
@@ -143,23 +147,17 @@ export class GameWoodComponent implements OnInit {
           console.log("fffffff");
           this.gagnant = data.$value;
           if (this.gagnant == "personne") {
-            this.SFX_pion.src = "../../../../assets/sounds/SFXdraw.mp3";
-            this.SFX_pion.load();
-            this.SFX_pion.play();
+            this.gameService.playDrawSound();
             this.divReset = true;
             this.anticlick = true;
 
           } else if (this.gagnant == this.couleurJoueur) {
-            this.SFX_WIN.src = "../../../../assets/sounds/SFX_WIN.mp3";
-            this.SFX_WIN.load();
-            this.SFX_WIN.play();
+            this.gameService.playWinSound();
             this.divReset = true;
             this.anticlick = true;
 
           } else if (this.gagnant == this.other) {
-            this.SFX_pion.src = "../../../../assets/sounds/SFXdraw.mp3";
-            this.SFX_pion.load();
-            this.SFX_pion.play();
+            this.gameService.playLooseSound();
             this.divReset = true;
             this.anticlick = true;
           }
@@ -171,11 +169,7 @@ export class GameWoodComponent implements OnInit {
           console.log("JE FAIS DU SON");
 
           if (!this.isGridEmpty(grid)) {
-            // On charge un bruit aléatoire de pose du pion
-            //let random = Math.floor(Math.random() * 3) + 1;
-            this.SFX_pion.src = "../../../../assets/sounds/SFXposePionWood.mp3";
-            this.SFX_pion.load();
-            this.SFX_pion.play();
+            this.gameService.playPionSound();
           }
 
           let i = 0;

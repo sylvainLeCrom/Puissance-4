@@ -3,9 +3,11 @@ import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable }
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase/app';
-import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
 import { NgClass } from '@angular/common';
+
+import { AuthService } from '../auth/auth.service';
+import { GameService } from '../play/game.service';
 
 @Component({
   selector: 'app-pseudo',
@@ -24,15 +26,18 @@ export class PseudoComponent implements OnInit {
   public joueur2: string;
   public couleur: string;
   public userUID: any;
-  public theme: string;
 
-  constructor(private router: Router, public af: AngularFireDatabase, private authService: AuthService, public afAuth: AngularFireAuth) {
+  constructor(private router: Router,
+    public af: AngularFireDatabase,
+    private authService: AuthService,
+    public afAuth: AngularFireAuth,
+    private gameService: GameService) {
+
     this.maxJoueur = 2;
     this.nbJoueur = 0;
     this.pseudo = '';
     this.joueur1 = "rouge";
     this.joueur2 = "jaune";
-    this.theme = "classic";
 
   };
   ngOnInit() {
@@ -46,27 +51,27 @@ export class PseudoComponent implements OnInit {
     this.nbJoueur = 0;
   };
   themeInf() {
-    if (this.theme == "classic") {
-      this.theme = "wood"
+    if (this.gameService.theme == "classic") {
+      this.gameService.theme = "wood"
     } else {
-      this.theme = "classic"
+      this.gameService.theme = "classic"
     }
   }
 
   themeSup() {
-    if (this.theme == "classic") {
-      this.theme = "wood"
+    if (this.gameService.theme == "classic") {
+      this.gameService.theme = "wood"
     } else {
-      this.theme = "classic"
+      this.gameService.theme = "classic"
     }
   }
   logout() {
     this.afAuth.auth.signOut();
   }
   redirectToRoom(input) {
-    this.af.object("/" + this.theme + "/rooms").take(1).subscribe((rooms) => {
+    this.af.object("/" + this.gameService.theme + "/rooms").take(1).subscribe((rooms) => {
 
-      this.af.object('/' + this.theme)
+      this.af.object('/' + this.gameService.theme)
         .take(1)
         .subscribe((themeRooms) => {
           let nbRoom = themeRooms.numberOpenRoom;
@@ -77,7 +82,7 @@ export class PseudoComponent implements OnInit {
             //on crée la première room
             nbRoom = 1;
             this.numeroRoom = new Date().valueOf();
-            this.af.object("/" + this.theme + "/").set({ numberOpenRoom: nbRoom, rooms: this.numeroRoom });
+            this.af.object("/" + this.gameService.theme + "/").set({ numberOpenRoom: nbRoom, rooms: this.numeroRoom });
             //on tire au sort le numéro et la couleur du premier Gamer dans la room
             let random = Math.floor(Math.random() * 2) + 1;
             if (random == 1) {
@@ -87,27 +92,28 @@ export class PseudoComponent implements OnInit {
             }
             //on change le nb de joueur dans la room
             this.nbJoueur = 1;
-            this.af.object("/" + this.theme + "/rooms/0").set({ room: this.numeroRoom, nbJoueur: this.nbJoueur, placement: random });
+            this.af.object("/" + this.gameService.theme + "/rooms/0").set({ room: this.numeroRoom, nbJoueur: this.nbJoueur, placement: random });
             //on récupère les infos du tout premier joueur      
             this.pseudo = input;
             let ID = Math.floor(Math.random() * 100) + 1;
-            this.gamers = this.af.object("/" + this.theme + "/rooms/0/gamers/joueur" + random);
+            this.gamers = this.af.object("/" + this.gameService.theme + "/rooms/0/gamers/joueur" + random);
             this.gamer = { IDduJoueur: this.pseudo + ID, pseudo: this.pseudo, couleur: this.couleur, index: ID };
             this.gamers.set(this.gamer);
 
-            this.af.object("users/" + this.userUID).update({ indexRoom: 0, theme: this.theme, IDduJoueur: this.pseudo + ID, pseudo: this.pseudo, couleur: this.couleur, index: ID });
-            if (this.theme == "wood") {
+            this.af.object("users/" + this.userUID).update({ indexRoom: 0, theme: this.gameService.theme, IDduJoueur: this.pseudo + ID, pseudo: this.pseudo, couleur: this.couleur, index: ID });
+            /*if (this.gameService.theme == "wood") {
               this.router.navigateByUrl('/roomWood');
             } else {
               this.router.navigateByUrl('/room');
-            }
+            }*/
+            this.router.navigateByUrl('/room');
 
           } else {
             let index = 0
             while (index < nbRoom) {
               if (rooms[index].nbJoueur == 1) {
                 this.nbJoueur = 2;
-                this.af.object("/" + this.theme + "/rooms/" + index).update({ nbJoueur: this.nbJoueur });
+                this.af.object("/" + this.gameService.theme + "/rooms/" + index).update({ nbJoueur: this.nbJoueur });
 
                 //on récupère les infos du deuxième joueur dans cette room    
                 this.pseudo = input;
@@ -119,17 +125,17 @@ export class PseudoComponent implements OnInit {
                   lastplace = 1;
                   this.couleur = this.joueur1;
                 }
-                this.af.object("/" + this.theme + "/rooms/" + index).update({ placement: "full" })
+                this.af.object("/" + this.gameService.theme + "/rooms/" + index).update({ placement: "full" })
 
-                this.gamers = this.af.object("/" + this.theme + "/rooms/" + index + "/gamers/joueur" + lastplace);
+                this.gamers = this.af.object("/" + this.gameService.theme + "/rooms/" + index + "/gamers/joueur" + lastplace);
                 this.gamer = { IDduJoueur: this.pseudo + ID, pseudo: this.pseudo, couleur: this.couleur, index: ID };
                 this.gamers.set(this.gamer);
-                this.af.object("users/" + this.userUID).update({ indexRoom: index, theme: this.theme, IDduJoueur: this.pseudo + ID, pseudo: this.pseudo, couleur: this.couleur, index: ID });
-                if (this.theme == "wood") {
-                  this.router.navigateByUrl('/roomWood');
-                } else {
+                this.af.object("users/" + this.userUID).update({ indexRoom: index, theme: this.gameService.theme, IDduJoueur: this.pseudo + ID, pseudo: this.pseudo, couleur: this.couleur, index: ID });
+                //if (this.gameService.theme == "wood") {
+                //  this.router.navigateByUrl('/roomWood');
+                //} else {
                   this.router.navigateByUrl('/room');
-                }
+                //}
                 return;
               } else {
                 console.log("cette room est pleine" + index);
@@ -140,7 +146,7 @@ export class PseudoComponent implements OnInit {
             this.numeroRoom = new Date().valueOf();
             console.log(rooms);
             rooms.push("room" + this.numeroRoom);
-            this.af.object("/" + this.theme + "/").update({ numberOpenRoom: nbRoom });
+            this.af.object("/" + this.gameService.theme + "/").update({ numberOpenRoom: nbRoom });
 
             //on tire au sort le numéro et la couleur du premier Gamer dans la room
             let random = Math.floor(Math.random() * 2) + 1;
@@ -151,20 +157,20 @@ export class PseudoComponent implements OnInit {
             }
             //on change le nb de joueur dans la room
             this.nbJoueur = 1;
-            this.af.object("/" + this.theme + "/rooms/" + index).set({ room: this.numeroRoom, nbJoueur: this.nbJoueur, placement: random });
+            this.af.object("/" + this.gameService.theme + "/rooms/" + index).set({ room: this.numeroRoom, nbJoueur: this.nbJoueur, placement: random });
             //on récupère les infos du joueur      
             this.pseudo = input;
             let ID = Math.floor(Math.random() * 100) + 1;
-            this.gamers = this.af.object("/" + this.theme + "/rooms/" + index + "/gamers/joueur" + random);
+            this.gamers = this.af.object("/" + this.gameService.theme + "/rooms/" + index + "/gamers/joueur" + random);
             this.gamer = { IDduJoueur: this.pseudo + ID, pseudo: this.pseudo, couleur: this.couleur, index: ID };
             this.gamers.set(this.gamer);
 
-            this.af.object("users/" + this.userUID).update({ indexRoom: index, theme: this.theme, IDduJoueur: this.pseudo + ID, pseudo: this.pseudo, couleur: this.couleur, index: ID });
-            if (this.theme == "wood") {
-              this.router.navigateByUrl('/roomWood');
-            } else {
+            this.af.object("users/" + this.userUID).update({ indexRoom: index, theme: this.gameService.theme, IDduJoueur: this.pseudo + ID, pseudo: this.pseudo, couleur: this.couleur, index: ID });
+            //if (this.gameService.theme == "wood") {
+            //  this.router.navigateByUrl('/roomWood');
+            //} else {
               this.router.navigateByUrl('/room');
-            } return;
+            //} return;
           }
         });
     });

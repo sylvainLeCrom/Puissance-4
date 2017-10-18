@@ -1,10 +1,10 @@
-    ul {
+    .wood ul {
         float: left;
         clear: right;
         padding: 0;
     }
     
-    li {
+    .wood li {
         list-style: none;
         float: left;
         clear: left;
@@ -14,12 +14,12 @@
         text-align: center;
     }
     
-    .boutons {
+    .wood .boutons {
         position: relative;
         text-align: center;
     }
     
-    .btnbox {
+    .wood .btnbox {
         position: absolute;
         z-index: 999;
         display: inline;
@@ -27,7 +27,7 @@
     }
     /* CSS DU MODULE JEU */
     
-    .gameBox {
+    .wood .gameBox {
         width: 490px;
         height: 575px;
         margin-left: auto;
@@ -35,28 +35,27 @@
     }
     /* DECO DE FOND */
     
-    .Fondgrille {
+    .wood .Fondgrille {
         position: absolute;
         z-index: 10;
         top: 100px;
         width: 490px;
         height: 420px;
-        background-image: url(../../../../src/assets/images/fond.png);
+        background-image: url(../../../../src/assets/images/fondNB.png);
         background-size: cover;
     }
-    .ombreGrille{
+    .wood .ombreGrille{
         position: absolute;
         z-index: 9;
-        top: 511px;
-        width: 950px;
-        height: 212px;
-        background-image: url(../../../../src/assets/images/ombreGrilleReal.png);
+        top: 100px;
+        width: 490px;
+        height: 420px;
+        background-image: url(../../../../src/assets/images/ombreGrille.png);
         background-size: cover;
-        transform: translateX(-327px);
     }
     /* GRILLE DE JEU */
     
-    .grille {
+    .wood .grille {
         position: absolute;
         z-index: 20;
         top: 30px;
@@ -65,28 +64,28 @@
     }
     /* DECO DE LA GRILLE */
     
-    .Decogrille {
+    .wood .Decogrille {
         position: absolute;
         z-index: 30;
         top: 100px;
         width: 490px;
         height: 420px;
-        background-image: url(../../../../src/assets/images/grilleReal2.png);
+        background-image: url(../../../../src/assets/images/grilleWood.png);
         background-size: cover;
     }
     
-    .cadre {
+    .wood .cadre {
         position: absolute;
         z-index: 25;
-        top: 83px;
-        width: 678px;
-        height: 631px;
-        background-image: url(../../../../src/assets/images/cadreReal.png);
+        top: 78px;
+        width: 535px;
+        height: 465px;
+        background-image: url(../../../../src/assets/images/cadreWood.png);
         background-size: cover;
-        transform: translateX(-94px);
+        transform: translateX(-25px);
     }
     
-    .Topgrille {
+    .wood .Topgrille {
         position: absolute;
         z-index: 32;
         top: 10px;
@@ -96,7 +95,7 @@
         height: 70vw;
     }
     
-    .anticlick {
+    .wood .anticlick {
         position: absolute;
         z-index: 100;
         top: 0px;
@@ -106,7 +105,7 @@
         height: 70vw;
     }
     
-    .winner {
+    .wood .winner {
         position: absolute;
         z-index: 30;
         top: 30px;
@@ -118,52 +117,51 @@
 
     
     @media (max-width:700px) {
-        li {
+        .wood li {
             width: 50px;
             height: 50px;
         }
-        .gameBox {
+        .wood .gameBox {
             width: 350px;
             height: 400px;
             margin-left: auto;
             margin-right: auto;
         }
-        .grille {
+        .wood .grille {
             top: 20px;
         }
-        .Fondgrille {
+        .wood .Fondgrille {
             top: 70px;
             width: 350px;
             height: 300px;
         }
-        .ombreGrille {
-            top: 361px;
-            width: 670px;
-            height: 152px;
-            transform: translateX(-247px);
-        }
-        .Decogrille {
+        .wood .ombreGrille {
             top: 70px;
             width: 350px;
             height: 300px;
         }
-        .cadre {
-            top: 58px;
-            width: 485px;
-            height: 451px;
-            transform: translateX(-68px);
+        .wood .Decogrille {
+            top: 70px;
+            width: 350px;
+            height: 300px;
         }
-        .Topgrille {
+        .wood .cadre {
+            top: 50px;
+            width: 387px;
+            height: 336px;
+            transform: translateX(-18px);
+        }
+        .wood .Topgrille {
             top: 0px;
             width: 350px;
             height: 370px;
         }
-        .winner {
+        .wood .winner {
             top: 20px;
             width: 350px;
             height: 370px;
         }
-        .anticlick {
+        .wood .anticlick {
             top: 0;
             width: 350px;
             height: 370px;
@@ -171,52 +169,51 @@
     }
     
     @media (max-width:425px) {
-        li {
+        .wood li {
             width: 30px;
             height: 30px;
         }
-        .gameBox {
+        .wood .gameBox {
             width: 210px;
             height: 250px;
             margin-left: auto;
             margin-right: auto;
         }
-        .grille {
+        .wood .grille {
             top: 10px;
         }
-        .Fondgrille {
+        .wood .Fondgrille {
             top: 40px;
             width: 210px;
             height: 180px;
         }
-        .ombreGrille {
-            top: 197px;
-            width: 452px;
-            height: 112px;
-            transform: translateX(-200px);
-        }
-        .Decogrille {
+        .wood .ombreGrille {
             top: 40px;
             width: 210px;
             height: 180px;
         }
-        .cadre {
-            top: 34px;
-            width: 287px;
-            height: 267px;
-            transform: translateX(-39px);
+        .wood .Decogrille {
+            top: 40px;
+            width: 210px;
+            height: 180px;
         }
-        .Topgrille {
+        .wood .cadre {
+            top: 30px;
+            width: 230px;
+            height: 200px;
+            transform: translateX(-9px);
+        }
+        .wood .Topgrille {
             top: 0px;
             width: 210px;
             height: 220px;
         }
-        .winner {
+        .wood .winner {
             top: 10px;
             width: 210px;
             height: 220px;
         }
-        .anticlick {
+        .wood .anticlick {
             top: 0;
             width: 210px;
             height: 220px;
@@ -224,32 +221,32 @@
     }
     /* COULEURS DES PIONS */
     
-    .jaune {
-        background-image: url(../../../../src/assets/images/pionJaune.png);
+    .wood .jaune {
+        background-image: url(../../../../src/assets/images/pionWoodclair.png);
         background-size: cover;
     }
     
-    .rouge {
-        background-image: url(../../../../src/assets/images/pionRouge.png);
+    .wood .rouge {
+        background-image: url(../../../../src/assets/images/pionWooddark.png);
         background-size: cover;
     }
     
-    .winPoint {
+    .wood .winPoint {
         background-image: url(../../../../src/assets/images/winPoint.png);
         background-size: cover;
     }
     
-    .ghost .ghostjaune .ghostrouge {
+    .wood .ghost .ghostjaune .ghostrouge {
         background: none;
         height: px;
     }
     
-    ul:hover .ghostrouge {
-        background-image: url(../../../../src/assets/images/pionRouge.png);
+    .wood ul:hover .ghostrouge {
+        background-image: url(../../../../src/assets/images/pionWooddark.png);
         background-size: cover;
     }
     
-    ul:hover .ghostjaune {
-        background-image: url(../../../../src/assets/images/pionJaune.png);
+    .wood ul:hover .ghostjaune {
+        background-image: url(../../../../src/assets/images/pionWoodclair.png);
         background-size: cover;
     }

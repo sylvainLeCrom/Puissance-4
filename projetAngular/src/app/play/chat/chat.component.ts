@@ -4,6 +4,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase/app';
 import { AuthService } from '../../auth/auth.service';
+import { GameService } from '../game.service';
 import { PseudoComponent } from '../../pseudo/pseudo.component';
 
 
@@ -24,9 +25,11 @@ export class ChatComponent implements OnInit {
   public couleurJoueur: string;
   public indexJoueur: number;
   public pseudo: string;
-  public theme : string;
 
-  constructor(public afAuth: AngularFireAuth, public af: AngularFireDatabase, private authService: AuthService) {
+  constructor(public afAuth: AngularFireAuth,
+    public af: AngularFireDatabase,
+    private authService: AuthService,
+    private gameService: GameService) {
 
   }
   ngOnInit() {
@@ -39,10 +42,9 @@ export class ChatComponent implements OnInit {
         this.indexJoueur = user.index;
         this.indexRoom = user.indexRoom;
         this.pseudo = user.pseudo;
-        this.theme = user.theme;
         while (this.indexRoom == undefined) {
         }
-        this.items = this.af.list('/'+this.theme+'/rooms/'+this.indexRoom+'/messages', {
+        this.items = this.af.list('/' + this.gameService.theme + '/rooms/' + this.indexRoom + '/messages', {
           query: {
             orderByChild: 'reverseDate'
           }
@@ -51,14 +53,14 @@ export class ChatComponent implements OnInit {
         this.user = this.afAuth.authState;
       });
     });
-    
+
   }
   Send(desc: string) {
     const date = Date.now();
     let reverseDate = 0 - date;
     let joueur = this.couleurJoueur;
     console.log(joueur);
-    this.af.list('/'+this.theme+'/rooms/'+this.indexRoom+'/messages').push({ joueur, reverseDate, message: desc });
+    this.af.list('/' + this.gameService.theme + '/rooms/' + this.indexRoom + '/messages').push({ joueur, reverseDate, message: desc });
     this.msgVal = '';
   }
 

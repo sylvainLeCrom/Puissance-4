@@ -4,25 +4,28 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 import { AuthService } from '../../auth/auth.service';
+import { GameService } from '../game.service';
 
 @Component({
-  selector: 'app-roomWood',
-  templateUrl: './roomWood.component.html',
-  styleUrls: ['./roomWood.component.css']
+  selector: 'app-room',
+  templateUrl: './room.component.html',
+  styleUrls: ['./room.component.css']
 })
-export class RoomWoodComponent implements OnInit {
+export class RoomComponent implements OnInit {
 
-  auTourDe: any;  
+  auTourDe: any;
   public userUID: any;
   public indexRoom: number;
   public IDJoueur: string;
   public couleurJoueur: string;
   public indexJoueur: number;
   public pseudo: string;
-  public joueurEnCours: any;  
-  public theme: string;  
+  public joueurEnCours: any;
+  public theme: string;
 
-  constructor(public af: AngularFireDatabase, private authService: AuthService) {
+  constructor(public af: AngularFireDatabase,
+    private authService: AuthService,
+    private gameService: GameService) {
 
 
   }
@@ -36,11 +39,11 @@ export class RoomWoodComponent implements OnInit {
         this.couleurJoueur = user.couleur;
         this.indexJoueur = user.index;
         this.indexRoom = user.indexRoom;
-        this.theme = user.theme;        
+        this.theme = user.theme;
         this.pseudo = user.pseudo;
         while (this.indexRoom == undefined) {
         }
-        this.auTourDe = this.af.object('/'+this.theme+'/rooms/' + this.indexRoom + '/auTourDe');
+        this.auTourDe = this.af.object('/' + this.theme + '/rooms/' + this.indexRoom + '/auTourDe');
         this.auTourDe.subscribe((data) => {
           this.joueurEnCours = data.$value;
         });

@@ -3,22 +3,20 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HttpModule } from '@angular/http';
-import { ChatComponent } from './classic/chat/chat.component';
-import { ChatWoodComponent } from './wood/chatWood/chatWood.component';
+import { ChatComponent } from './play/chat/chat.component';
 import { AuthComponent } from './auth/auth.component';
+import { GameService } from './play/game.service';
 
 import { appRoutes } from './app-routing';
 import { AngularFireModule } from 'angularfire2';
 // New imports to update based on AngularFire2 version 4
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { GameComponent } from './classic/game/game.component';
-import { GameWoodComponent } from './wood/gameWood/gameWood.component';
+import { GameComponent } from './play/game/game.component';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthService } from './auth/auth.service'
 import { NgPipesModule } from 'ngx-pipes';
-import { RoomComponent } from './classic/room/room.component';
-import { RoomWoodComponent } from './wood/roomWood/roomWood.component';
+import { RoomComponent } from './play/room/room.component';
 
 import { PseudoComponent } from './pseudo/pseudo.component';
 import { LoginComponent } from './login/login.component';
@@ -38,12 +36,9 @@ export const firebaseConfig = {
   declarations: [
     AppComponent,
     ChatComponent,
-    ChatWoodComponent,
     AuthComponent,
     GameComponent,
-    GameWoodComponent,
     RoomComponent,
-    RoomWoodComponent,
     PseudoComponent,
     LoginComponent,
   ],
@@ -60,7 +55,7 @@ export const firebaseConfig = {
     ),
     NgPipesModule,
   ],
-  providers: [AuthService],
+  providers: [AuthService, GameService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
