@@ -569,7 +569,7 @@ export class GameComponent implements OnInit {
         }
 
         // On charge un bruit aléatoire de pose du pion
-        let random = Math.floor(Math.random() * 3) + 1;
+        let random = Math.floor(Math.random() * 2) + 1;
         this.SFX_pion.src = "../../../../assets/sounds/SFXposePion" + random + ".mp3";
         this.SFX_pion.load();
         this.SFX_pion.play();

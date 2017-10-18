@@ -1,3 +1,7 @@
+p {
+    font-family: 'Love Ya Like A Sister', cursive;
+    color: wheat;
+}
 .roomGame {
     text-align: center;
 }
@@ -13,8 +17,9 @@
 }
 
 .roomBG {
-    font-family: sans-serif;
-    height: 100vh;
+    font-family: 'Love Ya Like A Sister', cursive;
+    color: wheat;
+    height: 300vh;
     background-image: url(../../../assets/images/BG2.png);
     background-size: cover;
 }

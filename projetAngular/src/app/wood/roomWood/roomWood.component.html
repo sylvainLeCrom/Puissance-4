@@ -1,10 +1,12 @@
 <div class="roomBG">
-    <p>Puissance 4 2017 OnFire</p>
-    <h6>room n°{{indexRoom}}</h6>
+
+    <!--p>Puissance 4 Wood Edition</p>
+    <p>room n°{{indexRoom}}</p-->
 
     <br>
-
-    <p>BONJOUR {{pseudo}} vous êtes {{couleurJoueur}}</p>
+ <br>
+ <br>
+    <p>Welcome {{pseudo}}</p>
     <p *ngIf="couleurJoueur == joueurEnCours">C'est à vous de jouer</p>
     <p *ngIf="couleurJoueur != joueurEnCours">Ce n'est pas votre tour</p>
     <div class="container-fluid">
