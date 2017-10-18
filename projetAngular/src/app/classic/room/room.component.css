@@ -1,3 +1,8 @@
+p {
+    font-family: 'Love Ya Like A Sister', cursive;
+    color: wheat;
+}
+
 .roomGame {
     text-align: center;
 }
@@ -13,18 +18,17 @@
 }
 
 .roomBG {
-    font-family: sans-serif;
-    height: 100vh;
+    height: 300vh;
     background-image: url(../../../assets/images/BGwood.jpg);
-    background-size: cover;
+    background-size: 100%;
 }
 
 .planche {
     position: absolute;
     z-index: 0;
-    top: 584px;
+    top: 662px;
     width: 100vw;
-    height: 155px;
+    height: 173px;
     background-image: url(../../../../src/assets/images/planche.png);
     background-size: cover;
     overflow: none;
@@ -32,7 +36,7 @@
 
 @media (max-width:700px) {
     .planche {
-        top: 450px;
+        top: 500px;
         height: 115px;
     }
 }

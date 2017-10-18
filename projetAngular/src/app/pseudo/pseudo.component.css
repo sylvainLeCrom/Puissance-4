@@ -46,7 +46,7 @@ p {
 .wood {
     width: 200px;
     height: 150px;
-    background-image: url(../../../src/assets/images/grilleWood.png);
+    background-image: url(../../../src/assets/images/themeWood.png);
     background-size: cover;
     border-radius: 30px;
     border: black;
