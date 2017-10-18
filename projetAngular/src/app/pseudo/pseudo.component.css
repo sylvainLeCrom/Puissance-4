@@ -29,14 +29,24 @@ p {
     text-align: center;
 }
 
-.theme div {
+.themeDiv div {
     display: inline-block;
 }
 
-.themeClassic {
+.classic {
     width: 200px;
     height: 150px;
     background-image: url(../../../src/assets/images/themeClassic.png);
+    background-size: cover;
+    border-radius: 30px;
+    border: black;
+    border: 4px;
+}
+
+.wood {
+    width: 200px;
+    height: 150px;
+    background-image: url(../../../src/assets/images/grilleWood.png);
     background-size: cover;
     border-radius: 30px;
     border: black;

@@ -9,11 +9,11 @@ import "rxjs/Rx";
 
 
 @Component({
-  selector: 'app-game',
-  templateUrl: './game.component.html',
-  styleUrls: ['./game.component.css']
+  selector: 'app-gameWood',
+  templateUrl: './gameWood.component.html',
+  styleUrls: ['./gameWood.component.css']
 })
-export class GameComponent implements OnInit {
+export class GameWoodComponent implements OnInit {
   plateauenligne: FirebaseObjectObservable<any>;
   plateauDeJeu: FirebaseObjectObservable<any[]>;
   winnerAlignGrille: FirebaseObjectObservable<any[]>;
@@ -268,6 +268,8 @@ export class GameComponent implements OnInit {
               this.af.object('/' + this.theme).update({ numberOpenRoom: nbOpenRoomActual });
 
             });
+            // this.af.object('/' + this.theme).unsubscribe();
+
             this.router.navigateByUrl('/pseudo');
           } else {
             const gamers = this.af.object('/' + this.theme + '/rooms/' + this.indexRoom + '/gamers/');

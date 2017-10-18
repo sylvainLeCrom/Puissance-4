@@ -26,11 +26,11 @@ img {
 }
 
 .jaune {
-    background-image: url(../../../../src/assets/images/pionJaune.png);
+    background-image: url(../../../../src/assets/images/pionWoodclair.png);
     background-size: cover;
 }
 
 .rouge {
-    background-image: url(../../../../src/assets/images/pionRouge.png);
+    background-image: url(../../../../src/assets/images/pionWooddark.png);
     background-size: cover;
 }
