@@ -19,7 +19,10 @@ export const SOUNDS = {
     },
     "simpson":{
         "pion": [
-            SOUND_PATH + "simpson/SFXposePionSimpson1.mp3"
+            SOUND_PATH + "simpson/SFXposePionSimpson1.mp3",
+            SOUND_PATH + "simpson/SFXposePionSimpson2.mp3",
+            SOUND_PATH + "simpson/SFXposePionSimpson3.mp3",
+            SOUND_PATH + "simpson/SFXposePionSimpson4.mp3"
         ],
         "win": SOUND_PATH + "SFX_WIN.mp3",
         "draw": SOUND_PATH + "SFXdraw.mp3",
