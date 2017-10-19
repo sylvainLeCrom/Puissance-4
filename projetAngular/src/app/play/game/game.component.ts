@@ -12,7 +12,11 @@ import "rxjs/Rx";
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
-  styleUrls: ['./game.component.classic.css', './game.component.wood.css']
+  styleUrls: [
+    './game.component.css',
+    './game.component.classic.css',
+    './game.component.wood.css'
+  ]
 })
 export class GameComponent implements OnInit {
   plateauenligne: FirebaseObjectObservable<any>;
