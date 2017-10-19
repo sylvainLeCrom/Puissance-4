@@ -18,14 +18,14 @@
 /* DECO DE LA GRILLE */
 
 .wood .Decogrille {
-    background-image: url(../../../../src/assets/images/grilleWood.png);
+    background-image: url(../../../../src/assets/images/wood/grilleWood.png);
 }
 
 .wood .cadre {
     top: 78px;
     width: 535px;
     height: 465px;
-    background-image: url(../../../../src/assets/images/cadreWood.png);
+    background-image: url(../../../../src/assets/images/wood/cadreWood.png);
     transform: translateX(-25px);
 }
 
@@ -62,20 +62,20 @@
 /* COULEURS DES PIONS */
 
 .wood .jaune {
-    background-image: url(../../../../src/assets/images/pionWoodclair.png);
+    background-image: url(../../../../src/assets/images/wood/pionWoodclair.png);
 }
 
 .wood .rouge {
-    background-image: url(../../../../src/assets/images/pionWooddark.png);
+    background-image: url(../../../../src/assets/images/wood/pionWooddark.png);
 }
 
 .wood .winPoint {
     background-image: url(../../../../src/assets/images/winPoint.png);
 }
 .wood ul:hover .ghostrouge {
-    background-image: url(../../../../src/assets/images/pionWooddark.png);
+    background-image: url(../../../../src/assets/images/wood/pionWooddark.png);
 }
 
 .wood ul:hover .ghostjaune {
-    background-image: url(../../../../src/assets/images/pionWoodclair.png);
+    background-image: url(../../../../src/assets/images/wood/pionWoodclair.png);
 }

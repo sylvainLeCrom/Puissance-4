@@ -25,6 +25,9 @@ li {
     display: inline;
     transform: translateX(-50%);
 }
+.btn {
+    color: black;
+}
 
 
 /* CSS DU MODULE JEU */
@@ -74,7 +77,6 @@ li {
     top: 100px;
     width: 490px;
     height: 420px;
-    background-image: url(../../../../src/assets/images/grilleReal2.png);
     background-size: cover;
 }
 
@@ -115,40 +117,40 @@ li {
 }
 
 @media (max-width:700px) {
-    .classic li {
+    li {
         width: 50px;
         height: 50px;
     }
-    .classic .gameBox {
+    .gameBox {
         width: 350px;
         height: 400px;
         margin-left: auto;
         margin-right: auto;
     }
-    .classic .grille {
+    .grille {
         top: 20px;
     }
-    .classic .Fondgrille {
+    .Fondgrille {
         top: 70px;
         width: 350px;
         height: 300px;
     }
-    .classic .Decogrille {
+    .Decogrille {
         top: 70px;
         width: 350px;
         height: 300px;
     }
-    .classic .Topgrille {
+    .Topgrille {
         top: 0px;
         width: 350px;
         height: 370px;
     }
-    .classic .winner {
+    .winner {
         top: 20px;
         width: 350px;
         height: 370px;
     }
-    .classic .anticlick {
+    .anticlick {
         top: 0;
         width: 350px;
         height: 370px;
@@ -156,40 +158,40 @@ li {
 }
 
 @media (max-width:425px) {
-    .classic .classic li {
+    li {
         width: 30px;
         height: 30px;
     }
-    .classic .gameBox {
+    .gameBox {
         width: 210px;
         height: 250px;
         margin-left: auto;
         margin-right: auto;
     }
-    .classic .grille {
+    .grille {
         top: 10px;
     }
-    .classic .Fondgrille {
+    .Fondgrille {
         top: 40px;
         width: 210px;
         height: 180px;
     }
-    .classic .Decogrille {
+    .Decogrille {
         top: 40px;
         width: 210px;
         height: 180px;
     }
-    .classic .Topgrille {
+    .Topgrille {
         top: 0px;
         width: 210px;
         height: 220px;
     }
-    .classic .winner {
+    .winner {
         top: 10px;
         width: 210px;
         height: 220px;
     }
-    .classic .anticlick {
+    .anticlick {
         top: 0;
         width: 210px;
         height: 220px;
@@ -219,6 +221,6 @@ ul:hover .ghostrouge {
     background-size: cover;
 }
 
-.classic ul:hover .ghostjaune {
+ul:hover .ghostjaune {
     background-size: cover;
 }

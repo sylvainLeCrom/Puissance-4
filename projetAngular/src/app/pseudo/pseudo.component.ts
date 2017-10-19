@@ -50,21 +50,26 @@ export class PseudoComponent implements OnInit {
     });
     this.nbJoueur = 0;
   };
-  themeInf() {
+  themeSup() {
     if (this.gameService.theme == "classic") {
       this.gameService.theme = "wood"
-    } else {
+    } else if (this.gameService.theme == "wood") {
+      this.gameService.theme = "simpson"
+    } else{
       this.gameService.theme = "classic"
     }
   }
 
-  themeSup() {
+  themeInf() {
     if (this.gameService.theme == "classic") {
+      this.gameService.theme = "simpson"
+    } else if (this.gameService.theme == "simpson") {
       this.gameService.theme = "wood"
-    } else {
+    } else{
       this.gameService.theme = "classic"
     }
   }
+
   logout() {
     this.afAuth.auth.signOut();
   }

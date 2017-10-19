@@ -1,0 +1,62 @@
+.simpson p {
+    font-family: 'Love Ya Like A Sister', cursive;
+    color: wheat;
+}
+
+.simpson .roomChat {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 29px;
+    transform: translateY(90px);
+    height: 454px;
+    border-radius: 15px;    
+}
+
+@media (min-width:992px) {
+    .simpson .roomChat {
+        margin-left: 5%;
+    }
+}
+@media (max-width:992px) {
+    .simpson .roomChat {
+        margin-top: 10%;
+    }
+}
+
+.simpson .roomBG {
+    background-image: url(../../../assets/images/simpson/BGsimpson.jpg);
+    background-size: cover;
+}
+/*
+.simpson .planche {
+    top: 702px;
+    width: 100vw;
+    height: 173px;
+    background-image: url(../../../../src/assets/images/planche.png);
+}*/
+
+@media (max-width:700px) {
+    .simpson .planche {
+        top: 540px;
+        height: 115px;
+    }
+    .simpson .roomChat {
+        width: 99%;
+        height: 40%;        
+        margin-left: auto;
+        margin-right: auto;     
+    }
+}
+
+@media (max-width:425px) {
+    .simpson .planche {
+        top: 362px;
+        height: 87px;
+    }
+    .simpson .roomChat {
+        margin-top: -25px;
+        width: 99%;
+        height: 40%;
+        margin-left: auto;
+        margin-right: auto;     
+    }
+}

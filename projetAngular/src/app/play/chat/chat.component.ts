@@ -11,7 +11,13 @@ import { PseudoComponent } from '../../pseudo/pseudo.component';
 @Component({
   selector: 'zone-chat',
   templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.css']
+  styleUrls: [
+    './chat.component.css',
+    './chat.component.classic.css',
+    './chat.component.wood.css',
+    './chat.component.simpson.css',    
+    
+]
 })
 export class ChatComponent implements OnInit {
   user: Observable<firebase.User>;

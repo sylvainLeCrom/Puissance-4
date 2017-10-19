@@ -15,7 +15,8 @@ import "rxjs/Rx";
   styleUrls: [
     './game.component.css',
     './game.component.classic.css',
-    './game.component.wood.css'
+    './game.component.wood.css',
+    './game.component.simpson.css'
   ]
 })
 export class GameComponent implements OnInit {

@@ -3,11 +3,20 @@ import { AngularFireDatabaseModule, AngularFireDatabase, FirebaseListObservable 
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 import { SOUNDS } from './sounds';
+import { Router } from '@angular/router';
 
 @Injectable()
-export class GameService {
-    theme = "classic";
 
+
+
+export class GameService {
+
+    constructor(private router: Router, ) {
+
+    }
+    theme = "classic";
+    
+    // GESTION DES SONS
     getSounds() {
         return SOUNDS[this.theme];
     }
@@ -25,7 +34,7 @@ export class GameService {
         let random = Math.floor(Math.random() * sounds.length);
         console.log(random);
         console.log(sounds[random]);
-        
+
         this.playSound(sounds[random]);
     }
 
@@ -40,4 +49,10 @@ export class GameService {
     playLooseSound() {
         this.playSound(this.getSounds().loose);
     }
+    // navigation ROUTING
+    goToRoomChoice() {
+        this.router.navigateByUrl('/pseudo');
+    }
+
+
 }

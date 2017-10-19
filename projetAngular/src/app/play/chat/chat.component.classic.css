@@ -1,0 +1,19 @@
+.classic input#message {
+    background: rgba(255, 255, 255, 0.644);
+    padding: .4em .7em;
+    width: 100%;
+}
+
+.classic #chat-container p {
+    text-align: left;
+    width: 100%;
+    color: #ffffff;
+}
+
+.classic .jaune {
+    background-image: url(../../../../src/assets/images/classic/pionJaune.png);
+}
+
+.classic .rouge {
+    background-image: url(../../../../src/assets/images/classic/pionRouge.png);
+}

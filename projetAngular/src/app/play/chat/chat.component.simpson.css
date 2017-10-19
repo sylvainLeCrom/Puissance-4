@@ -1,0 +1,19 @@
+.simpson input#message {
+    background: rgba(255, 255, 255, 0.644);
+    padding: .4em .7em;
+    width: 100%;
+}
+
+.simpson #chat-container p {
+    text-align: left;
+    width: 100%;
+    color: #ffffff;
+}
+
+.simpson .jaune {
+    background-image: url(../../../../src/assets/images/simpson/donutPink.png);
+}
+
+.simpson .rouge {
+    background-image: url(../../../../src/assets/images/simpson/donutChocolate.png);
+}

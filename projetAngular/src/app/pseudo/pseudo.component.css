@@ -13,6 +13,16 @@ h2 {
     font-family: 'Love Ya Like A Sister', cursive;
     font-size: 70px;
 }
+@media (max-width:700px){
+    h2{
+        font-size: 60px;
+    }
+}
+@media (max-width:450px){
+    h2{
+        font-size: 40px;
+    }
+}
 
 p {
     color: white;
@@ -33,24 +43,25 @@ p {
     display: inline-block;
 }
 
-.classic {
+.themeChoice {
     width: 200px;
     height: 150px;
-    background-image: url(../../../src/assets/images/themeClassic.png);
     background-size: cover;
     border-radius: 30px;
     border: black;
     border: 4px;
 }
 
+.classic {
+    background-image: url(../../../src/assets/images/classic/themeClassic.png);
+}
+
 .wood {
-    width: 200px;
-    height: 150px;
-    background-image: url(../../../src/assets/images/themeWood.png);
-    background-size: cover;
-    border-radius: 30px;
-    border: black;
-    border: 4px;
+    background-image: url(../../../src/assets/images/wood/themeWood.png);
+}
+
+.simpson {
+    background-image: url(../../../src/assets/images/simpson/themeSimpson.gif);
 }
 
 .pseudoInput {
@@ -62,14 +73,10 @@ p {
 }
 
 .btnChoice {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    position: relative;
+    transform: translateY(-70px);
 }
 
-.btnChoice:first-child {
-    transform: translate(-100%, -50%);
-}
 
 .theme {
     position: relative;
@@ -91,6 +98,11 @@ p {
     background-color: rgba(0, 0, 0, 0.3);
     border-radius: 5px;
     padding: 30px 0;
+}
+@media (max-width: 768px){
+    .btnBox {
+        width: 90vw;
+    }
 }
 
 input {
@@ -116,13 +128,4 @@ input {
     font-size: 30px;
     font-weight: bold;
     border-radius: 10px;
-}
-
-@media (max-width: 768px) {
-    .btnChoice {
-        transform: translate(250%, -50%);
-    }
-    .btnBox {
-        background-color: transparent;
-    }
 }

@@ -8,10 +8,10 @@ h1 {
 
 img {
     position: absolute;
-    top: 0;
-    left: 50%;
+    top: -140px;
+    -webkit-transform: translatex(-50%);
     transform: translatex(-50%);
-    width: 450px;
+    width: 550px;
 }
 
 .connect {
@@ -23,10 +23,28 @@ img {
 }
 
 .blocConnect {
-    height: 50%;
-    transform: translateY(50%);
+    height: 450px;
+    width: 525px;
+    transform: translateY(35%);
     background-color: rgba(255, 255, 255, 0.5);
     border-radius: 5px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (max-width: 700px) {
+    .blocConnect {
+        height: 400px;
+        width: 466px;
+        transform: translateY(45%);
+    }
+    img {
+        width: 487px;
+    }
+    h1 {
+        padding: 40px 0;
+        font-size: 55px;
+    }
 }
 
 @media (max-width: 450px) {
@@ -36,5 +54,14 @@ img {
     .connect {
         background: url("../../assets/images/bgLoggin.jpg")no-repeat -399px -130px;
         background-size: 490%;
+    }
+    .blocConnect {
+        height: 50%;
+        width: 100%;
+        transform: translateY(45%);
+    }
+    img {
+        width: 97vw;
+        top: -90px;
     }
 }

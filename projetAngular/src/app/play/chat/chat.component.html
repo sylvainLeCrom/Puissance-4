@@ -1,11 +1,12 @@
-<!--  *ngIf="(user | async)?.uid"  -->
+<div [ngClass]="gameService.theme">
 
-<div class="chatbox">
-    <input type="text" id="message" placeholder="message chat" (keyup.enter)="Send($event.target.value)" [(ngModel)]="msgVal"
-    />
-    <div id="chat-container">
-        <br>
-        <p *ngFor="let item of items | async">
-            <img class="{{item.joueur}}">{{item.message}}</p>
+    <div class="chatbox">
+        <input type="text" id="message" placeholder="message chat" (keyup.enter)="Send($event.target.value)" [(ngModel)]="msgVal"
+        />
+        <div id="chat-container">
+            <br>
+            <p *ngFor="let item of items | async">
+                <img class="{{item.joueur}}">{{item.message}}</p>
+        </div>
     </div>
 </div>

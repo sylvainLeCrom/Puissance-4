@@ -5,14 +5,20 @@ import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 import { AuthService } from '../../auth/auth.service';
 import { GameService } from '../game.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-room',
   templateUrl: './room.component.html',
-  styleUrls: ['./room.component.css']
+  styleUrls: [
+    './room.component.css',
+    './room.component.wood.css',
+    './room.component.classic.css',
+    './room.component.simpson.css'
+  ]
 })
 export class RoomComponent implements OnInit {
-
+  plateauenligne: FirebaseObjectObservable<any>;
   auTourDe: any;
   public userUID: any;
   public indexRoom: number;
@@ -22,10 +28,12 @@ export class RoomComponent implements OnInit {
   public pseudo: string;
   public joueurEnCours: any;
   public theme: string;
+  
 
   constructor(public af: AngularFireDatabase,
     private authService: AuthService,
-    private gameService: GameService) {
+    private gameService: GameService,
+    public afAuth: AngularFireAuth,) {
 
 
   }
@@ -50,6 +58,51 @@ export class RoomComponent implements OnInit {
       }
       );
     });
+  }
+  logout() {
+    this.afAuth.auth.signOut();
+  }
+  quit() {
+    this.authService.authState.subscribe((userAuth) => {
+      this.userUID = userAuth.uid.toString();
+      const userPath = "users/" + this.userUID;
+      this.af.object(userPath).take(1).subscribe((user) => {
+        this.theme = user.theme;
+        this.IDJoueur = user.IDduJoueur;
+        this.indexRoom = user.indexRoom;
+        this.plateauenligne = this.af.object('/' + this.theme + '/rooms/' + this.indexRoom);
+        this.plateauenligne.take(1).subscribe((data) => {
+          const nbJoueurActual = data.nbJoueur;
+          if (nbJoueurActual == 1) {
+            this.plateauenligne.remove();
+            this.af.object('/' + this.theme).take(1).subscribe((data) => {
+              let nbOpenRoomActual = data.numberOpenRoom;
+              nbOpenRoomActual = nbOpenRoomActual - 1;
+              this.af.object('/' + this.theme).update({ numberOpenRoom: nbOpenRoomActual });
+
+            });
+          } else {
+            const gamers = this.af.object('/' + this.theme + '/rooms/' + this.indexRoom + '/gamers/');
+            gamers.take(1).subscribe((data) => {
+
+              const IDjoueur1 = data.joueur1.IDduJoueur;
+              console.log(IDjoueur1)
+              if (IDjoueur1 == this.IDJoueur) {
+                this.af.object('/' + this.theme + '/rooms/' + this.indexRoom + '/gamers/joueur1').remove();
+              } else {
+                this.af.object('/' + this.theme + '/rooms/' + this.indexRoom + '/gamers/joueur2').remove()
+              }
+
+              this.plateauenligne.update({ placement: 1, nbJoueur: 1, gagnant: "null" });
+            });
+          }
+          this.gameService.goToRoomChoice();    
+        });
+
+
+      });
+    });
+
   }
 
 }
