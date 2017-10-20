@@ -15,7 +15,16 @@ export class GameService {
 
     }
     theme = "classic";
-    
+    grilleVide = [
+        ["vide", "vide", "vide", "vide", "vide", "vide"],
+        ["vide", "vide", "vide", "vide", "vide", "vide"],
+        ["vide", "vide", "vide", "vide", "vide", "vide"],
+        ["vide", "vide", "vide", "vide", "vide", "vide"],
+        ["vide", "vide", "vide", "vide", "vide", "vide"],
+        ["vide", "vide", "vide", "vide", "vide", "vide"],
+        ["vide", "vide", "vide", "vide", "vide", "vide"]
+    ];
+
     // GESTION DES SONS
     getSounds() {
         return SOUNDS[this.theme];
@@ -55,14 +64,77 @@ export class GameService {
     }
 
 
-  sendWinner(gagnant, joueurEnCours, plateauenligne, Dbgagne) {
-    //on envoie le nom du gagnant
-    gagnant = joueurEnCours;
-    console.log(gagnant);
-    plateauenligne.update({ gagnant: gagnant });
-    Dbgagne.subscribe((data) => {
-      gagnant = data.$value;
-    });
-  }
+    sendWinner(gagnant, joueurEnCours, plateauenligne, Dbgagne) {
+        //on envoie le nom du gagnant
+        gagnant = joueurEnCours;
+        console.log(gagnant);
+        plateauenligne.update({ gagnant: gagnant });
+        Dbgagne.subscribe((data) => {
+            gagnant = data.$value;
+        });
+    }
+    changePlayer(joueur1, joueur2, joueurEnCours, auTourDe, plateauenligne, classGhost) {
+        if (joueurEnCours == joueur1) {
+            joueurEnCours = joueur2;
+            plateauenligne.update({ auTourDe: joueurEnCours });
+            auTourDe.subscribe((data) => {
+                joueurEnCours = data.$value;
+            });
+            classGhost = "ghost" + joueurEnCours;
 
+
+        } else {
+            joueurEnCours = joueur1;
+            plateauenligne.update({ auTourDe: joueurEnCours });
+            auTourDe.subscribe((data) => {
+                joueurEnCours = data.$value;
+            });
+            classGhost = "ghost" + joueurEnCours;
+        }
+    }
+
+    verticalTest(
+        x,
+        y,
+        grille,
+        joueurEnCours,
+        plateauenligne,
+        winnerAlignGrille,
+        winnerAlignPre,
+        winnerAlign,
+        winPoint,
+        gagnant,
+        Dbgagne) {
+
+        let xTest = x;
+        let yTest = y;
+        let align = 0;
+        while (yTest <= (y + 3) && yTest <= 5) {
+            if (grille[xTest][yTest] == joueurEnCours) {
+                align = align + 1;
+                winnerAlignPre[xTest][yTest] = winPoint;
+                if (align == 4) {
+                    console.log("OULA");
+                    winnerAlign = winnerAlignPre;
+                    plateauenligne.update({ winnerAlignGrille: winnerAlign });
+
+                    winnerAlignGrille.subscribe((grid) => {
+                        let i = 0;
+                        while (i < grid.length) {
+                            winnerAlign[i] = grid[i];
+                            i++;
+                        }
+                    });
+
+                    this.sendWinner(gagnant, joueurEnCours, plateauenligne, Dbgagne);
+
+                    return;
+                }
+            } else {
+                align = 0;
+            };
+            yTest++;
+        }
+        winnerAlignPre = JSON.parse(JSON.stringify(this.grilleVide));
+    }
 }
