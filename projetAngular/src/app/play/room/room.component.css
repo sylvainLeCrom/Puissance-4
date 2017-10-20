@@ -1,6 +1,5 @@
 .roomBG {
     height: 100vh;
-    overflow: hidden
 }
 
 .roomGame {
@@ -37,6 +36,10 @@
     opacity: 1;
 }
 @media (max-width:700px) {
+    .roomBG {
+        height: 100vh;
+        overflow: hidden;
+    }
     .btn-logout {
         top: 20px;
         left: 20px;
@@ -47,6 +50,10 @@
     }
 }
 @media (max-width:425px) {
+    .roomBG {
+        height: 100vh;
+        overflow: hidden;
+    }
     .btn-logout {
         top: 20px;
         left: 20px;

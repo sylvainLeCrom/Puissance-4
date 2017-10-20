@@ -1,6 +1,10 @@
+.simpson .roomBG {
+    height: 100vh;
+    overflow: hidden;    
+}
 .simpson p {
     font-family: 'Love Ya Like A Sister', cursive;
-    color: wheat;
+    color: rgb(0, 0, 0);
 }
 
 .simpson .roomChat {
