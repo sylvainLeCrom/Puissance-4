@@ -55,4 +55,14 @@ export class GameService {
     }
 
 
+  sendWinner(gagnant, joueurEnCours, plateauenligne, Dbgagne) {
+    //on envoie le nom du gagnant
+    gagnant = joueurEnCours;
+    console.log(gagnant);
+    plateauenligne.update({ gagnant: gagnant });
+    Dbgagne.subscribe((data) => {
+      gagnant = data.$value;
+    });
+  }
+
 }
