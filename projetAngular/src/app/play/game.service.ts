@@ -137,4 +137,156 @@ export class GameService {
         }
         winnerAlignPre = JSON.parse(JSON.stringify(this.grilleVide));
     }
+    horizontalTest(
+        x,
+        y,
+        grille,
+        plateauenligne,
+        Dbgagne,
+        joueurEnCours,
+        winnerAlignPre,
+        winnerAlign,
+        winnerAlignGrille,
+        winPoint,
+        gagnant) {
+        let xTest = x;
+        let yTest = y;
+        let align = 0;
+        let recule = 3;
+        //on cherche la case de départ du test
+        while (xTest > 0 && recule > 0) {
+          xTest--;
+          recule--;
+        }
+        //on check the lign
+        while (xTest <= (x + 3) && xTest <= 6) {
+          if (grille[xTest][yTest] == joueurEnCours) {
+            align = align + 1;
+            winnerAlignPre[xTest][yTest] = winPoint;
+            if (align == 4) {
+              winnerAlign = winnerAlignPre;
+              plateauenligne.update({ winnerAlignGrille: winnerAlign });
+    
+              winnerAlignGrille.subscribe((grid) => {
+                let i = 0;
+                while (i < grid.length) {
+                  winnerAlign[i] = grid[i];
+                  i++;
+                }
+    
+              });
+              this.sendWinner(gagnant, joueurEnCours, plateauenligne, Dbgagne);
+    
+    
+              return;
+            };
+          } else {
+            align = 0;
+          };
+          xTest++;
+        }
+        winnerAlignPre = JSON.parse(JSON.stringify(this.grilleVide));
+      }
+      diagTest(
+          x,
+        y,
+        grille,
+        plateauenligne,
+        Dbgagne,
+        joueurEnCours,
+        winnerAlignPre,
+        winnerAlign,
+        winnerAlignGrille,
+        winPoint,
+        gagnant) {
+        let xTest = x;
+        let yTest = y;
+        let align = 0;
+        let recule = 3;
+        //on cherche la case de départ du test
+        while (xTest > 0 && yTest < 5 && recule > 0) {
+          xTest--;
+          yTest++;
+          recule--;
+        }
+        //on check la ligne diagonale
+        while (xTest <= (x + 3) && xTest <= 6 && yTest >= (y - 3) && yTest >= 0) {
+          if (grille[xTest][yTest] == joueurEnCours) {
+            align = align + 1;
+            winnerAlignPre[xTest][yTest] = winPoint;
+            if (align == 4) {
+              winnerAlign = winnerAlignPre;
+              plateauenligne.update({ winnerAlignGrille: winnerAlign });
+    
+              winnerAlignGrille.subscribe((grid) => {
+                let i = 0;
+                while (i < grid.length) {
+                  winnerAlign[i] = grid[i];
+                  i++;
+                }
+              });
+              this.sendWinner(gagnant, joueurEnCours, plateauenligne, Dbgagne);
+    
+    
+              return;
+            };
+          } else {
+            align = 0;
+          };
+          xTest++;
+          yTest--;
+        }
+        winnerAlignPre = JSON.parse(JSON.stringify(this.grilleVide));
+      }
+      antiDiagTest(x,
+        y,
+        grille,
+        plateauenligne,
+        Dbgagne,
+        joueurEnCours,
+        winnerAlignPre,
+        winnerAlign,
+        winnerAlignGrille,
+        winPoint,
+        gagnant) {
+        let xTest = x;
+        let yTest = y;
+        let align = 0;
+        let recule = 3;
+    
+        //on cherche la case de départ du test
+        while (xTest > 0 && yTest > 1 && recule > 0) {
+          xTest--;
+          yTest--;
+          recule--;
+        }
+        //on check the ligne antidiagonale
+        while (xTest <= (x + 3) && xTest <= 6 && yTest <= (y + 3) && yTest <= 5) {
+          if (grille[xTest][yTest] == joueurEnCours) {
+            align = align + 1;
+            winnerAlignPre[xTest][yTest] = winPoint;
+            if (align == 4) {
+              winnerAlign = winnerAlignPre;
+              plateauenligne.update({ winnerAlignGrille: winnerAlign });
+    
+              winnerAlignGrille.subscribe((grid) => {
+                let i = 0;
+                while (i < grid.length) {
+                  winnerAlign[i] = grid[i];
+                  i++;
+                }
+              });
+    
+              this.sendWinner(gagnant, joueurEnCours, plateauenligne, Dbgagne);
+    
+              return;
+            };
+          } else {
+            align = 0;
+          };
+          xTest++;
+          yTest++;
+        }
+        winnerAlignPre = JSON.parse(JSON.stringify(this.grilleVide));
+      }
 }
