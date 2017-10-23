@@ -5,6 +5,7 @@ import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 import { AuthService } from '../../auth/auth.service';
 import { GameService } from '../game.service';
+import { GameCalcWinService } from '../gameCalcWin.service';
 import { Router } from '@angular/router';
 import "rxjs/Rx";
 
@@ -28,7 +29,6 @@ export class GameComponent implements OnInit {
   public coupsJoués: number;
   public grille: string[][];
   public winnerAlign: string[][];
-  public winnerAlignPre: string[][];
   public joueurEnCours: any;
   public gagnant: string;
   public winPoint: string;
@@ -50,7 +50,8 @@ export class GameComponent implements OnInit {
     private authService: AuthService,
     public afAuth: AngularFireAuth,
     private router: Router,
-    private gameService: GameService) {
+    private gameService: GameService,
+    private gameCalcWinService: GameCalcWinService) {
 
     this.divReset = false;
 
@@ -68,9 +69,8 @@ export class GameComponent implements OnInit {
     this.classGhost = "ghost" + this.joueurEnCours;
     this.anticlick = false;
 
-    this.grille = JSON.parse(JSON.stringify(this.gameService.grilleVide));
-    this.winnerAlign = JSON.parse(JSON.stringify(this.gameService.grilleVide));
-    this.winnerAlignPre = JSON.parse(JSON.stringify(this.gameService.grilleVide));
+    this.grille = JSON.parse(JSON.stringify(this.gameCalcWinService.grilleVide));
+    this.winnerAlign = JSON.parse(JSON.stringify(this.gameCalcWinService.grilleVide));
   }
 
   ngOnInit() {
@@ -134,7 +134,7 @@ export class GameComponent implements OnInit {
         });
         this.plateauenligne.update({ plateauDeJeu: this.grille, auTourDe: this.joueurEnCours });
         this.plateauenligne.update({ auTourDe: this.joueurEnCours });
-        this.winnerAlign = JSON.parse(JSON.stringify(this.gameService.grilleVide));
+        this.winnerAlign = JSON.parse(JSON.stringify(this.gameCalcWinService.grilleVide));
         this.winnerAlignGrille = this.af.object('/' + this.theme + '/rooms/' + this.indexRoom + '/winnerAlignGrille');
         this.winnerAlignGrille.remove();
         this.winnerAlignGrille.subscribe((grid) => {
@@ -163,7 +163,7 @@ export class GameComponent implements OnInit {
   }
 
   newGame() {
-    this.winnerAlign = JSON.parse(JSON.stringify(this.gameService.grilleVide));
+    this.winnerAlign = JSON.parse(JSON.stringify(this.gameCalcWinService.grilleVide));
     this.winnerAlignGrille.remove();
     this.winnerAlignGrille.subscribe((grid) => {
 
@@ -173,7 +173,7 @@ export class GameComponent implements OnInit {
         i++;
       }
     });
-    this.grille = JSON.parse(JSON.stringify(this.gameService.grilleVide));
+    this.grille = JSON.parse(JSON.stringify(this.gameCalcWinService.grilleVide));
     this.plateauDeJeu.remove();
     this.plateauDeJeu.take(1).subscribe((grid) => {
       console.log("GROS SON RECOMMENCER");
@@ -244,7 +244,7 @@ export class GameComponent implements OnInit {
         i++;
       }
     });
-    this.winnerAlign = JSON.parse(JSON.stringify(this.gameService.grilleVide));
+    this.winnerAlign = JSON.parse(JSON.stringify(this.gameCalcWinService.grilleVide));
     this.winnerAlignGrille.remove();
     this.plateauenligne.update({ winnerAlignGrille: this.winnerAlign });
     let x = id;
@@ -253,7 +253,7 @@ export class GameComponent implements OnInit {
       if (this.grille[x][y] == 'vide') {
         this.grille[x][y] = this.joueurEnCours;
         this.plateauenligne.update({ plateauDeJeu: this.grille });
-   
+
         // on comptabilise le nombre de coups joués
         this.coupsJoués++;
         if (this.coupsJoués == 42) {
@@ -265,61 +265,55 @@ export class GameComponent implements OnInit {
 
         }
         //on test si victoire verticale
-        this.gameService.verticalTest(
+        this.gameCalcWinService.verticalTest(
           x,
           y,
           this.grille,
           this.joueurEnCours,
           this.plateauenligne,
           this.winnerAlignGrille,
-          this.winnerAlignPre,
           this.winnerAlign,
           this.winPoint,
           this.gagnant,
           this.Dbgagne
         );
         //on test si victoire horizontale
-        this.gameService.horizontalTest(
+        this.gameCalcWinService.horizontalTest(
           x,
           y,
-          this.grille,
+          this.grille, this.joueurEnCours,
           this.plateauenligne,
-          this.Dbgagne,
-          this.joueurEnCours,
-          this.winnerAlignPre,
-          this.winnerAlign,
           this.winnerAlignGrille,
+          this.winnerAlign,
           this.winPoint,
-          this.gagnant
+          this.gagnant,
+          this.Dbgagne
         );
 
         //on check la diagonale
-        this.gameService.diagTest(
-        x,
-        y,
-        this.grille,
-        this.plateauenligne,
-        this.Dbgagne,
-        this.joueurEnCours,
-        this.winnerAlignPre,
-        this.winnerAlign,
-        this.winnerAlignGrille,
-        this.winPoint,
-        this.gagnant
-      );
+        this.gameCalcWinService.diagTest(
+          x,
+          y,
+          this.grille, this.joueurEnCours,
+          this.plateauenligne,
+          this.winnerAlignGrille,
+          this.winnerAlign,
+          this.winPoint,
+          this.gagnant,
+          this.Dbgagne
+        );
 
         //on check l'anti diagonales
-        this.gameService.antiDiagTest(x,
+        this.gameCalcWinService.antiDiagTest(
+          x,
           y,
-          this.grille,
+          this.grille, this.joueurEnCours,
           this.plateauenligne,
-          this.Dbgagne,
-          this.joueurEnCours,
-          this.winnerAlignPre,
-          this.winnerAlign,
           this.winnerAlignGrille,
+          this.winnerAlign,
           this.winPoint,
-          this.gagnant);
+          this.gagnant,
+          this.Dbgagne);
 
 
         //on change de joueur
