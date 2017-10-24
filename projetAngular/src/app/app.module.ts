@@ -7,7 +7,8 @@ import { ChatComponent } from './play/chat/chat.component';
 import { AuthComponent } from './auth/auth.component';
 import { GameService } from './play/game.service';
 import { GameCalcWinService } from './play/gameCalcWin.service';
-
+import { RoomService } from './play/room/room.service';
+ 
 import { appRoutes } from './app-routing';
 import { AngularFireModule } from 'angularfire2';
 // New imports to update based on AngularFire2 version 4
@@ -56,7 +57,7 @@ export const firebaseConfig = {
     ),
     NgPipesModule,
   ],
-  providers: [AuthService, GameService, GameCalcWinService],
+  providers: [AuthService, GameService, GameCalcWinService, RoomService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

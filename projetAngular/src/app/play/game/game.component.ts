@@ -96,6 +96,11 @@ export class GameComponent implements OnInit {
         this.plateauDeJeu.remove();
         this.auTourDe.subscribe((data) => {
           this.joueurEnCours = data.$value;
+          if (this.joueurEnCours == this.couleurJoueur) {
+            this.anticlick = false;
+          } else {
+            this.anticlick = true;
+          }
         });
         this.Dbgagne.subscribe((data) => {
           this.gagnant = data.$value;
@@ -219,7 +224,7 @@ export class GameComponent implements OnInit {
               this.plateauenligne.update({ placement: 1, nbJoueur: 1, gagnant: "null" });
             });
           }
-          this.gameService.goToRoomChoice();    
+          this.gameService.goToRoomChoice();
         });
 
 
@@ -227,9 +232,17 @@ export class GameComponent implements OnInit {
     });
 
   }
- 
-  clickedColumn(id: number): void {
 
+  clickedColumn(id: number): void {
+    // si ce n'est pas mon tour, je ne peux pas jouer !
+    if (this.anticlick || this.gagnant != "null") {
+      return;
+    }
+
+/*    if (this.anticlick || this.gagnant == "personne" || this.gagnant == this.couleurJoueur || this.gagnant == this.other) {
+      return;
+    }
+*/
     this.winnerAlignGrille.subscribe((grid) => {
       let i = 0;
       while (i < grid.length) {

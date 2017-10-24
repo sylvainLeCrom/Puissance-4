@@ -5,6 +5,8 @@ import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 import { AuthService } from '../../auth/auth.service';
 import { GameService } from '../game.service';
+import { RoomService } from '../room/room.service';
+
 import { Router } from '@angular/router';
 
 @Component({
@@ -32,7 +34,8 @@ export class RoomComponent implements OnInit {
   constructor(public af: AngularFireDatabase,
     private authService: AuthService,
     private gameService: GameService,
-    public afAuth: AngularFireAuth,) {
+    public afAuth: AngularFireAuth,
+    private roomService : RoomService) {
 
 
   }
@@ -47,6 +50,10 @@ export class RoomComponent implements OnInit {
         this.indexJoueur = user.index;
         this.indexRoom = user.indexRoom;
         this.pseudo = user.pseudo;
+        this.roomService.getPseudoGamers(this.indexRoom).subscribe((pseudos) => {
+          console.log(pseudos);
+        });
+
         while (this.indexRoom == undefined) {
         }
         this.auTourDe = this.af.object('/game/rooms/' + this.indexRoom + '/auTourDe');
@@ -70,9 +77,7 @@ export class RoomComponent implements OnInit {
         this.plateauenligne = this.af.object('/game/rooms/' + this.indexRoom);
         this.plateauenligne.take(1).subscribe((data) => {
           const nbJoueurActual = data.nbJoueur;
-          console.log(nbJoueurActual);
           if (nbJoueurActual == 1) {
-            console.log("HE PA , jm'en fou mets ce que tu veux !")
             this.plateauenligne.remove();
             this.af.object('/game').take(1).subscribe((data) => {
               let nbOpenRoomActual = data.numberOpenRoom;
@@ -85,7 +90,6 @@ export class RoomComponent implements OnInit {
             gamers.take(1).subscribe((data) => {
 
               const IDjoueur1 = data.joueur1.IDduJoueur;
-              console.log(IDjoueur1)
               if (IDjoueur1 == this.IDJoueur) {
                 this.af.object('/game/rooms/' + this.indexRoom + '/gamers/joueur1').remove();
               } else {

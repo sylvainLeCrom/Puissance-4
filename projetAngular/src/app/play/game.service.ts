@@ -61,7 +61,7 @@ export class GameService {
         gagnant = joueurEnCours;
         console.log(gagnant);
         plateauenligne.update({ gagnant: gagnant });
-        Dbgagne.subscribe((data) => {
+        Dbgagne.take(1).subscribe((data) => {
             gagnant = data.$value;
         });
     }
@@ -69,16 +69,15 @@ export class GameService {
         if (joueurEnCours == joueur1) {
             joueurEnCours = joueur2;
             plateauenligne.update({ auTourDe: joueurEnCours });
-            auTourDe.subscribe((data) => {
+            auTourDe.take(1).subscribe((data) => {
                 joueurEnCours = data.$value;
             });
             classGhost = "ghost" + joueurEnCours;
 
-
         } else {
             joueurEnCours = joueur1;
             plateauenligne.update({ auTourDe: joueurEnCours });
-            auTourDe.subscribe((data) => {
+            auTourDe.take(1).subscribe((data) => {
                 joueurEnCours = data.$value;
             });
             classGhost = "ghost" + joueurEnCours;
