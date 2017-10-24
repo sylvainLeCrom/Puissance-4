@@ -11,11 +11,12 @@ import { Router } from '@angular/router';
 
 export class GameService {
 
-    constructor(private router: Router, ) {
+    constructor(private router: Router) {
 
     }
     theme = "classic";
     
+
     // GESTION DES SONS
     getSounds() {
         return SOUNDS[this.theme];
@@ -55,4 +56,34 @@ export class GameService {
     }
 
 
+    sendWinner(gagnant, joueurEnCours, plateauenligne, Dbgagne) {
+        //on envoie le nom du gagnant
+        gagnant = joueurEnCours;
+        console.log(gagnant);
+        plateauenligne.update({ gagnant: gagnant });
+        Dbgagne.subscribe((data) => {
+            gagnant = data.$value;
+        });
+    }
+    changePlayer(joueur1, joueur2, joueurEnCours, auTourDe, plateauenligne, classGhost) {
+        if (joueurEnCours == joueur1) {
+            joueurEnCours = joueur2;
+            plateauenligne.update({ auTourDe: joueurEnCours });
+            auTourDe.subscribe((data) => {
+                joueurEnCours = data.$value;
+            });
+            classGhost = "ghost" + joueurEnCours;
+
+
+        } else {
+            joueurEnCours = joueur1;
+            plateauenligne.update({ auTourDe: joueurEnCours });
+            auTourDe.subscribe((data) => {
+                joueurEnCours = data.$value;
+            });
+            classGhost = "ghost" + joueurEnCours;
+        }
+    }
+
+    
 }

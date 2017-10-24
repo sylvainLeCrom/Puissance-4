@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { ChatComponent } from './play/chat/chat.component';
 import { AuthComponent } from './auth/auth.component';
 import { GameService } from './play/game.service';
+import { GameCalcWinService } from './play/gameCalcWin.service';
 
 import { appRoutes } from './app-routing';
 import { AngularFireModule } from 'angularfire2';
@@ -55,7 +56,7 @@ export const firebaseConfig = {
     ),
     NgPipesModule,
   ],
-  providers: [AuthService, GameService],
+  providers: [AuthService, GameService, GameCalcWinService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

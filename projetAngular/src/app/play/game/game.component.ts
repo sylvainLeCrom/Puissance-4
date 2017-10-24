@@ -5,9 +5,9 @@ import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 import { AuthService } from '../../auth/auth.service';
 import { GameService } from '../game.service';
+import { GameCalcWinService } from '../gameCalcWin.service';
 import { Router } from '@angular/router';
 import "rxjs/Rx";
-
 
 @Component({
   selector: 'app-game',
@@ -25,26 +25,10 @@ export class GameComponent implements OnInit {
   winnerAlignGrille: FirebaseObjectObservable<any[]>;
   auTourDe: any;
   Dbgagne: any;
-  cases0: FirebaseListObservable<any[]>;
-  cases1: FirebaseListObservable<any[]>;
-  cases2: FirebaseListObservable<any[]>;
-  cases3: FirebaseListObservable<any[]>;
-  cases4: FirebaseListObservable<any[]>;
-  cases5: FirebaseListObservable<any[]>;
-  cases6: FirebaseListObservable<any[]>;
-  wincases0: FirebaseListObservable<any[]>;
-  wincases1: FirebaseListObservable<any[]>;
-  wincases2: FirebaseListObservable<any[]>;
-  wincases3: FirebaseListObservable<any[]>;
-  wincases4: FirebaseListObservable<any[]>;
-  wincases5: FirebaseListObservable<any[]>;
-  wincases6: FirebaseListObservable<any[]>;
-  public SFX_draw;
-  public SFX_WIN;
+
   public coupsJoués: number;
   public grille: string[][];
   public winnerAlign: string[][];
-  public winnerAlignPre: string[][];
   public joueurEnCours: any;
   public gagnant: string;
   public winPoint: string;
@@ -66,10 +50,8 @@ export class GameComponent implements OnInit {
     private authService: AuthService,
     public afAuth: AngularFireAuth,
     private router: Router,
-    private gameService: GameService) {
-
-    this.SFX_draw = new Audio();
-    this.SFX_WIN = new Audio();
+    private gameService: GameService,
+    private gameCalcWinService: GameCalcWinService) {
 
     this.divReset = false;
 
@@ -86,33 +68,9 @@ export class GameComponent implements OnInit {
     this.winPoint = "winPoint";
     this.classGhost = "ghost" + this.joueurEnCours;
     this.anticlick = false;
-    this.grille = [
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"]
-    ];
-    this.winnerAlign = [
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"]
-    ];
-    this.winnerAlignPre = [
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"]
-    ];
+
+    this.grille = JSON.parse(JSON.stringify(this.gameCalcWinService.grilleVide));
+    this.winnerAlign = JSON.parse(JSON.stringify(this.gameCalcWinService.grilleVide));
   }
 
   ngOnInit() {
@@ -137,13 +95,6 @@ export class GameComponent implements OnInit {
         this.plateauDeJeu = this.af.object('/' + this.theme + '/rooms/' + this.indexRoom + '/plateauDeJeu');
         this.auTourDe = this.af.object('/' + this.theme + '/rooms/' + this.indexRoom + '/auTourDe');
         this.Dbgagne = this.af.object('/' + this.theme + '/rooms/' + this.indexRoom + '/gagnant');
-        this.cases0 = this.af.list('/' + this.theme + '/room/' + this.indexRoom + '/plateauDeJeu/0');
-        this.cases1 = this.af.list('/' + this.theme + '/room/' + this.indexRoom + '/plateauDeJeu/1');
-        this.cases2 = this.af.list('/' + this.theme + '/room/' + this.indexRoom + '/plateauDeJeu/2');
-        this.cases3 = this.af.list('/' + this.theme + '/room/' + this.indexRoom + '/plateauDeJeu/3');
-        this.cases4 = this.af.list('/' + this.theme + '/room/' + this.indexRoom + '/plateauDeJeu/4');
-        this.cases5 = this.af.list('/' + this.theme + '/room/' + this.indexRoom + '/plateauDeJeu/5');
-        this.cases6 = this.af.list('/' + this.theme + '/room/' + this.indexRoom + '/plateauDeJeu/6');
         this.plateauDeJeu.remove();
         this.auTourDe.subscribe((data) => {
           this.joueurEnCours = data.$value;
@@ -168,8 +119,6 @@ export class GameComponent implements OnInit {
           }
         });
 
-
-
         this.plateauDeJeu.subscribe((grid) => {
           console.log("JE FAIS DU SON");
 
@@ -185,23 +134,8 @@ export class GameComponent implements OnInit {
         });
         this.plateauenligne.update({ plateauDeJeu: this.grille, auTourDe: this.joueurEnCours });
         this.plateauenligne.update({ auTourDe: this.joueurEnCours });
-        this.winnerAlign = [
-          ["vide", "vide", "vide", "vide", "vide", "vide"],
-          ["vide", "vide", "vide", "vide", "vide", "vide"],
-          ["vide", "vide", "vide", "vide", "vide", "vide"],
-          ["vide", "vide", "vide", "vide", "vide", "vide"],
-          ["vide", "vide", "vide", "vide", "vide", "vide"],
-          ["vide", "vide", "vide", "vide", "vide", "vide"],
-          ["vide", "vide", "vide", "vide", "vide", "vide"]
-        ];
+        this.winnerAlign = JSON.parse(JSON.stringify(this.gameCalcWinService.grilleVide));
         this.winnerAlignGrille = this.af.object('/' + this.theme + '/rooms/' + this.indexRoom + '/winnerAlignGrille');
-        this.wincases0 = this.af.list('/' + this.theme + '/room/' + this.indexRoom + '/winnerAlignGrille/0');
-        this.wincases1 = this.af.list('/' + this.theme + '/room/' + this.indexRoom + '/winnerAlignGrille/1');
-        this.wincases2 = this.af.list('/' + this.theme + '/room/' + this.indexRoom + '/winnerAlignGrille/2');
-        this.wincases3 = this.af.list('/' + this.theme + '/room/' + this.indexRoom + '/winnerAlignGrille/3');
-        this.wincases4 = this.af.list('/' + this.theme + '/room/' + this.indexRoom + '/winnerAlignGrille/4');
-        this.wincases5 = this.af.list('/' + this.theme + '/room/' + this.indexRoom + '/winnerAlignGrille/5');
-        this.wincases6 = this.af.list('/' + this.theme + '/room/' + this.indexRoom + '/winnerAlignGrille/6');
         this.winnerAlignGrille.remove();
         this.winnerAlignGrille.subscribe((grid) => {
 
@@ -229,15 +163,7 @@ export class GameComponent implements OnInit {
   }
 
   newGame() {
-    this.winnerAlign = [
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"]
-    ];
+    this.winnerAlign = JSON.parse(JSON.stringify(this.gameCalcWinService.grilleVide));
     this.winnerAlignGrille.remove();
     this.winnerAlignGrille.subscribe((grid) => {
 
@@ -247,15 +173,7 @@ export class GameComponent implements OnInit {
         i++;
       }
     });
-    this.grille = [
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"]
-    ];
+    this.grille = JSON.parse(JSON.stringify(this.gameCalcWinService.grilleVide));
     this.plateauDeJeu.remove();
     this.plateauDeJeu.take(1).subscribe((grid) => {
       console.log("GROS SON RECOMMENCER");
@@ -306,14 +224,10 @@ export class GameComponent implements OnInit {
 
               this.plateauenligne.update({ placement: 1, nbJoueur: 1, gagnant: "null" });
               this.router.navigateByUrl('/pseudo');
-
-
             });
           }
           console.log(nbJoueurActual);
         });
-
-
       });
     });
 
@@ -330,15 +244,7 @@ export class GameComponent implements OnInit {
         i++;
       }
     });
-    this.winnerAlign = [
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"],
-      ["vide", "vide", "vide", "vide", "vide", "vide"]
-    ];
+    this.winnerAlign = JSON.parse(JSON.stringify(this.gameCalcWinService.grilleVide));
     this.winnerAlignGrille.remove();
     this.plateauenligne.update({ winnerAlignGrille: this.winnerAlign });
     let x = id;
@@ -347,14 +253,7 @@ export class GameComponent implements OnInit {
       if (this.grille[x][y] == 'vide') {
         this.grille[x][y] = this.joueurEnCours;
         this.plateauenligne.update({ plateauDeJeu: this.grille });
-        /*this.plateauDeJeu.subscribe((grid) => {
-          console.log("JE FAIS DU BRUIT");
-          let i = 0;
-          while (i < grid.length) {
-            this.grille[i] = grid[i];
-            i++;
-          }
-        });*/
+
         // on comptabilise le nombre de coups joués
         this.coupsJoués++;
         if (this.coupsJoués == 42) {
@@ -366,231 +265,59 @@ export class GameComponent implements OnInit {
 
         }
         //on test si victoire verticale
-        let xTest = x;
-        let yTest = y;
-        let align = 0;
-        while (yTest <= (y + 3) && yTest <= 5) {
-          if (this.grille[xTest][yTest] == this.joueurEnCours) {
-            align = align + 1;
-            this.winnerAlignPre[xTest][yTest] = this.winPoint;
-            if (align == 4) {
-              this.winnerAlign = this.winnerAlignPre;
-              this.plateauenligne.update({ winnerAlignGrille: this.winnerAlign });
-
-              this.winnerAlignGrille.subscribe((grid) => {
-                let i = 0;
-                while (i < grid.length) {
-                  this.winnerAlign[i] = grid[i];
-                  i++;
-                }
-              });
-
-              //on envoie le nom du gagnant
-              this.gagnant = this.joueurEnCours;
-              console.log(this.gagnant);
-              this.plateauenligne.update({ gagnant: this.gagnant });
-              this.Dbgagne.subscribe((data) => {
-                this.gagnant = data.$value;
-              });
-
-
-              return;
-            }
-          } else {
-            align = 0;
-          };
-          yTest++;
-        }
-        this.winnerAlignPre = [
-          ["vide", "vide", "vide", "vide", "vide", "vide"],
-          ["vide", "vide", "vide", "vide", "vide", "vide"],
-          ["vide", "vide", "vide", "vide", "vide", "vide"],
-          ["vide", "vide", "vide", "vide", "vide", "vide"],
-          ["vide", "vide", "vide", "vide", "vide", "vide"],
-          ["vide", "vide", "vide", "vide", "vide", "vide"],
-          ["vide", "vide", "vide", "vide", "vide", "vide"]
-        ];
+        this.gameCalcWinService.verticalTest(
+          x,
+          y,
+          this.grille,
+          this.joueurEnCours,
+          this.plateauenligne,
+          this.winnerAlignGrille,
+          this.winnerAlign,
+          this.winPoint,
+          this.gagnant,
+          this.Dbgagne
+        );
         //on test si victoire horizontale
-        xTest = x;
-        yTest = y;
-        align = 0;
-        let recule = 3;
-        //on cherche la case de départ du test
-        while (xTest > 0 && recule > 0) {
-          xTest--;
-          recule--;
-        }
-        //on check the lign
-        while (xTest <= (x + 3) && xTest <= 6) {
-          if (this.grille[xTest][yTest] == this.joueurEnCours) {
-            align = align + 1;
-            this.winnerAlignPre[xTest][yTest] = this.winPoint;
-            if (align == 4) {
-              this.winnerAlign = this.winnerAlignPre;
-              this.plateauenligne.update({ winnerAlignGrille: this.winnerAlign });
-
-              this.winnerAlignGrille.subscribe((grid) => {
-                let i = 0;
-                while (i < grid.length) {
-                  this.winnerAlign[i] = grid[i];
-                  i++;
-                }
-
-              });
-              //on envoie le nom du gagnant
-              this.gagnant = this.joueurEnCours;
-              console.log(this.gagnant);
-              this.plateauenligne.update({ gagnant: this.gagnant });
-              this.Dbgagne.subscribe((data) => {
-                this.gagnant = data.$value;
-              });
-
-
-              return;
-            };
-          } else {
-            align = 0;
-          };
-          xTest++;
-        }
-        this.winnerAlignPre = [
-          ["vide", "vide", "vide", "vide", "vide", "vide"],
-          ["vide", "vide", "vide", "vide", "vide", "vide"],
-          ["vide", "vide", "vide", "vide", "vide", "vide"],
-          ["vide", "vide", "vide", "vide", "vide", "vide"],
-          ["vide", "vide", "vide", "vide", "vide", "vide"],
-          ["vide", "vide", "vide", "vide", "vide", "vide"],
-          ["vide", "vide", "vide", "vide", "vide", "vide"]
-        ];
+        this.gameCalcWinService.horizontalTest(
+          x,
+          y,
+          this.grille, this.joueurEnCours,
+          this.plateauenligne,
+          this.winnerAlignGrille,
+          this.winnerAlign,
+          this.winPoint,
+          this.gagnant,
+          this.Dbgagne
+        );
 
         //on check la diagonale
-        xTest = x;
-        yTest = y;
-        align = 0;
-        recule = 3;
-        //on cherche la case de départ du test
-        while (xTest > 0 && yTest < 5 && recule > 0) {
-          xTest--;
-          yTest++;
-          recule--;
-        }
-        //on check la ligne diagonale
-        while (xTest <= (x + 3) && xTest <= 6 && yTest >= (y - 3) && yTest >= 0) {
-          if (this.grille[xTest][yTest] == this.joueurEnCours) {
-            align = align + 1;
-            this.winnerAlignPre[xTest][yTest] = this.winPoint;
-            if (align == 4) {
-              this.winnerAlign = this.winnerAlignPre;
-              this.plateauenligne.update({ winnerAlignGrille: this.winnerAlign });
-
-              this.winnerAlignGrille.subscribe((grid) => {
-                let i = 0;
-                while (i < grid.length) {
-                  this.winnerAlign[i] = grid[i];
-                  i++;
-                }
-              });
-              //on envoie le nom du gagnant
-              this.gagnant = this.joueurEnCours;
-              console.log(this.gagnant);
-              this.plateauenligne.update({ gagnant: this.gagnant });
-              this.Dbgagne.subscribe((data) => {
-                this.gagnant = data.$value;
-              });
-
-
-              return;
-            };
-          } else {
-            align = 0;
-          };
-          xTest++;
-          yTest--;
-        }
-        this.winnerAlignPre = [
-          ["vide", "vide", "vide", "vide", "vide", "vide"],
-          ["vide", "vide", "vide", "vide", "vide", "vide"],
-          ["vide", "vide", "vide", "vide", "vide", "vide"],
-          ["vide", "vide", "vide", "vide", "vide", "vide"],
-          ["vide", "vide", "vide", "vide", "vide", "vide"],
-          ["vide", "vide", "vide", "vide", "vide", "vide"],
-          ["vide", "vide", "vide", "vide", "vide", "vide"]
-        ];
+        this.gameCalcWinService.diagTest(
+          x,
+          y,
+          this.grille, this.joueurEnCours,
+          this.plateauenligne,
+          this.winnerAlignGrille,
+          this.winnerAlign,
+          this.winPoint,
+          this.gagnant,
+          this.Dbgagne
+        );
 
         //on check l'anti diagonales
-        xTest = x;
-        yTest = y;
-        align = 0;
-        recule = 3;
+        this.gameCalcWinService.antiDiagTest(
+          x,
+          y,
+          this.grille, this.joueurEnCours,
+          this.plateauenligne,
+          this.winnerAlignGrille,
+          this.winnerAlign,
+          this.winPoint,
+          this.gagnant,
+          this.Dbgagne);
 
-        //on cherche la case de départ du test
-        while (xTest > 0 && yTest > 1 && recule > 0) {
-          xTest--;
-          yTest--;
-          recule--;
-        }
-        //on check the ligne antidiagonale
-        while (xTest <= (x + 3) && xTest <= 6 && yTest <= (y + 3) && yTest <= 5) {
-          if (this.grille[xTest][yTest] == this.joueurEnCours) {
-            align = align + 1;
-            this.winnerAlignPre[xTest][yTest] = this.winPoint;
-            if (align == 4) {
-              this.winnerAlign = this.winnerAlignPre;
-              this.plateauenligne.update({ winnerAlignGrille: this.winnerAlign });
-
-              this.winnerAlignGrille.subscribe((grid) => {
-                let i = 0;
-                while (i < grid.length) {
-                  this.winnerAlign[i] = grid[i];
-                  i++;
-                }
-              });
-
-              //on envoie le nom du gagnant
-              this.gagnant = this.joueurEnCours;
-              console.log(this.gagnant);
-              this.plateauenligne.update({ gagnant: this.gagnant });
-              this.Dbgagne.subscribe((data) => {
-                this.gagnant = data.$value;
-              });
-
-
-              return;
-            };
-          } else {
-            align = 0;
-          };
-          xTest++;
-          yTest++;
-        }
-        this.winnerAlignPre = [
-          ["vide", "vide", "vide", "vide", "vide", "vide"],
-          ["vide", "vide", "vide", "vide", "vide", "vide"],
-          ["vide", "vide", "vide", "vide", "vide", "vide"],
-          ["vide", "vide", "vide", "vide", "vide", "vide"],
-          ["vide", "vide", "vide", "vide", "vide", "vide"],
-          ["vide", "vide", "vide", "vide", "vide", "vide"],
-          ["vide", "vide", "vide", "vide", "vide", "vide"]
-        ];
 
         //on change de joueur
-        if (this.joueurEnCours == this.joueur1) {
-          this.joueurEnCours = this.joueur2;
-          this.plateauenligne.update({ auTourDe: this.joueurEnCours });
-          this.auTourDe.subscribe((data) => {
-            this.joueurEnCours = data.$value;
-          });
-          this.classGhost = "ghost" + this.joueurEnCours;
-
-
-        } else {
-          this.joueurEnCours = this.joueur1;
-          this.plateauenligne.update({ auTourDe: this.joueurEnCours });
-          this.auTourDe.subscribe((data) => {
-            this.joueurEnCours = data.$value;
-          });
-          this.classGhost = "ghost" + this.joueurEnCours;
-        }
+        this.gameService.changePlayer(this.joueur1, this.joueur2, this.joueurEnCours, this.auTourDe, this.plateauenligne, this.classGhost);
 
         return;
       } else {
@@ -600,5 +327,4 @@ export class GameComponent implements OnInit {
     alert("Full");
     return;
   }
-
 }
