@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabaseModule, AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
-import * as firebase from 'firebase/app';
-import { Observable } from 'rxjs/Observable';
+//import { AngularFireDatabaseModule, AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+//import * as firebase from 'firebase/app';
+//import { Observable } from 'rxjs/Observable';
 import { GameService } from './game.service';
-import { Router } from '@angular/router';
+//import { Router } from '@angular/router';
 
 @Injectable()
 export class GameCalcWinService {
   public winnerAlignPre: string[][];
 
-  constructor(private gameService: GameService, private router: Router) {
+  constructor(private gameService: GameService, 
+  // private router: Router
+  ) {
     this.winnerAlignPre = JSON.parse(JSON.stringify(this.grilleVide));
   }
   grilleVide = [

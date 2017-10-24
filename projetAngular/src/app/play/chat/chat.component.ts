@@ -50,7 +50,7 @@ export class ChatComponent implements OnInit {
         this.pseudo = user.pseudo;
         while (this.indexRoom == undefined) {
         }
-        this.items = this.af.list('/' + this.gameService.theme + '/rooms/' + this.indexRoom + '/messages', {
+        this.items = this.af.list('/game/rooms/' + this.indexRoom + '/messages', {
           query: {
             orderByChild: 'reverseDate'
           }
@@ -66,7 +66,7 @@ export class ChatComponent implements OnInit {
     let reverseDate = 0 - date;
     let joueur = this.couleurJoueur;
     console.log(joueur);
-    this.af.list('/' + this.gameService.theme + '/rooms/' + this.indexRoom + '/messages').push({ joueur, reverseDate, message: desc });
+    this.af.list('/game/rooms/' + this.indexRoom + '/messages').push({ joueur, reverseDate, message: desc });
     this.msgVal = '';
   }
 

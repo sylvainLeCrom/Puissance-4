@@ -38,7 +38,6 @@ export class GameComponent implements OnInit {
   public joueur2: string;
   public userUID: any;
   public indexRoom: number;
-  public theme: string;
   public IDJoueur: string;
   public couleurJoueur: string;
   public other: string;
@@ -87,20 +86,18 @@ export class GameComponent implements OnInit {
         }
         this.indexJoueur = user.index;
         this.indexRoom = user.indexRoom;
-        this.theme = user.theme;
         this.pseudo = user.pseudo;
         while (this.indexRoom == undefined) {
         }
-        this.plateauenligne = this.af.object('/' + this.theme + '/rooms/' + this.indexRoom);
-        this.plateauDeJeu = this.af.object('/' + this.theme + '/rooms/' + this.indexRoom + '/plateauDeJeu');
-        this.auTourDe = this.af.object('/' + this.theme + '/rooms/' + this.indexRoom + '/auTourDe');
-        this.Dbgagne = this.af.object('/' + this.theme + '/rooms/' + this.indexRoom + '/gagnant');
+        this.plateauenligne = this.af.object('/game/rooms/' + this.indexRoom);
+        this.plateauDeJeu = this.af.object('/game/rooms/' + this.indexRoom + '/plateauDeJeu');
+        this.auTourDe = this.af.object('/game/rooms/' + this.indexRoom + '/auTourDe');
+        this.Dbgagne = this.af.object('/game/rooms/' + this.indexRoom + '/gagnant');
         this.plateauDeJeu.remove();
         this.auTourDe.subscribe((data) => {
           this.joueurEnCours = data.$value;
         });
         this.Dbgagne.subscribe((data) => {
-          console.log("fffffff");
           this.gagnant = data.$value;
           if (this.gagnant == "personne") {
             this.gameService.playDrawSound();
@@ -135,7 +132,7 @@ export class GameComponent implements OnInit {
         this.plateauenligne.update({ plateauDeJeu: this.grille, auTourDe: this.joueurEnCours });
         this.plateauenligne.update({ auTourDe: this.joueurEnCours });
         this.winnerAlign = JSON.parse(JSON.stringify(this.gameCalcWinService.grilleVide));
-        this.winnerAlignGrille = this.af.object('/' + this.theme + '/rooms/' + this.indexRoom + '/winnerAlignGrille');
+        this.winnerAlignGrille = this.af.object('/game/rooms/' + this.indexRoom + '/winnerAlignGrille');
         this.winnerAlignGrille.remove();
         this.winnerAlignGrille.subscribe((grid) => {
 
@@ -187,54 +184,50 @@ export class GameComponent implements OnInit {
     this.divReset = false;
     this.anticlick = false;
   }
-
   quit() {
     this.authService.authState.subscribe((userAuth) => {
       this.userUID = userAuth.uid.toString();
       const userPath = "users/" + this.userUID;
       this.af.object(userPath).take(1).subscribe((user) => {
-        this.theme = user.theme;
         this.IDJoueur = user.IDduJoueur;
         this.indexRoom = user.indexRoom;
-        this.plateauenligne = this.af.object('/' + this.theme + '/rooms/' + this.indexRoom);
+        this.plateauenligne = this.af.object('/game/rooms/' + this.indexRoom);
         this.plateauenligne.take(1).subscribe((data) => {
           const nbJoueurActual = data.nbJoueur;
+          console.log(nbJoueurActual);
           if (nbJoueurActual == 1) {
+            console.log("HE PA , jm'en fou mets ce que tu veux !")
             this.plateauenligne.remove();
-            this.af.object('/' + this.theme).take(1).subscribe((data) => {
+            this.af.object('/game').take(1).subscribe((data) => {
               let nbOpenRoomActual = data.numberOpenRoom;
               nbOpenRoomActual = nbOpenRoomActual - 1;
-              this.af.object('/' + this.theme).update({ numberOpenRoom: nbOpenRoomActual });
+              this.af.object('/game').update({ numberOpenRoom: nbOpenRoomActual });
 
             });
-            // this.af.object('/' + this.theme).unsubscribe();
-
-            this.router.navigateByUrl('/pseudo');
           } else {
-            const gamers = this.af.object('/' + this.theme + '/rooms/' + this.indexRoom + '/gamers/');
+            const gamers = this.af.object('/game/rooms/' + this.indexRoom + '/gamers/');
             gamers.take(1).subscribe((data) => {
 
               const IDjoueur1 = data.joueur1.IDduJoueur;
               console.log(IDjoueur1)
               if (IDjoueur1 == this.IDJoueur) {
-                this.af.object('/' + this.theme + '/rooms/' + this.indexRoom + '/gamers/joueur1').remove();
+                this.af.object('/game/rooms/' + this.indexRoom + '/gamers/joueur1').remove();
               } else {
-                this.af.object('/' + this.theme + '/rooms/' + this.indexRoom + '/gamers/joueur2').remove()
+                this.af.object('/game/rooms/' + this.indexRoom + '/gamers/joueur2').remove()
               }
 
               this.plateauenligne.update({ placement: 1, nbJoueur: 1, gagnant: "null" });
-              this.router.navigateByUrl('/pseudo');
             });
           }
-          console.log(nbJoueurActual);
+          this.gameService.goToRoomChoice();    
         });
+
+
       });
     });
 
-    //this.afAuth.auth.signOut();
   }
-
-
+ 
   clickedColumn(id: number): void {
 
     this.winnerAlignGrille.subscribe((grid) => {
