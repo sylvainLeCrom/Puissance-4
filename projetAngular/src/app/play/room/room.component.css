@@ -17,9 +17,12 @@
     background-size: cover;
     overflow: none;
 }
-
+.antiplay{
+    pointer-events: none;
+}
 .btn-logout {
     position: absolute;
+    z-index:9999;    
     top: 50px;
     Left: 50px;
     background-color: #212930;
@@ -29,6 +32,7 @@
 
 .btn-quit {
     position: absolute;
+    z-index:9999;
     top: 50px;
     right: 50px;
     background-color: #212930;

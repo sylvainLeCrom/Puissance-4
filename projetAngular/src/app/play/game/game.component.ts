@@ -25,6 +25,7 @@ export class GameComponent implements OnInit {
   winnerAlignGrille: FirebaseObjectObservable<any[]>;
   auTourDe: any;
   Dbgagne: any;
+  nbJoueurPath : any;
 
   public coupsJoués: number;
   public grille: string[][];
@@ -44,6 +45,7 @@ export class GameComponent implements OnInit {
   public indexJoueur: number;
   public pseudo: string;
   public divReset: boolean;
+  public nbJoueur: number;
 
   constructor(public af: AngularFireDatabase,
     private authService: AuthService,
@@ -92,8 +94,21 @@ export class GameComponent implements OnInit {
         this.plateauenligne = this.af.object('/game/rooms/' + this.indexRoom);
         this.plateauDeJeu = this.af.object('/game/rooms/' + this.indexRoom + '/plateauDeJeu');
         this.auTourDe = this.af.object('/game/rooms/' + this.indexRoom + '/auTourDe');
+        this.nbJoueurPath = this.af.object('/game/rooms/' + this.indexRoom + '/nbJoueur');
         this.Dbgagne = this.af.object('/game/rooms/' + this.indexRoom + '/gagnant');
         this.plateauDeJeu.remove();
+        
+        /*
+        this.nbJoueurPath.subscribe((data) =>{
+          this.nbJoueur = data.$value;
+          console.log(this.nbJoueur);
+          if (this.nbJoueur != 2){
+            this.anticlick = true;            
+          }
+        });
+        console.log(this.nbJoueur);
+        */
+        
         this.auTourDe.subscribe((data) => {
           this.joueurEnCours = data.$value;
           if (this.joueurEnCours == this.couleurJoueur) {
@@ -187,7 +202,16 @@ export class GameComponent implements OnInit {
     });
     this.plateauenligne.update({ plateauDeJeu: this.grille, auTourDe: this.joueurEnCours, winnerAlignGrille: this.winnerAlign });
     this.divReset = false;
+   // this.anticlick = false;
+   if (this.joueurEnCours == this.couleurJoueur) {
     this.anticlick = false;
+    console.log("false");
+  } else {
+    this.anticlick = true;
+    console.log("true");
+    
+  }
+  this.gagnant = "null";
   }
   quit() {
     this.authService.authState.subscribe((userAuth) => {
@@ -238,11 +262,6 @@ export class GameComponent implements OnInit {
     if (this.anticlick || this.gagnant != "null") {
       return;
     }
-
-/*    if (this.anticlick || this.gagnant == "personne" || this.gagnant == this.couleurJoueur || this.gagnant == this.other) {
-      return;
-    }
-*/
     this.winnerAlignGrille.subscribe((grid) => {
       let i = 0;
       while (i < grid.length) {

@@ -11,12 +11,13 @@
         <br>
         <br>
         <br>
-        <p>{{pseudos}}</p>
+        <p *ngIf="!this.other">WELCOME {{pseudo}}  {{(this.nbJoueur | async)}}  </p>        
+        <p *ngIf="this.other">{{pseudo}} VERSUS {{this.other}} {{(this.nbJoueur | async)}}</p>
         <p *ngIf="couleurJoueur == joueurEnCours">C'est à vous de jouer</p>
         <p *ngIf="couleurJoueur != joueurEnCours">Ce n'est pas votre tour</p>
         <div class="container-fluid">
-            <div class="container-fluid">
-                <div class="col-md-8 roomGame">
+            <div [ngClass]="{'antiplay': !this.other}" class="container-fluid">
+                <div class="col-md-8 roomGame" >
                     <app-game></app-game>
                 </div>
                 <div class="col-xs-offset-2 col-xs-8 col-md-offset-0 col-md-3 roomChat">

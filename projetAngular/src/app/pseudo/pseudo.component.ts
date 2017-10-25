@@ -55,7 +55,7 @@ export class PseudoComponent implements OnInit {
       this.gameService.theme = "wood"
     } else if (this.gameService.theme == "wood") {
       this.gameService.theme = "simpson"
-    } else{
+    } else {
       this.gameService.theme = "classic"
     }
   }
@@ -65,13 +65,22 @@ export class PseudoComponent implements OnInit {
       this.gameService.theme = "simpson"
     } else if (this.gameService.theme == "simpson") {
       this.gameService.theme = "wood"
-    } else{
+    } else {
       this.gameService.theme = "classic"
     }
   }
 
   logout() {
     this.afAuth.auth.signOut();
+  }
+
+  buttonStatus(input) {
+    let buttonStatus: boolean;
+    if (input == "") {
+      return buttonStatus = true;
+    } else {
+      return buttonStatus = false;
+    }
   }
   redirectToRoom(input) {
     this.af.object("/game/rooms").take(1).subscribe((rooms) => {
@@ -106,7 +115,7 @@ export class PseudoComponent implements OnInit {
             this.gamers.set(this.gamer);
 
             this.af.object("users/" + this.userUID).update({ indexRoom: 0, theme: this.gameService.theme, IDduJoueur: this.pseudo + ID, pseudo: this.pseudo, couleur: this.couleur, index: ID });
-            
+
             this.router.navigateByUrl('/room');
 
           } else {
@@ -133,7 +142,7 @@ export class PseudoComponent implements OnInit {
                 this.gamers.set(this.gamer);
                 this.af.object("users/" + this.userUID).update({ indexRoom: index, theme: this.gameService.theme, IDduJoueur: this.pseudo + ID, pseudo: this.pseudo, couleur: this.couleur, index: ID });
 
-                  this.router.navigateByUrl('/room');
+                this.router.navigateByUrl('/room');
 
                 return;
               } else {
@@ -166,7 +175,7 @@ export class PseudoComponent implements OnInit {
 
             this.af.object("users/" + this.userUID).update({ indexRoom: index, theme: this.gameService.theme, IDduJoueur: this.pseudo + ID, pseudo: this.pseudo, couleur: this.couleur, index: ID });
 
-              this.router.navigateByUrl('/room');
+            this.router.navigateByUrl('/room');
 
           }
         });

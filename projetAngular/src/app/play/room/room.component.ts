@@ -28,14 +28,17 @@ export class RoomComponent implements OnInit {
   public couleurJoueur: string;
   public indexJoueur: number;
   public pseudo: string;
+  public pseudoJoueur1: string;
+  public pseudoJoueur2: string;
+  public other: string;
   public joueurEnCours: any;
-  
+
 
   constructor(public af: AngularFireDatabase,
     private authService: AuthService,
     private gameService: GameService,
     public afAuth: AngularFireAuth,
-    private roomService : RoomService) {
+    private roomService: RoomService) {
 
 
   }
@@ -51,7 +54,13 @@ export class RoomComponent implements OnInit {
         this.indexRoom = user.indexRoom;
         this.pseudo = user.pseudo;
         this.roomService.getPseudoGamers(this.indexRoom).subscribe((pseudos) => {
-          console.log(pseudos);
+          this.pseudoJoueur1 = pseudos.pseudoJoueur1;
+          this.pseudoJoueur2 = pseudos.pseudoJoueur2;
+          if (this.pseudo == this.pseudoJoueur1) {
+            this.other = this.pseudoJoueur2;
+          } else {
+            this.other = this.pseudoJoueur1;
+          }
         });
 
         while (this.indexRoom == undefined) {
@@ -99,7 +108,7 @@ export class RoomComponent implements OnInit {
               this.plateauenligne.update({ placement: 1, nbJoueur: 1, gagnant: "null" });
             });
           }
-          this.gameService.goToRoomChoice();    
+          this.gameService.goToRoomChoice();
         });
 
 
