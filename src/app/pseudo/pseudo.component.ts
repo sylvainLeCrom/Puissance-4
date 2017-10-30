@@ -31,7 +31,7 @@ export class PseudoComponent implements OnInit {
     public af: AngularFireDatabase,
     private authService: AuthService,
     public afAuth: AngularFireAuth,
-    private gameService: GameService) {
+    public gameService: GameService) {
 
     this.maxJoueur = 2;
     this.nbJoueur = 0;

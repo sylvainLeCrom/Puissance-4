@@ -34,8 +34,8 @@ export class ChatComponent implements OnInit {
 
   constructor(public afAuth: AngularFireAuth,
     public af: AngularFireDatabase,
-    private authService: AuthService,
-    private gameService: GameService) {
+    public authService: AuthService,
+    public gameService: GameService) {
 
   }
   ngOnInit() {

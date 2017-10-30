@@ -36,7 +36,7 @@ export class RoomComponent implements OnInit {
 
   constructor(public af: AngularFireDatabase,
     private authService: AuthService,
-    private gameService: GameService,
+    public gameService: GameService,
     public afAuth: AngularFireAuth,
     private roomService: RoomService) {
 

@@ -1,4 +1,4 @@
-<button (click)="logout()" *ngIf="authService.user | async">
+<button (click)="logout()" *ngIf="authService.currentUser | async">
     Logout
   </button>
 

@@ -48,11 +48,11 @@ export class GameComponent implements OnInit {
   public nbJoueur: number;
 
   constructor(public af: AngularFireDatabase,
-    private authService: AuthService,
+    public authService: AuthService,
     public afAuth: AngularFireAuth,
     private router: Router,
-    private gameService: GameService,
-    private gameCalcWinService: GameCalcWinService) {
+    public gameService: GameService,
+    public gameCalcWinService: GameCalcWinService) {
 
     this.divReset = false;
 
