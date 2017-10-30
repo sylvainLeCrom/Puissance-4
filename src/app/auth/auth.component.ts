@@ -16,8 +16,8 @@ export class AuthComponent {
   user: Observable<firebase.User>;
   email: string;
   password: string;
-  toto = true;
-  
+  toto = false;
+
   public msgError: boolean;  
 
   constructor(public afAuth: AngularFireAuth, public af: AngularFireDatabase, public authService: AuthService) {    
