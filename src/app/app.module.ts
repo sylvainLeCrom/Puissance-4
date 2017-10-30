@@ -12,7 +12,7 @@ import { RoomService } from './play/room/room.service';
 import { appRoutes } from './app-routing';
 import { AngularFireModule } from 'angularfire2';
 // New imports to update based on AngularFire2 version 4
-import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireDatabaseModule } from 'angularfire2/database-deprecated';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { GameComponent } from './play/game/game.component';
 import { RouterModule, Routes } from '@angular/router';
