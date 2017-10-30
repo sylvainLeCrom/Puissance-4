@@ -17,7 +17,6 @@ export class AuthComponent {
   email: string;
   password: string;
   toto = false;
-
   public msgError: boolean;  
 
   constructor(public afAuth: AngularFireAuth, public af: AngularFireDatabase, public authService: AuthService) {    
