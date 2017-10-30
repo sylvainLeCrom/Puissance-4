@@ -1,0 +1,81 @@
+/* DECO DE FOND */
+
+.wood .Fondgrille {
+    background-image: url(../../../../src/assets/images/fondNB.png);
+}
+
+.wood .ombreGrille {
+    top: 100px;
+    width: 490px;
+    height: 420px;
+    background-image: url(../../../../src/assets/images/ombreGrille.png);
+}
+
+
+/* GRILLE DE JEU */
+
+
+/* DECO DE LA GRILLE */
+
+.wood .Decogrille {
+    background-image: url(../../../../src/assets/images/wood/grilleWood.png);
+}
+
+.wood .cadre {
+    top: 78px;
+    width: 535px;
+    height: 465px;
+    background-image: url(../../../../src/assets/images/wood/cadreWood.png);
+    transform: translateX(-25px);
+}
+
+@media (max-width:700px) {
+    .wood .ombreGrille {
+        top: 70px;
+        width: 350px;
+        height: 300px;
+    }
+
+    .wood .cadre {
+        top: 50px;
+        width: 387px;
+        height: 336px;
+        transform: translateX(-18px);
+    }
+}
+
+@media (max-width:425px) {
+    .wood .ombreGrille {
+        top: 40px;
+        width: 210px;
+        height: 180px;
+    }
+    .wood .cadre {
+        top: 30px;
+        width: 230px;
+        height: 200px;
+        transform: translateX(-9px);
+    }
+}
+
+
+/* COULEURS DES PIONS */
+
+.wood .jaune {
+    background-image: url(../../../../src/assets/images/wood/pionWoodclair.png);
+}
+
+.wood .rouge {
+    background-image: url(../../../../src/assets/images/wood/pionWooddark.png);
+}
+
+.wood .winPoint {
+    background-image: url(../../../../src/assets/images/winPoint.png);
+}
+.wood ul:hover .ghostrouge {
+    background-image: url(../../../../src/assets/images/wood/pionWooddark.png);
+}
+
+.wood ul:hover .ghostjaune {
+    background-image: url(../../../../src/assets/images/wood/pionWoodclair.png);
+}

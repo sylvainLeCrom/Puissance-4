@@ -1,0 +1,105 @@
+.TV {
+    position: absolute;
+    z-index: 8;
+    top: 459px;
+    width: 1199px;
+    height: 533px;
+    transform: translateX(-223px);
+    background-image: url(../../../../src/assets/images/simpson/simpsonsnighttv.png);
+    background-size: cover;
+}
+
+
+/* DECO DE FOND */
+
+.simpson .Fondgrille {
+    background-image: url(../../../../src/assets/images/fondNB.png);
+}
+
+.simpson .ombreGrille {
+    top: 100px;
+    width: 490px;
+    height: 420px;
+    background-image: url(../../../../src/assets/images/ombreGrille.png);
+}
+
+
+/* GRILLE DE JEU */
+
+
+/* DECO DE LA GRILLE */
+
+.simpson .Decogrille {
+    background-image: url(../../../../src/assets/images/simpson/grille.png);
+}
+
+.simpson .cadre {
+    top: 78px;
+    width: 535px;
+    height: 465px;
+    background-image: url(../../../../src/assets/images/simpson/cadre.png);
+    transform: translateX(-25px);
+}
+
+@media (max-width:700px) {
+    .simpson .ombreGrille {
+        top: 70px;
+        width: 350px;
+        height: 300px;
+    }
+    .simpson .cadre {
+        top: 50px;
+        width: 387px;
+        height: 336px;
+        transform: translateX(-18px);
+    }
+    .TV {
+        top: 201px;
+        width: 140vw;
+        height: 533px;
+        transform: translateX(-183px);
+    }
+}
+
+@media (max-width:425px) {
+    .simpson .ombreGrille {
+        top: 40px;
+        width: 210px;
+        height: 180px;
+    }
+    .simpson .cadre {
+        top: 30px;
+        width: 230px;
+        height: 200px;
+        transform: translateX(-9px);
+    }
+    .TV {
+        top: 201px;
+        width: 140vw;
+        height: 533px;
+        transform: translateX(-183px);
+    }
+}
+
+
+/* COULEURS DES PIONS */
+
+.simpson .jaune {
+    background-image: url(../../../../src/assets/images/simpson/donutPink.png);
+}
+
+.simpson .rouge {
+    background-image: url(../../../../src/assets/images/simpson/donutChocolate.png);
+}
+
+.simpson .winPoint {
+    background-image: url(../../../../src/assets/images/winPoint.png);
+}
+
+.simpson ul:hover .ghostrouge {
+    background-image: url(../../../../src/assets/images/simpson/donutChocolate.png);
+}
+
+.simpson ul:hover .ghostjaune {
+    background-image: url(../../../../src/assets/images/simpson/donutPink.png);
+}

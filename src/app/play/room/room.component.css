@@ -1,0 +1,69 @@
+.roomBG {
+    height: 100vh;
+}
+
+.roomGame {
+    text-align: center;
+}
+
+.roomChat {
+    z-index: 100;
+    text-align: center;
+}
+
+.planche {
+    position: absolute;
+    z-index: 0;
+    background-size: cover;
+    overflow: none;
+}
+.antiplay{
+    pointer-events: none;
+}
+.btn-logout {
+    position: absolute;
+    z-index:9999;    
+    top: 50px;
+    Left: 50px;
+    background-color: #212930;
+    color: #fff;
+    opacity: 1;
+}
+
+.btn-quit {
+    position: absolute;
+    z-index:9999;
+    top: 50px;
+    right: 50px;
+    background-color: #212930;
+    color: #fff;
+    opacity: 1;
+}
+@media (max-width:700px) {
+    .roomBG {
+        height: 100vh;
+        overflow: hidden;
+    }
+    .btn-logout {
+        top: 20px;
+        left: 20px;
+    }
+    .btn-quit {
+        top: 20px;
+        right: 20px;
+    }
+}
+@media (max-width:425px) {
+    .roomBG {
+        height: 100vh;
+        overflow: hidden;
+    }
+    .btn-logout {
+        top: 20px;
+        left: 20px;
+    }
+    .btn-quit {
+        top: 20px;
+        right: 20px;
+    }
+}

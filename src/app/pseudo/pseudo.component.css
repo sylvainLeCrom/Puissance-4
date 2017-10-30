@@ -1,0 +1,131 @@
+.pseudoPage {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    overflow-y: hidden;
+}
+
+h2 {
+    margin: 0;
+    padding-top: 50px;
+    color: #212930;
+    font-weight: bold;
+    font-family: 'Love Ya Like A Sister', cursive;
+    font-size: 70px;
+}
+@media (max-width:700px){
+    h2{
+        font-size: 60px;
+    }
+}
+@media (max-width:450px){
+    h2{
+        font-size: 40px;
+    }
+}
+
+p {
+    color: white;
+    font-size: 20px;
+}
+
+.bgPseudo {
+    background: url("../../assets/images/bgPseudo.jpg")no-repeat -500px -530px;
+    background-size: cover;
+    height: 200%;
+}
+
+.center {
+    text-align: center;
+}
+
+.themeDiv div {
+    display: inline-block;
+}
+
+.themeChoice {
+    width: 200px;
+    height: 150px;
+    background-size: cover;
+    border-radius: 30px;
+    border: black;
+    border: 4px;
+}
+
+.classic {
+    background-image: url(../../../src/assets/images/classic/themeClassic.png);
+}
+
+.wood {
+    background-image: url(../../../src/assets/images/wood/themeWood.png);
+}
+
+.simpson {
+    background-image: url(../../../src/assets/images/simpson/themeSimpson.gif);
+}
+
+.pseudoInput {
+    margin-bottom: 20px;
+}
+
+.logout {
+    margin-top: 20px;
+}
+
+.btnChoice {
+    position: relative;
+    transform: translateY(-70px);
+}
+
+
+.theme {
+    position: relative;
+}
+
+.btn-loggin {
+    background-color: #212930;
+    color: #fff;
+    opacity: 1;
+}
+
+.btn-loggin:hover {
+    background-color: #fff;
+    color: #212930;
+    transition: all ease 0.5s;
+}
+
+.btnBox {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    padding: 30px 0;
+}
+@media (max-width: 768px){
+    .btnBox {
+        width: 90vw;
+    }
+}
+
+input {
+    margin: 20px 0;
+    border: solid #212930 2px;
+    border-radius: 4px;
+    opacity: 0.7;
+    padding-left: 5px;
+}
+
+.pseudoBox {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
+
+.goGame {
+    margin: 30px;
+    padding: 15px 40px;
+    font-size: 20px;
+    font-family: 'Love Ya Like A Sister', cursive;
+    font-size: 30px;
+    font-weight: bold;
+    border-radius: 10px;
+}

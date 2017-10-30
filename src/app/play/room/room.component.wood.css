@@ -1,0 +1,56 @@
+.wood p {
+    font-family: 'Love Ya Like A Sister', cursive;
+    color: wheat;
+}
+
+.wood .roomChat {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 29px;
+    transform: translateY(90px);
+    height: 444px;
+    border-radius: 15px;
+}
+
+.wood .roomBG {
+    font-family: 'Love Ya Like A Sister', cursive;
+    color: wheat;
+    height: 150vh;
+    background-image: url(../../../assets/images/wood/bgWood.png);
+    background-size: cover;
+}
+
+.wood .planche {
+    top: 584px;
+    width: 100vw;
+    height: 155px;
+    background-image: url(../../../../src/assets/images/wood/plancheDark.png);
+}
+
+@media (max-width:700px) {
+    .wood .planche {
+        top: 450px;
+        height: 115px;
+    }
+    .wood .roomChat {
+        width: 99%;
+        height: 40%;   
+        margin-top: -30px;     
+        margin-left: auto;
+        margin-right: auto;     
+    }
+}
+
+@media (max-width:425px) {
+    .wood .planche {
+        top: 312px;
+        height: 87px;
+    }
+    .wood .roomChat {
+        margin-top: -25px;
+        width: 99%;
+        height: 40%;
+        margin-top: -70px;
+        margin-left: auto;
+        margin-right: auto;     
+    }
+}
