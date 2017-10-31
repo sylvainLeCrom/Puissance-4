@@ -135,7 +135,7 @@ export class GameCalcWinService {
     let align = 0;
     let recule = 3;
     //on cherche la case de départ du test
-    while (xTest > 0 && yTest <= 5 && recule > 0) {
+    while (xTest > 0 && yTest < 5 && recule > 0) {
       xTest--;
       yTest++;
       recule--;
@@ -187,7 +187,7 @@ export class GameCalcWinService {
     let recule = 3;
 
     //on cherche la case de départ du test
-    while (xTest > 0 && yTest > 1 && recule > 0) {
+    while (xTest > 0 && yTest > 0 && recule > 0) {
       xTest--;
       yTest--;
       recule--;
