@@ -4,5 +4,7 @@ Ce projet a été développé dans le cadre de la formation Développeur Web et 
 <br>
 <br>
 Il s'agit d'un travail en équipe de deux développeurs, basé sur le framework Angular et développé en javascript et Typescript.
+<br>
+<br>
 Firebase a été utilisé pour la gestion de la base de donné du jeu en ligne et multi-joueurs.
 
